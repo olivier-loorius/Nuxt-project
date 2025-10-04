@@ -1,0 +1,27 @@
+{
+  "nav": {
+    "search": "Rechercher",
+    "favorites": "Favoris",
+    "cart": "Panier",
+    "account": "Compte",
+    "login": "Connexion"
+  },
+  "pages": {
+    "nouveautes": "Nouveautés",
+    "best-sellers": "Best-sellers",
+    "categories": "Catégories",
+    "lingerie": "Lingerie",
+    "accessoires": "Accessoires",
+    "idees-cadeaux": "Idées cadeaux",
+    "promotions": "Promotions"
+  },
+  "aria": {
+    "searchButton": "Rechercher",
+    "favoritesButton": "Favoris",
+    "cartButton": "Panier",
+    "accountButton": "Compte"
+  },
+  "banner": {
+    "adultsOnly": "Site réservé aux adultes (18+)"
+  }
+}
