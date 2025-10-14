@@ -10,6 +10,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .btn-beveled {
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  }
+
+  .text-shadow-2xl {
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+  }
+}
+
 :root {
   --beige-sable: #F5F3EF;
   --noir-cafe: #2C2C2C;

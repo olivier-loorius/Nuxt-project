@@ -1,12 +1,12 @@
 <template>
   <div>
-    <InfoBanner />
-    <Navigation />
+    <CommonInfoBanner />
+    <LayoutNavigation />
     <slot />
   </div>
 </template>
 
 <script setup lang="ts">
-import InfoBanner from '~/components/InfoBanner.vue'
-import Navigation from '~/components/navbar/Navigation.vue'
+// Nuxt auto-import les composants depuis components/
+// Pas besoin d'imports explicites pour InfoBanner et Navigation
 </script>

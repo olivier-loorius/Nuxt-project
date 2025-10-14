@@ -22,6 +22,129 @@
     "accountButton": "Compte"
   },
   "banner": {
-    "adultsOnly": "Site réservé aux adultes (18+)"
+    "adultsOnly": "Site réservé aux adultes (18+)",
+    "delivery": "Livraison discrète 24-48h",
+    "payment": "Paiement 100% sécurisé",
+    "returns": "Retours sous 30 jours"
+  },
+  "hero": {
+    "title": "Découvrez notre collection",
+    "subtitle": "L'élégance et le confort réunis",
+    "cta": "Découvrir",
+    "imageAlt": "Produit nouveauté",
+    "badge": "Nouveauté",
+    "description": "Découvrez notre dernière nouveauté alliant design et performance",
+    "ctaDiscover": "Découvrir Lingerie",
+    "ctaBuy": "Acheter maintenant",
+    "slide1": {
+      "title": "Ensemble Midnight Collection",
+      "description": "Matériaux premium certifiés pour un confort absolu au quotidien",
+      "cta": "Découvrir"
+    },
+    "slide2": {
+      "title": "Coffret Découverte Essentiel",
+      "description": "Tout ce dont vous avez besoin pour commencer en toute sérénité",
+      "cta": "Découvrir"
+    },
+    "slide3": {
+      "title": "Gamme Performance +",
+      "description": "Innovation technique et design pour des sensations inédites",
+      "cta": "Découvrir"
+    },
+    "usp": {
+      "delivery": {
+        "title": "Livraison rapide",
+        "desc": "Livraison en 48h partout en France"
+      },
+      "payment": {
+        "title": "Paiement sécurisé",
+        "desc": "Vos transactions sont protégées"
+      },
+      "returns": {
+        "title": "Retours gratuits",
+        "desc": "Retours sous 30 jours sans frais"
+      }
+    }
+  },
+  "brand": {
+    "label": "Notre ADN",
+    "title": "Le bien-être masculin sans compromis",
+    "paragraph1": "Nous croyons que le bien-être intime mérite la même attention que votre santé physique. Sans tabou, sans compromis sur la qualité.",
+    "paragraph2": "Matériaux premium certifiés, design pensé pour vous, discrétion absolue. Parce que votre intimité mérite le meilleur.",
+    "cta": "En savoir plus"
+  },
+  "bestsellers": {
+    "title": "Nos Best-sellers",
+    "viewAll": "Voir tous nos produits",
+    "addToCart": "Ajouter"
+  },
+  "categories": {
+    "title": "Nos Collections",
+    "lingerie": "Lingerie",
+    "accessoires": "Accessoires",
+    "nouveautes": "Nouveautés",
+    "bestSellers": "Best-sellers",
+    "ideesCadeaux": "Idées cadeaux",
+    "promotions": "Promotions",
+    "allCategories": "Catégories",
+    "cat1": "Stimulateurs",
+    "cat2": "Masturbateurs",
+    "cat3": "Anneaux",
+    "cat4": "Lubrifiants",
+    "cat5": "Accessoires",
+    "cat6": "Nettoyants",
+    "cat7": "Nouveautés",
+    "discover": "Découvrir",
+    "textBlock": {
+      "title": "Explorez nos collections",
+      "description": "Découvrez notre sélection premium de produits pour le bien-être masculin. Qualité certifiée, discrétion absolue."
+    }
+  },
+  "trust": {
+    "title": "Nos Engagements Premium",
+    "delivery": {
+      "short": "Livraison Express"
+    },
+    "discretion": {
+      "short": "Discrétion Totale"
+    },
+    "certified": {
+      "short": "Qualité Certifiée"
+    },
+    "payment": {
+      "short": "Paiement Sécurisé"
+    }
+  },
+  "vision": {
+    "title": "Notre Vision",
+    "step1": {
+      "title": "Approche Adulte & Sophistiquée",
+      "description": "Le plaisir masculin mérite une approche adulte, sophistiquée et sans tabou. Nous proposons des produits qui respectent votre intimité et votre intelligence."
+    },
+    "step2": {
+      "title": "Innovations Technologiques",
+      "description": "Nous sélectionnons les meilleures innovations technologiques du marché, testées et certifiées pour votre sécurité et votre satisfaction."
+    },
+    "step3": {
+      "title": "Bien-être & Équilibre",
+      "description": "Votre bien-être intime fait partie intégrante d'une vie équilibrée et épanouie. Investir dans votre plaisir, c'est investir en vous."
+    },
+    "cta": "En savoir plus"
+  },
+  "newsletter": {
+    "title": "Rejoignez le club",
+    "subtitle": "Nouveautés en avant-première et -10% sur votre première commande",
+    "placeholder": "Votre adresse email",
+    "button": "S'inscrire",
+    "accept": "J'accepte de recevoir la newsletter",
+    "legalText": "En vous inscrivant, vous acceptez de recevoir nos emails marketing. Désinscription possible à tout moment.",
+    "privacyPolicy": "Politique de confidentialité"
+  },
+  "home": {
+    "visionTrust": {
+      "quote": "Le plaisir n'est pas un tabou, c'est une science",
+      "description": "Nous sélectionnons les meilleures innovations",
+      "cta": "Découvrir"
+    }
   }
 }

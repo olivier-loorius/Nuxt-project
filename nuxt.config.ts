@@ -8,8 +8,22 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@vueuse/nuxt',
     '@nuxt/content',
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    '@nuxt/image'
   ],
+
+  image: {
+    formats: ['webp', 'avif', 'jpeg'],
+    quality: 80,
+    screens: {
+      xs: 320,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      xxl: 1536
+    }
+  },
 
   supabase: {
     redirect: false
