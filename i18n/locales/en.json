@@ -22,6 +22,129 @@
     "accountButton": "Account"
   },
   "banner": {
-    "adultsOnly": "Adults only (18+)"
+    "adultsOnly": "Adults only (18+)",
+    "delivery": "Discreet delivery 24-48h",
+    "payment": "100% secure payment",
+    "returns": "Returns within 30 days"
+  },
+  "hero": {
+    "title": "Discover our collection",
+    "subtitle": "Elegance and comfort combined",
+    "cta": "Discover",
+    "imageAlt": "New product",
+    "badge": "New",
+    "description": "Discover our latest innovation combining design and performance",
+    "ctaDiscover": "Discover Lingerie",
+    "ctaBuy": "Buy now",
+    "slide1": {
+      "title": "Midnight Collection Set",
+      "description": "Certified premium materials for absolute everyday comfort",
+      "cta": "Discover"
+    },
+    "slide2": {
+      "title": "Essential Discovery Box",
+      "description": "Everything you need to get started with confidence",
+      "cta": "Discover"
+    },
+    "slide3": {
+      "title": "Performance + Range",
+      "description": "Technical innovation and design for unprecedented sensations",
+      "cta": "Discover"
+    },
+    "usp": {
+      "delivery": {
+        "title": "Fast delivery",
+        "desc": "Delivery within 48h across France"
+      },
+      "payment": {
+        "title": "Secure payment",
+        "desc": "Your transactions are protected"
+      },
+      "returns": {
+        "title": "Free returns",
+        "desc": "Returns within 30 days at no cost"
+      }
+    }
+  },
+  "brand": {
+    "label": "Our DNA",
+    "title": "Men's well-being without compromise",
+    "paragraph1": "We believe that intimate well-being deserves the same attention as your physical health. No taboo, no compromise on quality.",
+    "paragraph2": "Certified premium materials, design made for you, absolute discretion. Because your intimacy deserves the best.",
+    "cta": "Learn more"
+  },
+  "bestsellers": {
+    "title": "Our Best-sellers",
+    "viewAll": "View all products",
+    "addToCart": "Add"
+  },
+  "categories": {
+    "title": "Our Collections",
+    "lingerie": "Lingerie",
+    "accessoires": "Accessories",
+    "nouveautes": "New Arrivals",
+    "bestSellers": "Best Sellers",
+    "ideesCadeaux": "Gift Ideas",
+    "promotions": "Promotions",
+    "allCategories": "Categories",
+    "cat1": "Stimulators",
+    "cat2": "Masturbators",
+    "cat3": "Rings",
+    "cat4": "Lubricants",
+    "cat5": "Accessories",
+    "cat6": "Cleaners",
+    "cat7": "New Arrivals",
+    "discover": "Discover",
+    "textBlock": {
+      "title": "Explore our collections",
+      "description": "Discover our premium selection of products for men's well-being. Certified quality, absolute discretion."
+    }
+  },
+  "trust": {
+    "title": "Our Premium Commitments",
+    "delivery": {
+      "short": "Express Delivery"
+    },
+    "discretion": {
+      "short": "Total Discretion"
+    },
+    "certified": {
+      "short": "Certified Quality"
+    },
+    "payment": {
+      "short": "Secure Payment"
+    }
+  },
+  "vision": {
+    "title": "Our Vision",
+    "step1": {
+      "title": "Adult & Sophisticated Approach",
+      "description": "Male pleasure deserves an adult, sophisticated approach without taboos. We offer products that respect your privacy and intelligence."
+    },
+    "step2": {
+      "title": "Technological Innovations",
+      "description": "We select the best technological innovations on the market, tested and certified for your safety and satisfaction."
+    },
+    "step3": {
+      "title": "Well-being & Balance",
+      "description": "Your intimate well-being is an integral part of a balanced and fulfilling life. Investing in your pleasure is investing in yourself."
+    },
+    "cta": "Learn more"
+  },
+  "newsletter": {
+    "title": "Join the club",
+    "subtitle": "Early access to new products and -10% off your first order",
+    "placeholder": "Your email address",
+    "button": "Subscribe",
+    "accept": "I agree to receive the newsletter",
+    "legalText": "By subscribing, you agree to receive our marketing emails. Unsubscribe anytime.",
+    "privacyPolicy": "Privacy Policy"
+  },
+  "home": {
+    "visionTrust": {
+      "quote": "Pleasure is not a taboo, it's a science",
+      "description": "We select the best innovations",
+      "cta": "Discover"
+    }
   }
 }
