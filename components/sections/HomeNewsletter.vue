@@ -79,8 +79,7 @@ const acceptNewsletter = ref(false)
 
 const handleSubmit = () => {
   if (email.value && acceptNewsletter.value) {
-    // TODO: Implémenter la logique d'inscription newsletter (API call)
-    // Reset form
+    console.warn('Newsletter API not yet implemented')
     email.value = ''
     acceptNewsletter.value = false
   }
