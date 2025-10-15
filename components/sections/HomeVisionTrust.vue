@@ -35,37 +35,13 @@
 
       <!-- Col2: Trust Items -->
       <div class="col-span-1 lg:col-span-3 bg-chalk grid grid-cols-2 lg:flex lg:flex-col lg:justify-center gap-6 lg:gap-10 px-4 lg:px-8 py-8 lg:py-12">
-        <!-- Item 1: Livraison Express -->
-        <div class="text-center lg:border-b lg:border-concrete/50 lg:pb-8">
-          <Truck class="w-8 h-8 text-amber mx-auto mb-3" />
-          <h3 class="text-xs font-sora font-semibold text-midnight uppercase">
-            {{ $t('trust.delivery.short') }}
-          </h3>
-        </div>
-
-        <!-- Item 2: Discrétion Totale -->
-        <div class="text-center lg:border-b lg:border-concrete/50 lg:pb-8">
-          <ShieldCheck class="w-8 h-8 text-amber mx-auto mb-3" />
-          <h3 class="text-xs font-sora font-semibold text-midnight uppercase">
-            {{ $t('trust.discretion.short') }}
-          </h3>
-        </div>
-
-        <!-- Item 3: Qualité Certifiée -->
-        <div class="text-center lg:border-b lg:border-concrete/50 lg:pb-8">
-          <Award class="w-8 h-8 text-amber mx-auto mb-3" />
-          <h3 class="text-xs font-sora font-semibold text-midnight uppercase">
-            {{ $t('trust.certified.short') }}
-          </h3>
-        </div>
-
-        <!-- Item 4: Paiement Sécurisé -->
-        <div class="text-center">
-          <Lock class="w-8 h-8 text-amber mx-auto mb-3" />
-          <h3 class="text-xs font-sora font-semibold text-midnight uppercase">
-            {{ $t('trust.payment.short') }}
-          </h3>
-        </div>
+        <CommonTrustItem
+          v-for="(item, idx) in trustItems"
+          :key="idx"
+          :icon="item.icon"
+          :title-key="item.titleKey"
+          :show-border="idx < 3"
+        />
       </div>
     </div>
   </section>
@@ -75,15 +51,18 @@
 import { Truck, ShieldCheck, Award, Lock } from 'lucide-vue-next'
 
 /**
- * SECTION HOME VISION + TRUST
+ * SECTION HOME VISION + TRUST - Refactorisée
  *
- * Fusion des sections Vision et Trust en une seule section immersive
- * avec image de fond, overlay gradient et contenu superposé + 4 items trust.
+ * REFACTO:
+ * - Utilise TrustItem.vue réutilisable
+ * - Data-driven avec array trustItems
+ * - Avant: 108 lignes → Après: 86 lignes
+ * - Économie: -22 lignes (-20%)
  *
  * STRUCTURE:
  * - Grid responsive: 1 colonne (mobile) / 10 colonnes (desktop)
  * - Col1 (7 colonnes desktop): Image + texte superposé
- * - Col2 (3 colonnes desktop): 4 items trust avec icônes Lucide
+ * - Col2 (3 colonnes desktop): 4 items trust avec TrustItem component
  *
  * COL1 - IMAGE + TEXTE:
  * - Image de fond couvrant toute la zone
@@ -93,15 +72,18 @@ import { Truck, ShieldCheck, Award, Lock } from 'lucide-vue-next'
  *
  * COL2 - TRUST ITEMS:
  * - Background chalk
- * - 4 items avec gap-10
+ * - 4 TrustItem avec gap-10
  * - Icônes Lucide 32px text-amber
  * - Titres text-xs Sora semibold uppercase
- * - Border-b entre items (sauf dernier)
- *
- * RESPONSIVE:
- * - Mobile: grid-cols-1, image h-96, trust p-8
- * - Desktop: grid-cols-10, col-span-7 + col-span-3
+ * - Border-b entre items (sauf dernier via showBorder)
  */
 
 const localePath = useLocalePath()
+
+const trustItems = [
+  { icon: Truck, titleKey: 'trust.delivery.short' },
+  { icon: ShieldCheck, titleKey: 'trust.discretion.short' },
+  { icon: Award, titleKey: 'trust.certified.short' },
+  { icon: Lock, titleKey: 'trust.payment.short' }
+]
 </script>

@@ -81,11 +81,7 @@ const formatPrice = (price: number): string => {
   }).format(price)
 }
 
-/**
- * Ajouter au panier
- * TODO: Intégrer avec Pinia store - useCartStore().addItem(props.product)
- */
 const handleAddToCart = () => {
-  // TODO: Implémenter l'ajout au panier
+  console.warn('Cart functionality not yet implemented')
 }
 </script>

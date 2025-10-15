@@ -141,7 +141,7 @@
     </div>
 
     <!-- Search Overlay -->
-    <CommonSearchOverlay v-model="showSearch" />
+    <FeaturesSearchOverlay v-model="showSearch" />
   </header>
 </template>
 

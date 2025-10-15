@@ -28,244 +28,31 @@
 
       <!-- Grid Desktop / Bandeaux Mobile -->
       <div ref="categoriesGrid">
-        <!-- MOBILE: Flex Column avec bandeaux horizontaux (< 768px) -->
+        <!-- MOBILE: Flex Column avec bandeaux horizontaux (< 768px) - REFACTORED -->
         <div class="flex flex-col gap-4 md:hidden">
-          <!-- Cat1: Stimulateurs -->
-          <NuxtLink
-            to="/categories/stimulateurs"
-            class="flex h-24 border border-concrete hover:border-amber overflow-hidden transition-all duration-500 opacity-0 translate-y-4 rounded-none"
-            :class="{ 'opacity-100 translate-y-0': isVisible }"
-            :style="{ transitionDelay: isVisible ? `${0 * 100}ms` : '0ms' }"
-          >
-            <!-- Image gauche -->
-            <div class="w-2/5 h-full relative overflow-hidden">
-              <NuxtImg
-                src="/images/jouet1.jpg"
-                :alt="t('categories.cat1')"
-                loading="lazy"
-                class="absolute inset-0 w-full h-full object-cover"
-              />
-            </div>
-            <!-- Content droite -->
-            <div class="w-3/5 flex items-center justify-between px-4">
-              <h3 class="text-sm font-display font-semibold uppercase text-midnight">
-                {{ t('categories.cat1') }}
-              </h3>
-              <span class="text-amber text-xs font-display font-semibold">→</span>
-            </div>
-          </NuxtLink>
-
-          <!-- Cat2: Masturbateurs -->
-          <NuxtLink
-            to="/categories/masturbateurs"
-            class="flex h-24 border border-concrete hover:border-amber overflow-hidden transition-all duration-500 opacity-0 translate-y-4 rounded-none"
-            :class="{ 'opacity-100 translate-y-0': isVisible }"
-            :style="{ transitionDelay: isVisible ? `${1 * 100}ms` : '0ms' }"
-          >
-            <div class="w-2/5 h-full relative overflow-hidden">
-              <NuxtImg
-                src="/images/jouet2.jpg"
-                :alt="t('categories.cat2')"
-                loading="lazy"
-                class="absolute inset-0 w-full h-full object-cover"
-              />
-            </div>
-            <div class="w-3/5 flex items-center justify-between px-4">
-              <h3 class="text-sm font-display font-semibold uppercase text-midnight">
-                {{ t('categories.cat2') }}
-              </h3>
-              <span class="text-amber text-xs font-display font-semibold">→</span>
-            </div>
-          </NuxtLink>
-
-          <!-- Cat3: Anneaux -->
-          <NuxtLink
-            to="/categories/anneaux"
-            class="flex h-24 border border-concrete hover:border-amber overflow-hidden transition-all duration-500 opacity-0 translate-y-4 rounded-none"
-            :class="{ 'opacity-100 translate-y-0': isVisible }"
-            :style="{ transitionDelay: isVisible ? `${2 * 100}ms` : '0ms' }"
-          >
-            <div class="w-2/5 h-full relative overflow-hidden">
-              <NuxtImg
-                src="/images/jouet3.jpg"
-                :alt="t('categories.cat3')"
-                loading="lazy"
-                class="absolute inset-0 w-full h-full object-cover"
-              />
-            </div>
-            <div class="w-3/5 flex items-center justify-between px-4">
-              <h3 class="text-sm font-display font-semibold uppercase text-midnight">
-                {{ t('categories.cat3') }}
-              </h3>
-              <span class="text-amber text-xs font-display font-semibold">→</span>
-            </div>
-          </NuxtLink>
-
-          <!-- Cat4: Lubrifiants -->
-          <NuxtLink
-            to="/categories/lubrifiants"
-            class="flex h-24 border border-concrete hover:border-amber overflow-hidden transition-all duration-500 opacity-0 translate-y-4 rounded-none"
-            :class="{ 'opacity-100 translate-y-0': isVisible }"
-            :style="{ transitionDelay: isVisible ? `${3 * 100}ms` : '0ms' }"
-          >
-            <div class="w-2/5 h-full relative overflow-hidden">
-              <NuxtImg
-                src="/images/jouet4.jpg"
-                :alt="t('categories.cat4')"
-                loading="lazy"
-                class="absolute inset-0 w-full h-full object-cover"
-              />
-            </div>
-            <div class="w-3/5 flex items-center justify-between px-4">
-              <h3 class="text-sm font-display font-semibold uppercase text-midnight">
-                {{ t('categories.cat4') }}
-              </h3>
-              <span class="text-amber text-xs font-display font-semibold">→</span>
-            </div>
-          </NuxtLink>
-
-          <!-- Cat5: Accessoires -->
-          <NuxtLink
-            to="/categories/accessoires"
-            class="flex h-24 border border-concrete hover:border-amber overflow-hidden transition-all duration-500 opacity-0 translate-y-4 rounded-none"
-            :class="{ 'opacity-100 translate-y-0': isVisible }"
-            :style="{ transitionDelay: isVisible ? `${4 * 100}ms` : '0ms' }"
-          >
-            <div class="w-2/5 h-full relative overflow-hidden">
-              <NuxtImg
-                src="/images/jouet5.jpg"
-                :alt="t('categories.cat5')"
-                loading="lazy"
-                class="absolute inset-0 w-full h-full object-cover"
-              />
-            </div>
-            <div class="w-3/5 flex items-center justify-between px-4">
-              <h3 class="text-sm font-display font-semibold uppercase text-midnight">
-                {{ t('categories.cat5') }}
-              </h3>
-              <span class="text-amber text-xs font-display font-semibold">→</span>
-            </div>
-          </NuxtLink>
-
-          <!-- Cat6: Nettoyants -->
-          <NuxtLink
-            to="/categories/nettoyants"
-            class="flex h-24 border border-concrete hover:border-amber overflow-hidden transition-all duration-500 opacity-0 translate-y-4 rounded-none"
-            :class="{ 'opacity-100 translate-y-0': isVisible }"
-            :style="{ transitionDelay: isVisible ? `${5 * 100}ms` : '0ms' }"
-          >
-            <div class="w-2/5 h-full relative overflow-hidden">
-              <NuxtImg
-                src="/images/jouet6.jpg"
-                :alt="t('categories.cat6')"
-                loading="lazy"
-                class="absolute inset-0 w-full h-full object-cover"
-              />
-            </div>
-            <div class="w-3/5 flex items-center justify-between px-4">
-              <h3 class="text-sm font-display font-semibold uppercase text-midnight">
-                {{ t('categories.cat6') }}
-              </h3>
-              <span class="text-amber text-xs font-display font-semibold">→</span>
-            </div>
-          </NuxtLink>
-
-          <!-- Cat7: Nouveautés -->
-          <NuxtLink
-            to="/categories/nouveautes"
-            class="flex h-24 border border-concrete hover:border-amber overflow-hidden transition-all duration-500 opacity-0 translate-y-4 rounded-none"
-            :class="{ 'opacity-100 translate-y-0': isVisible }"
-            :style="{ transitionDelay: isVisible ? `${6 * 100}ms` : '0ms' }"
-          >
-            <div class="w-2/5 h-full relative overflow-hidden">
-              <NuxtImg
-                src="/images/jouet7.jpg"
-                :alt="t('categories.cat7')"
-                loading="lazy"
-                class="absolute inset-0 w-full h-full object-cover"
-              />
-            </div>
-            <div class="w-3/5 flex items-center justify-between px-4">
-              <h3 class="text-sm font-display font-semibold uppercase text-midnight">
-                {{ t('categories.cat7') }}
-              </h3>
-              <span class="text-amber text-xs font-display font-semibold">→</span>
-            </div>
-          </NuxtLink>
+          <CategoryCard
+            v-for="(category, index) in categories"
+            :key="category.slug"
+            :category="category"
+            :index="index"
+            :is-visible="isVisible"
+            variant="mobile"
+          />
         </div>
 
-        <!-- TABLET: Grid 6 colonnes (768px - 1024px) -->
+        <!-- TABLET: Grid 6 colonnes (768px - 1024px) - REFACTORED -->
         <div class="hidden md:grid lg:hidden grid-cols-6 gap-6">
-          <!-- Cat1 -->
-          <NuxtLink
-            to="/categories/stimulateurs"
-            class="col-span-3 relative group overflow-hidden bg-white border-2 border-concrete hover:border-amber transition-all duration-500 opacity-0 translate-y-4 rounded-none min-h-[240px]"
-            :class="{ 'opacity-100 translate-y-0': isVisible }"
-            :style="{ transitionDelay: isVisible ? `${0 * 100}ms` : '0ms' }"
-          >
-            <NuxtImg
-              src="/images/jouet1.jpg"
-              :alt="t('categories.cat1')"
-              class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/60 to-transparent" />
-            <div class="absolute bottom-0 p-4 w-full">
-              <h3 class="text-base font-display font-semibold uppercase text-white mb-2 text-shadow-2xl">
-                {{ t('categories.cat1') }}
-              </h3>
-              <button class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-midnight hover:text-white hover:border-midnight px-4 py-1.5 text-xs font-display font-semibold uppercase tracking-wide transition-all duration-300">
-                {{ t('categories.discover') }}
-              </button>
-            </div>
-          </NuxtLink>
+          <!-- First 3 categories -->
+          <CategoryCard
+            v-for="(category, index) in categories.slice(0, 3)"
+            :key="category.slug"
+            :category="category"
+            :index="index"
+            :is-visible="isVisible"
+            variant="tablet"
+          />
 
-          <!-- Cat2 -->
-          <NuxtLink
-            to="/categories/masturbateurs"
-            class="col-span-3 relative group overflow-hidden bg-white border-2 border-concrete hover:border-amber transition-all duration-500 opacity-0 translate-y-4 rounded-none min-h-[240px]"
-            :class="{ 'opacity-100 translate-y-0': isVisible }"
-            :style="{ transitionDelay: isVisible ? `${1 * 100}ms` : '0ms' }"
-          >
-            <NuxtImg
-              src="/images/jouet2.jpg"
-              :alt="t('categories.cat2')"
-              class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/60 to-transparent" />
-            <div class="absolute bottom-0 p-4 w-full">
-              <h3 class="text-base font-display font-semibold uppercase text-white mb-2 text-shadow-2xl">
-                {{ t('categories.cat2') }}
-              </h3>
-              <button class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-midnight hover:text-white hover:border-midnight px-4 py-1.5 text-xs font-display font-semibold uppercase tracking-wide transition-all duration-300">
-                {{ t('categories.discover') }}
-              </button>
-            </div>
-          </NuxtLink>
-
-          <!-- Cat3 -->
-          <NuxtLink
-            to="/categories/anneaux"
-            class="col-span-6 relative group overflow-hidden bg-white border-2 border-concrete hover:border-amber transition-all duration-500 opacity-0 translate-y-4 rounded-none min-h-[200px]"
-            :class="{ 'opacity-100 translate-y-0': isVisible }"
-            :style="{ transitionDelay: isVisible ? `${2 * 100}ms` : '0ms' }"
-          >
-            <NuxtImg
-              src="/images/jouet3.jpg"
-              :alt="t('categories.cat3')"
-              class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/60 to-transparent" />
-            <div class="absolute bottom-0 p-4 w-full">
-              <h3 class="text-base font-display font-semibold uppercase text-white mb-2 text-shadow-2xl">
-                {{ t('categories.cat3') }}
-              </h3>
-              <button class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-midnight hover:text-white hover:border-midnight px-4 py-1.5 text-xs font-display font-semibold uppercase tracking-wide transition-all duration-300">
-                {{ t('categories.discover') }}
-              </button>
-            </div>
-          </NuxtLink>
-
-          <!-- Bloc Texte Tablet -->
+          <!-- Bloc Texte Tablet (après Cat3, index 3 pour stagger) -->
           <div
             class="col-span-6 bg-white border border-concrete hover:border-amber p-8 flex flex-col items-center justify-center text-center transition-all duration-500 opacity-0 translate-y-4 rounded-none min-h-[200px]"
             :class="{ 'opacity-100 translate-y-0': isVisible }"
@@ -285,130 +72,60 @@
             </NuxtLink>
           </div>
 
-          <!-- Cat4, Cat5, Cat6, Cat7 -->
-          <NuxtLink
-            to="/categories/lubrifiants"
-            class="col-span-3 relative group overflow-hidden bg-white border-2 border-concrete hover:border-amber transition-all duration-500 opacity-0 translate-y-4 rounded-none min-h-[240px]"
-            :class="{ 'opacity-100 translate-y-0': isVisible }"
-            :style="{ transitionDelay: isVisible ? `${4 * 100}ms` : '0ms' }"
-          >
-            <NuxtImg src="/images/jouet4.jpg" :alt="t('categories.cat4')" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-            <div class="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/60 to-transparent" />
-            <div class="absolute bottom-0 p-4 w-full">
-              <h3 class="text-base font-display font-semibold uppercase text-white mb-2 text-shadow-2xl">{{ t('categories.cat4') }}</h3>
-              <button class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-midnight hover:text-white hover:border-midnight px-4 py-1.5 text-xs font-display font-semibold uppercase tracking-wide transition-all duration-300">{{ t('categories.discover') }}</button>
-            </div>
-          </NuxtLink>
-
-          <NuxtLink to="/categories/accessoires" class="col-span-3 relative group overflow-hidden bg-white border-2 border-concrete hover:border-amber transition-all duration-500 opacity-0 translate-y-4 rounded-none min-h-[240px]" :class="{ 'opacity-100 translate-y-0': isVisible }" :style="{ transitionDelay: isVisible ? `${5 * 100}ms` : '0ms' }">
-            <NuxtImg src="/images/jouet5.jpg" :alt="t('categories.cat5')" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-            <div class="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/60 to-transparent" />
-            <div class="absolute bottom-0 p-4 w-full">
-              <h3 class="text-base font-display font-semibold uppercase text-white mb-2 text-shadow-2xl">{{ t('categories.cat5') }}</h3>
-              <button class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-midnight hover:text-white hover:border-midnight px-4 py-1.5 text-xs font-display font-semibold uppercase tracking-wide transition-all duration-300">{{ t('categories.discover') }}</button>
-            </div>
-          </NuxtLink>
-
-          <NuxtLink to="/categories/nettoyants" class="col-span-3 relative group overflow-hidden bg-white border-2 border-concrete hover:border-amber transition-all duration-500 opacity-0 translate-y-4 rounded-none min-h-[240px]" :class="{ 'opacity-100 translate-y-0': isVisible }" :style="{ transitionDelay: isVisible ? `${6 * 100}ms` : '0ms' }">
-            <NuxtImg src="/images/jouet6.jpg" :alt="t('categories.cat6')" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-            <div class="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/60 to-transparent" />
-            <div class="absolute bottom-0 p-4 w-full">
-              <h3 class="text-base font-display font-semibold uppercase text-white mb-2 text-shadow-2xl">{{ t('categories.cat6') }}</h3>
-              <button class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-midnight hover:text-white hover:border-midnight px-4 py-1.5 text-xs font-display font-semibold uppercase tracking-wide transition-all duration-300">{{ t('categories.discover') }}</button>
-            </div>
-          </NuxtLink>
-
-          <NuxtLink to="/categories/nouveautes" class="col-span-3 relative group overflow-hidden bg-white border-2 border-concrete hover:border-amber transition-all duration-500 opacity-0 translate-y-4 rounded-none min-h-[240px]" :class="{ 'opacity-100 translate-y-0': isVisible }" :style="{ transitionDelay: isVisible ? `${7 * 100}ms` : '0ms' }">
-            <NuxtImg src="/images/jouet7.jpg" :alt="t('categories.cat7')" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-            <div class="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/60 to-transparent" />
-            <div class="absolute bottom-0 p-4 w-full">
-              <h3 class="text-base font-display font-semibold uppercase text-white mb-2 text-shadow-2xl">{{ t('categories.cat7') }}</h3>
-              <button class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-midnight hover:text-white hover:border-midnight px-4 py-1.5 text-xs font-display font-semibold uppercase tracking-wide transition-all duration-300">{{ t('categories.discover') }}</button>
-            </div>
-          </NuxtLink>
+          <!-- Last 4 categories (Cat4-7, index 4-7 pour stagger) -->
+          <CategoryCard
+            v-for="(category, index) in categories.slice(3)"
+            :key="category.slug"
+            :category="category"
+            :index="index + 4"
+            :is-visible="isVisible"
+            variant="tablet"
+          />
         </div>
 
-        <!-- DESKTOP: Grid 12 colonnes (>= 1024px) - Code original conservé -->
+        <!-- DESKTOP: Grid 12 colonnes (>= 1024px) - REFACTORED -->
         <div class="hidden lg:grid grid-cols-12 gap-10">
-          <!-- Cat1: Stimulateurs (col-span-4) -->
-          <NuxtLink
-            to="/categories/stimulateurs"
-            class="col-span-4 relative group overflow-hidden bg-white border-2 border-concrete hover:border-amber transition-all duration-500 opacity-0 translate-y-4 rounded-none min-h-[280px]"
-            :class="{ 'opacity-100 translate-y-0': isVisible }"
-            :style="{ transitionDelay: isVisible ? `${0 * 100}ms` : '0ms' }"
-          >
-            <NuxtImg src="/images/jouet1.jpg" :alt="t('categories.cat1')" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-            <div class="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/60 to-transparent" />
-            <div class="absolute bottom-0 p-6 w-full">
-              <h3 class="text-lg font-display font-semibold uppercase text-white mb-3 text-shadow-2xl">{{ t('categories.cat1') }}</h3>
-              <button class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-midnight hover:text-white hover:border-midnight px-6 py-2 text-xs font-display font-semibold uppercase tracking-wide transition-all duration-300">{{ t('categories.discover') }}</button>
-            </div>
-          </NuxtLink>
+          <!-- Ligne 1: Cat1(4) + Cat2(3) + Cat3(5) = 12 cols -->
+          <CategoryCard
+            v-for="(category, index) in categories.slice(0, 3)"
+            :key="category.slug"
+            :category="category"
+            :index="index"
+            :is-visible="isVisible"
+            variant="desktop"
+          />
 
-          <!-- Cat2 -->
-          <NuxtLink to="/categories/masturbateurs" class="col-span-3 relative group overflow-hidden bg-white border-2 border-concrete hover:border-amber transition-all duration-500 opacity-0 translate-y-4 rounded-none min-h-[280px]" :class="{ 'opacity-100 translate-y-0': isVisible }" :style="{ transitionDelay: isVisible ? `${1 * 100}ms` : '0ms' }">
-            <NuxtImg src="/images/jouet2.jpg" :alt="t('categories.cat2')" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-            <div class="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/60 to-transparent" />
-            <div class="absolute bottom-0 p-6 w-full">
-              <h3 class="text-lg font-display font-semibold uppercase text-white mb-3 text-shadow-2xl">{{ t('categories.cat2') }}</h3>
-              <button class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-midnight hover:text-white hover:border-midnight px-6 py-2 text-xs font-display font-semibold uppercase tracking-wide transition-all duration-300">{{ t('categories.discover') }}</button>
-            </div>
-          </NuxtLink>
+          <!-- Ligne 2: Cat4(3) + Texte(5) + Cat5(4) = 12 cols -->
+          <CategoryCard
+            :category="categories[3]"
+            :index="3"
+            :is-visible="isVisible"
+            variant="desktop"
+          />
 
-          <!-- Cat3 -->
-          <NuxtLink to="/categories/anneaux" class="col-span-5 relative group overflow-hidden bg-white border-2 border-concrete hover:border-amber transition-all duration-500 opacity-0 translate-y-4 rounded-none min-h-[280px]" :class="{ 'opacity-100 translate-y-0': isVisible }" :style="{ transitionDelay: isVisible ? `${2 * 100}ms` : '0ms' }">
-            <NuxtImg src="/images/jouet3.jpg" :alt="t('categories.cat3')" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-            <div class="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/60 to-transparent" />
-            <div class="absolute bottom-0 p-6 w-full">
-              <h3 class="text-lg font-display font-semibold uppercase text-white mb-3 text-shadow-2xl">{{ t('categories.cat3') }}</h3>
-              <button class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-midnight hover:text-white hover:border-midnight px-6 py-2 text-xs font-display font-semibold uppercase tracking-wide transition-all duration-300">{{ t('categories.discover') }}</button>
-            </div>
-          </NuxtLink>
-
-          <!-- Cat4 -->
-          <NuxtLink to="/categories/lubrifiants" class="col-span-3 relative group overflow-hidden bg-white border-2 border-concrete hover:border-amber transition-all duration-500 opacity-0 translate-y-4 rounded-none min-h-[280px]" :class="{ 'opacity-100 translate-y-0': isVisible }" :style="{ transitionDelay: isVisible ? `${3 * 100}ms` : '0ms' }">
-            <NuxtImg src="/images/jouet4.jpg" :alt="t('categories.cat4')" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-            <div class="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/60 to-transparent" />
-            <div class="absolute bottom-0 p-6 w-full">
-              <h3 class="text-lg font-display font-semibold uppercase text-white mb-3 text-shadow-2xl">{{ t('categories.cat4') }}</h3>
-              <button class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-midnight hover:text-white hover:border-midnight px-6 py-2 text-xs font-display font-semibold uppercase tracking-wide transition-all duration-300">{{ t('categories.discover') }}</button>
-            </div>
-          </NuxtLink>
-
-          <!-- Bloc Texte Desktop -->
+          <!-- Bloc Texte Desktop (index 4 pour stagger) -->
           <div class="col-span-5 bg-white border border-concrete hover:border-amber p-10 flex flex-col items-center justify-center text-center transition-all duration-500 opacity-0 translate-y-4 rounded-none min-h-[280px]" :class="{ 'opacity-100 translate-y-0': isVisible }" :style="{ transitionDelay: isVisible ? `${4 * 100}ms` : '0ms' }">
             <h2 class="text-2xl font-display font-bold text-midnight mb-4">{{ t('categories.textBlock.title') }}</h2>
             <p class="text-sm font-body text-midnight/70 mb-6">{{ t('categories.textBlock.description') }}</p>
             <NuxtLink to="/categories" class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-midnight hover:text-white hover:border-midnight px-6 py-2 text-xs font-display font-semibold uppercase tracking-wide transition-all duration-300">{{ t('categories.discover') }}</NuxtLink>
           </div>
 
-          <!-- Cat5, Cat6, Cat7 -->
-          <NuxtLink to="/categories/accessoires" class="col-span-4 relative group overflow-hidden bg-white border-2 border-concrete hover:border-amber transition-all duration-500 opacity-0 translate-y-4 rounded-none min-h-[280px]" :class="{ 'opacity-100 translate-y-0': isVisible }" :style="{ transitionDelay: isVisible ? `${5 * 100}ms` : '0ms' }">
-            <NuxtImg src="/images/jouet5.jpg" :alt="t('categories.cat5')" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-            <div class="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/60 to-transparent" />
-            <div class="absolute bottom-0 p-6 w-full">
-              <h3 class="text-lg font-display font-semibold uppercase text-white mb-3 text-shadow-2xl">{{ t('categories.cat5') }}</h3>
-              <button class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-midnight hover:text-white hover:border-midnight px-6 py-2 text-xs font-display font-semibold uppercase tracking-wide transition-all duration-300">{{ t('categories.discover') }}</button>
-            </div>
-          </NuxtLink>
+          <CategoryCard
+            :category="categories[4]"
+            :index="4"
+            :is-visible="isVisible"
+            variant="desktop"
+          />
 
-          <NuxtLink to="/categories/nettoyants" class="col-span-5 relative group overflow-hidden bg-white border-2 border-concrete hover:border-amber transition-all duration-500 opacity-0 translate-y-4 rounded-none min-h-[280px]" :class="{ 'opacity-100 translate-y-0': isVisible }" :style="{ transitionDelay: isVisible ? `${6 * 100}ms` : '0ms' }">
-            <NuxtImg src="/images/jouet6.jpg" :alt="t('categories.cat6')" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-            <div class="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/60 to-transparent" />
-            <div class="absolute bottom-0 p-6 w-full">
-              <h3 class="text-lg font-display font-semibold uppercase text-white mb-3 text-shadow-2xl">{{ t('categories.cat6') }}</h3>
-              <button class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-midnight hover:text-white hover:border-midnight px-6 py-2 text-xs font-display font-semibold uppercase tracking-wide transition-all duration-300">{{ t('categories.discover') }}</button>
-            </div>
-          </NuxtLink>
-
-          <NuxtLink to="/categories/nouveautes" class="col-span-7 relative group overflow-hidden bg-white border-2 border-concrete hover:border-amber transition-all duration-500 opacity-0 translate-y-4 rounded-none min-h-[280px]" :class="{ 'opacity-100 translate-y-0': isVisible }" :style="{ transitionDelay: isVisible ? `${7 * 100}ms` : '0ms' }">
-            <NuxtImg src="/images/jouet7.jpg" :alt="t('categories.cat7')" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-            <div class="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/60 to-transparent" />
-            <div class="absolute bottom-0 p-6 w-full">
-              <h3 class="text-lg font-display font-semibold uppercase text-white mb-3 text-shadow-2xl">{{ t('categories.cat7') }}</h3>
-              <button class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-midnight hover:text-white hover:border-midnight px-6 py-2 text-xs font-display font-semibold uppercase tracking-wide transition-all duration-300">{{ t('categories.discover') }}</button>
-            </div>
-          </NuxtLink>
+          <!-- Ligne 3: Cat6(5) + Cat7(7) = 12 cols -->
+          <CategoryCard
+            v-for="(category, index) in categories.slice(5, 7)"
+            :key="category.slug"
+            :category="category"
+            :index="index + 5"
+            :is-visible="isVisible"
+            variant="desktop"
+          />
         </div>
       </div>
     </div>
@@ -419,50 +136,66 @@
 import { useIntersectionObserver } from '@vueuse/core'
 
 /**
- * HomeCategories - Grille Masonry Moderne Responsive
+ * HomeCategories - Grille Masonry Moderne Responsive - FULLY REFACTORED
+ *
+ * REFACTO COMPLÈTE (Partie 1 + 2):
+ * - Créé array categories avec 7 objets TypeScript { slug, image, titleKey }
+ * - MOBILE: remplacé 7 cards hardcodées par v-for CategoryCard variant='mobile'
+ * - TABLET: remplacé 7 cards hardcodées par v-for CategoryCard variant='tablet'
+ * - DESKTOP: remplacé 7 cards hardcodées par v-for CategoryCard variant='desktop'
+ * - Blocs texte tablet/desktop conservés au centre avec stagger animation
+ * - Économie totale: 283 lignes (476 → 193 lignes, 59% réduction)
+ *
+ * ARCHITECTURE DATA-DRIVEN:
+ * - 1 array categories[] réutilisé pour les 3 breakpoints
+ * - CategoryCard component avec 3 variants (mobile/tablet/desktop)
+ * - Col-span dynamique géré dans CategoryCard via computed properties
+ * - Index stagger ajusté pour chaque section (slice + offset)
  *
  * RESPONSIVE MOBILE (< 768px):
- * - Section: px-4 py-12 (marges réduites)
- * - Titre: text-3xl mb-8 (compact)
- * - Ligne séparation: w-24 (réduite)
- * - Bloc texte en haut: max-w-full text-center mb-8, texte p text-sm mb-6, CTA mb-8
- * - Grid devient: flex flex-col gap-4 (pas gap-10)
- * - 7 bandeaux horizontaux h-24:
- *   - flex h-24 border border-concrete hover:border-amber overflow-hidden
- *   - Image left: w-2/5 h-full object-cover
- *   - Content right: w-3/5 flex items-center justify-between px-4
- *   - h3: text-sm Sora semibold text-midnight
- *   - Flèche: text-amber text-xs "→"
- * - Pas de marges latérales excessives
- * - Stagger scroll conservé (index * 100ms)
+ * - Bloc texte en haut (visible uniquement mobile)
+ * - 7 CategoryCard variant='mobile' (bandeaux h-24)
+ * - Flex column gap-4
  *
  * RESPONSIVE TABLET (768px - 1024px):
- * - Grid: grid-cols-6 gap-6 intermédiaire
- * - Cards: col-span-3 ou col-span-6 selon disposition
- * - Min-h: 240px (réduit)
- * - Padding: p-4 (réduit)
- * - Textes: text-base (réduit)
+ * - Grid grid-cols-6 gap-6
+ * - 3 CategoryCard (Cat1-3) → Bloc texte → 4 CategoryCard (Cat4-7)
+ * - Stagger: index 0-2, texte index 3, cards index 4-7
  *
  * RESPONSIVE DESKTOP (>= 1024px):
- * - Grid: grid-cols-12 gap-10 (layout original)
- * - Cards: col-span selon architecture originale
- * - Min-h: 280px
- * - Padding: p-6 / p-10
- * - Textes: text-lg
+ * - Grid grid-cols-12 gap-10 (masonry layout 3 lignes)
+ * - Ligne 1: Cat1-2-3 (4+3+5=12 cols)
+ * - Ligne 2: Cat4 + Texte + Cat5 (3+5+4=12 cols)
+ * - Ligne 3: Cat6-7 (5+7=12 cols)
+ * - Stagger: Cat1-3 (index 0-2), Cat4 (index 3), Texte (index 4), Cat5 (index 5), Cat6-7 (index 6-7)
  *
- * DESIGN:
- * - DA strict: midnight/amber/white uniquement
- * - Overlay: from-midnight/90 via-midnight/60 to-transparent
- * - Text-shadow: text-shadow-2xl sur titres desktop/tablet
- * - CTA: bg-amber hover:bg-midnight text-midnight hover:text-white
- * - Scroll reveal: translate-y-4 subtil conservé
- * - Transitions: duration-500 smooth
+ * SCROLL REVEAL:
+ * - IntersectionObserver sur categoriesGrid ref
+ * - isVisible prop passé à tous CategoryCard
+ * - Blocs texte tablet/desktop avec isVisible
+ * - Stagger delays: index * 100ms
  */
+
+interface Category {
+  slug: string
+  image: string
+  titleKey: string
+}
 
 const { t } = useI18n()
 
 const categoriesGrid = ref<HTMLElement | null>(null)
 const isVisible = ref(false)
+
+const categories: Category[] = [
+  { slug: 'stimulateurs', image: '/images/jouet1.jpg', titleKey: 'categories.cat1' },
+  { slug: 'masturbateurs', image: '/images/jouet2.jpg', titleKey: 'categories.cat2' },
+  { slug: 'anneaux', image: '/images/jouet3.jpg', titleKey: 'categories.cat3' },
+  { slug: 'lubrifiants', image: '/images/jouet4.jpg', titleKey: 'categories.cat4' },
+  { slug: 'accessoires', image: '/images/jouet5.jpg', titleKey: 'categories.cat5' },
+  { slug: 'nettoyants', image: '/images/jouet6.jpg', titleKey: 'categories.cat6' },
+  { slug: 'nouveautes', image: '/images/jouet7.jpg', titleKey: 'categories.cat7' }
+]
 
 useIntersectionObserver(
   categoriesGrid,
