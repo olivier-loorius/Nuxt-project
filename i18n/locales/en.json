@@ -19,7 +19,9 @@
     "searchButton": "Search",
     "favoritesButton": "Favorites",
     "cartButton": "Cart",
-    "accountButton": "Account"
+    "accountButton": "Account",
+    "menuButton": "Menu",
+    "languageSelector": "Language selector"
   },
   "banner": {
     "adultsOnly": "Adults only (18+)",
@@ -36,6 +38,7 @@
     "description": "Discover our latest innovation combining design and performance",
     "ctaDiscover": "Discover Lingerie",
     "ctaBuy": "Buy now",
+    "buy": "Buy",
     "slide1": {
       "title": "Midnight Collection Set",
       "description": "Certified premium materials for absolute everyday comfort",
@@ -139,6 +142,10 @@
     "accept": "I agree to receive the newsletter",
     "legalText": "By subscribing, you agree to receive our marketing emails. Unsubscribe anytime.",
     "privacyPolicy": "Privacy Policy"
+  },
+  "transition": {
+    "title": "Our commitment",
+    "description": "A premium and sophisticated approach to men's well-being"
   },
   "home": {
     "visionTrust": {

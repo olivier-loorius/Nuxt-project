@@ -1,7 +1,7 @@
 <template>
   <header
-    class="sticky top-0 z-50 bg-chalk/90 backdrop-blur-md transition-shadow"
-    :class="{ 'shadow-md': scrolled }"
+    class="sticky top-0 z-50 bg-chalk backdrop-blur-md transition-shadow"
+    :class="{ 'shadow-md': isScrolled }"
   >
     <!-- Top Bar -->
     <div class="h-[60px] border-b border-concrete">
@@ -55,7 +55,7 @@
               <button
                 class="icon-btn flex items-center gap-1"
                 @click="toggleLangDropdown"
-                aria-label="Language"
+                :aria-label="$t('aria.languageSelector')"
               >
                 <Globe :size="20" />
                 <span class="text-sm font-medium">{{ locale.toUpperCase() }}</span>
@@ -80,7 +80,7 @@
             </div>
 
             <!-- Mobile/Tablet Burger (<1024px) -->
-            <button class="lg:hidden icon-btn" aria-label="Menu" @click="toggleMobileMenu">
+            <button class="lg:hidden icon-btn" :aria-label="$t('aria.menuButton')" @click="toggleMobileMenu">
               <Menu :size="24" />
             </button>
           </div>
@@ -150,7 +150,7 @@ import { Search, Heart, ShoppingCart, User, Menu, Globe, ChevronDown } from 'luc
 
 const { locale, setLocale } = useI18n()
 const route = useRoute()
-const scrolled = ref(false)
+const isScrolled = ref(false)
 const showLangDropdown = ref(false)
 const mobileMenuOpen = ref(false)
 const cartItems = ref(2) // Mock pour test
@@ -169,7 +169,7 @@ const navLinks = [
 const activeRoute = computed(() => route.path)
 
 const handleScroll = () => {
-  scrolled.value = window.scrollY > 10
+  isScrolled.value = window.scrollY > 50
 }
 
 const toggleLangDropdown = () => {

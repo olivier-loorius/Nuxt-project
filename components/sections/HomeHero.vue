@@ -39,7 +39,7 @@
               :to="slide.linkTo"
               class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-transparent hover:text-amber px-8 py-4 font-display font-semibold uppercase tracking-wide text-sm transition-all duration-300 text-center"
             >
-              Acheter
+              {{ t(slide.buyKey) }}
             </NuxtLink>
           </div>
 
@@ -89,6 +89,7 @@ const products = [
     titleKey: 'hero.slide1.title',
     descKey: 'hero.slide1.description',
     ctaKey: 'hero.slide1.cta',
+    buyKey: 'hero.buy',
     linkTo: '/lingerie'
   },
   {
@@ -97,6 +98,7 @@ const products = [
     titleKey: 'hero.slide2.title',
     descKey: 'hero.slide2.description',
     ctaKey: 'hero.slide2.cta',
+    buyKey: 'hero.buy',
     linkTo: '/accessoires'
   },
   {
@@ -105,6 +107,7 @@ const products = [
     titleKey: 'hero.slide3.title',
     descKey: 'hero.slide3.description',
     ctaKey: 'hero.slide3.cta',
+    buyKey: 'hero.buy',
     linkTo: '/nouveautes'
   }
 ]

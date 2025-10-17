@@ -45,7 +45,7 @@
         {{ $t(category.titleKey) }}
       </h3>
       <button class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-transparent hover:text-amber px-4 py-1.5 text-xs font-display font-semibold uppercase tracking-wide transition-all duration-300">
-        Découvrir
+        {{ $t('categories.discover') }}
       </button>
     </div>
   </NuxtLink>
@@ -70,7 +70,7 @@
         {{ $t(category.titleKey) }}
       </h3>
       <button class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-midnight hover:text-white hover:border-midnight px-6 py-2 text-xs font-display font-semibold uppercase tracking-wide transition-all duration-300">
-        Découvrir
+        {{ $t('categories.discover') }}
       </button>
     </div>
   </NuxtLink>

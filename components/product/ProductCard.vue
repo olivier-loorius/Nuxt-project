@@ -71,11 +71,15 @@ const props = defineProps<{
   product: Product
 }>()
 
+const { locale } = useI18n()
+
 /**
- * Formater le prix en euros
+ * Formater le prix en euros (i18n-aware)
+ * FR: 49,90 €
+ * EN: €49.90
  */
 const formatPrice = (price: number): string => {
-  return new Intl.NumberFormat('fr-FR', {
+  return new Intl.NumberFormat(locale.value === 'fr' ? 'fr-FR' : 'en-GB', {
     style: 'currency',
     currency: 'EUR'
   }).format(price)
