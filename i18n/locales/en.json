@@ -146,5 +146,52 @@
       "description": "We select the best innovations",
       "cta": "Discover"
     }
+  },
+  "footer": {
+    "tagline": "Men's well-being without compromise",
+    "follow": "Follow Us",
+    "legal": {
+      "title": "Legal",
+      "cgv": "Terms of Sale",
+      "cgu": "Terms of Use",
+      "mentions": "Legal Notice",
+      "privacy": "Privacy Policy",
+      "faq": "FAQ"
+    },
+    "social": {
+      "title": "Follow Us"
+    },
+    "contact": {
+      "title": "Contact",
+      "email": "contact{'@'}boysandtoys.fr",
+      "phone": "+33 1 23 45 67 89"
+    },
+    "trust": {
+      "secure": "Adults only (18+)",
+      "discreet": "Discreet shipping",
+      "payment": "Secure payment"
+    },
+    "info": {
+      "title": "Information",
+      "contact": "Contact",
+      "about": "About",
+      "delivery": "Delivery"
+    },
+    "copyright": "All rights reserved.",
+    "cookies": {
+      "aria": "Cookie settings",
+      "label": "Cookie settings",
+      "buttonLabel": "Cookies"
+    },
+    "settings": {
+      "aria": "General settings",
+      "label": "Settings"
+    },
+    "payments": {
+      "title": "Accepted Payments"
+    },
+    "scrollTop": {
+      "aria": "Back to top"
+    }
   }
 }

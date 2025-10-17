@@ -57,7 +57,9 @@
       "Bash(then rm components/sections/HomeMasonry.vue)",
       "Bash(else echo \"components/sections/HomeMasonry.vue n''existe pas\")",
       "Bash(test -d composables)",
-      "Bash(test:*)"
+      "Bash(test:*)",
+      "Bash(npm run build)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []

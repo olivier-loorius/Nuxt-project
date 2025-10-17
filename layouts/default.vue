@@ -2,7 +2,10 @@
   <div>
     <LayoutInfoBanner />
     <LayoutNavigation />
-    <slot />
+    <main>
+      <slot />
+    </main>
+    <LayoutFooter />
   </div>
 </template>
 
