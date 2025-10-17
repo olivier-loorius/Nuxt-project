@@ -19,7 +19,9 @@
     "searchButton": "Rechercher",
     "favoritesButton": "Favoris",
     "cartButton": "Panier",
-    "accountButton": "Compte"
+    "accountButton": "Compte",
+    "menuButton": "Menu",
+    "languageSelector": "Sélecteur de langue"
   },
   "banner": {
     "adultsOnly": "Site réservé aux adultes (18+)",
@@ -36,6 +38,7 @@
     "description": "Découvrez notre dernière nouveauté alliant design et performance",
     "ctaDiscover": "Découvrir Lingerie",
     "ctaBuy": "Acheter maintenant",
+    "buy": "Acheter",
     "slide1": {
       "title": "Ensemble Midnight Collection",
       "description": "Matériaux premium certifiés pour un confort absolu au quotidien",
@@ -139,6 +142,10 @@
     "accept": "J'accepte de recevoir la newsletter",
     "legalText": "En vous inscrivant, vous acceptez de recevoir nos emails marketing. Désinscription possible à tout moment.",
     "privacyPolicy": "Politique de confidentialité"
+  },
+  "transition": {
+    "title": "Notre engagement",
+    "description": "Une approche premium et sophistiquée du bien-être masculin"
   },
   "home": {
     "visionTrust": {

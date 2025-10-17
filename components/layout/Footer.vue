@@ -188,7 +188,7 @@
     <!-- Bouton paramètres fixe -->
     <button
       @click="openGeneralSettings"
-      class="fixed bottom-6 left-6 z-50 flex items-center justify-center w-10 h-10 rounded-full bg-white/95 backdrop-blur-md border border-midnight/10 shadow-lg hover:shadow-xl hover:border-amber transition-all duration-300 group"
+      class="fixed bottom-6 left-6 z-50 flex items-center justify-center w-10 h-10 rounded-full bg-white/80 backdrop-blur-lg shadow-lg hover:shadow-xl transition-all duration-300 group"
       :aria-label="$t('footer.settings.aria')"
     >
       <Settings class="h-4 w-4 text-amber group-hover:rotate-90 transition-transform duration-700" />
@@ -198,7 +198,7 @@
     <button
       v-show="showScrollTop"
       @click="scrollToTop"
-      class="fixed bottom-20 left-6 z-50 w-10 h-10 rounded-full bg-white/95 backdrop-blur-md border border-midnight/10 shadow-lg hover:shadow-xl hover:border-amber transition-all duration-300 group flex items-center justify-center"
+      class="fixed bottom-20 left-6 z-50 w-10 h-10 rounded-full bg-white/80 backdrop-blur-lg shadow-lg hover:shadow-xl transition-all duration-300 group flex items-center justify-center"
       :aria-label="$t('footer.scrollTop.aria')"
     >
       <ArrowUp class="h-4 w-4 text-amber group-hover:-translate-y-0.5 transition-transform duration-300" />

@@ -6,12 +6,12 @@
 
       <!-- Titre -->
       <h2 class="text-2xl md:text-3xl font-sora font-bold text-midnight mb-4">
-        Notre engagement
+        {{ $t('transition.title') }}
       </h2>
 
       <!-- Description -->
       <p class="text-base font-manrope text-midnight/70 leading-relaxed">
-        Une approche premium et sophistiquée du bien-être masculin
+        {{ $t('transition.description') }}
       </p>
     </div>
   </section>
