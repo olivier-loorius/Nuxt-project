@@ -200,5 +200,45 @@
     "scrollTop": {
       "aria": "Retour en haut"
     }
+  },
+  "auth": {
+    "close": "Fermer",
+    "login": "Connexion",
+    "register": "Inscription",
+    "login_subtitle": "Accédez à votre compte Boys & Toys",
+    "register_subtitle": "Rejoignez la communauté Boys & Toys",
+    "email": "Email",
+    "email_placeholder": "votre@email.com",
+    "email_required": "Email requis",
+    "email_invalid": "Email invalide",
+    "password": "Mot de passe",
+    "password_placeholder": "Votre mot de passe",
+    "password_create_placeholder": "Créer un mot de passe",
+    "password_confirm": "Confirmer le mot de passe",
+    "password_confirm_placeholder": "Confirmer votre mot de passe",
+    "password_mismatch": "Les mots de passe ne correspondent pas",
+    "show_password": "Afficher le mot de passe",
+    "hide_password": "Masquer le mot de passe",
+    "password_strength": {
+      "label": "Force",
+      "very_weak": "Très faible",
+      "weak": "Faible",
+      "medium": "Moyen",
+      "strong": "Fort",
+      "very_strong": "Très fort"
+    },
+    "password_check": {
+      "min_length": "8 caractères minimum",
+      "uppercase": "Une majuscule",
+      "lowercase": "Une minuscule",
+      "number": "Un chiffre"
+    },
+    "confirm_18plus": "Je certifie avoir 18 ans ou plus",
+    "adults_only": "Ce site est réservé aux adultes",
+    "newsletter_text": "Recevoir les offres exclusives et bénéficier de -10% sur ma première commande",
+    "login_button": "Se connecter",
+    "register_button": "S'inscrire",
+    "no_account": "Pas encore de compte ?",
+    "have_account": "Vous avez déjà un compte ?"
   }
 }
