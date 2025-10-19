@@ -8,7 +8,8 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@nuxt/content',
     '@nuxtjs/tailwindcss',
-    '@nuxt/image'
+    '@nuxt/image',
+    '@nuxtjs/supabase'
   ],
 
   image: {
@@ -24,16 +25,29 @@ export default defineNuxtConfig({
     }
   },
 
-  supabase: {
-    redirect: false
+    supabase: {
+    redirectOptions: {
+      login: '/',
+      callback: '/auth/confirm',
+      exclude: ['/', '/nouveautes', '/best-sellers'], // Pages publiques
+    }
   },
 
   i18n: {
     locales: [
-      { code: 'fr', file: 'fr.json' },
-      { code: 'en', file: 'en.json' }
+      {
+        code: 'fr',
+        file: 'fr.json',
+        name: 'Français'
+      },
+      {
+        code: 'en',
+        file: 'en.json',
+        name: 'English'
+      }
     ],
-    langDir: 'locales/',
+    lazy: true,
+    langDir: 'locales',
     defaultLocale: 'fr',
     strategy: 'prefix_except_default',
     detectBrowserLanguage: {

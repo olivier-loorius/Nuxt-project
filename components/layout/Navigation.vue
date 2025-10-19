@@ -46,9 +46,63 @@
             <button class="hidden lg:inline-flex icon-btn" :aria-label="$t('aria.favoritesButton')">
               <Heart :size="20" />
             </button>
-            <button class="hidden lg:inline-flex icon-btn" :aria-label="$t('aria.accountButton')">
-              <User :size="20" />
-            </button>
+
+            <!-- User Account / Auth (Desktop) -->
+            <!-- TODO: Change v-if="true" to v-if="!user" when Supabase is configured -->
+            <div v-if="true" class="hidden lg:block">
+              <button
+                class="icon-btn"
+                :aria-label="$t('nav.login')"
+                @click="handleAuthClick"
+              >
+                <User :size="20" />
+              </button>
+            </div>
+            <!-- TODO: Uncomment when Supabase is configured -->
+            <!-- <div v-else class="hidden lg:block relative">
+              <button
+                @click="showUserDropdown = !showUserDropdown"
+                class="icon-btn p-1"
+                :aria-label="$t('nav.account')"
+              >
+                <img
+                  v-if="user.user_metadata?.avatar_url"
+                  :src="user.user_metadata.avatar_url"
+                  :alt="user.email"
+                  class="w-8 h-8 rounded-full object-cover border-2 border-amber"
+                />
+                <div v-else class="w-8 h-8 rounded-full bg-amber/20 flex items-center justify-center">
+                  <User :size="18" class="text-amber" />
+                </div>
+              </button>
+
+              <div
+                v-if="showUserDropdown"
+                class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-[60] animate-fade-in border border-concrete"
+              >
+                <NuxtLink
+                  to="/profil"
+                  class="block px-4 py-2 text-sm text-midnight hover:bg-amber hover:text-white transition-colors duration-200"
+                  @click="showUserDropdown = false"
+                >
+                  Mon profil
+                </NuxtLink>
+                <NuxtLink
+                  to="/commandes"
+                  class="block px-4 py-2 text-sm text-midnight hover:bg-amber hover:text-white transition-colors duration-200"
+                  @click="showUserDropdown = false"
+                >
+                  Mes commandes
+                </NuxtLink>
+                <div class="border-t border-concrete"></div>
+                <button
+                  @click="handleLogout"
+                  class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors duration-200"
+                >
+                  Déconnexion
+                </button>
+              </div>
+            </div> -->
 
             <!-- Language Selector (Desktop Only >1024px) -->
             <div class="relative hidden lg:block">
@@ -113,7 +167,7 @@
           <button class="icon-btn" :aria-label="$t('aria.favoritesButton')">
             <Heart :size="20" />
           </button>
-          <button class="icon-btn" :aria-label="$t('aria.accountButton')">
+          <button class="icon-btn" :aria-label="$t('aria.accountButton')" @click="handleAuthClick">
             <User :size="20" />
           </button>
           <div class="flex-1"></div>
@@ -142,17 +196,28 @@
 
     <!-- Search Overlay -->
     <FeaturesSearchOverlay v-model="showSearch" />
+
+    <!-- Auth Modal -->
+    <AuthModal v-model="showAuthModal" />
   </header>
 </template>
 
 <script setup lang="ts">
 import { Search, Heart, ShoppingCart, User, Menu, Globe, ChevronDown } from 'lucide-vue-next'
+// import { useAuth } from '~/composables/useAuth' // TODO: Uncomment when Supabase is configured
 
 const { locale, setLocale } = useI18n()
 const route = useRoute()
+
+// TODO: Configure Supabase
+// 1. Create a Supabase project at https://supabase.com
+const user = useSupabaseUser()
+
 const isScrolled = ref(false)
 const showLangDropdown = ref(false)
 const mobileMenuOpen = ref(false)
+const showAuthModal = ref(false)
+const showUserDropdown = ref(false)
 const cartItems = ref(2) // Mock pour test
 const showSearch = ref(false)
 
@@ -187,6 +252,34 @@ const closeMobileMenu = () => {
 const switchLocale = (newLocale: 'fr' | 'en') => {
   setLocale(newLocale)
   showLangDropdown.value = false
+}
+
+// TODO: Uncomment when Supabase is configured
+// const { signOut } = useAuth()
+//
+// const handleLogout = async () => {
+//   try {
+//     await signOut()
+//     showUserDropdown.value = false
+//     console.log('✅ Déconnexion réussie')
+//   } catch (error: any) {
+//     console.error('❌ Logout error:', error)
+//   }
+// }
+
+const handleLogout = async () => {
+  console.log('⚠️ Supabase not configured yet - Logout disabled')
+}
+
+// Handle auth modal click (mobile & desktop)
+const handleAuthClick = () => {
+  console.log('🔒 Auth button clicked - Opening AuthModal')
+  console.log('📱 Current device: mobile menu open =', mobileMenuOpen.value)
+  showAuthModal.value = true
+  // Close mobile menu if open
+  if (mobileMenuOpen.value) {
+    closeMobileMenu()
+  }
 }
 
 onMounted(() => {

@@ -200,5 +200,45 @@
     "scrollTop": {
       "aria": "Back to top"
     }
+  },
+  "auth": {
+    "close": "Close",
+    "login": "Login",
+    "register": "Sign up",
+    "login_subtitle": "Access your Boys & Toys account",
+    "register_subtitle": "Join the Boys & Toys community",
+    "email": "Email",
+    "email_placeholder": "your@email.com",
+    "email_required": "Email required",
+    "email_invalid": "Invalid email",
+    "password": "Password",
+    "password_placeholder": "Your password",
+    "password_create_placeholder": "Create a password",
+    "password_confirm": "Confirm password",
+    "password_confirm_placeholder": "Confirm your password",
+    "password_mismatch": "Passwords do not match",
+    "show_password": "Show password",
+    "hide_password": "Hide password",
+    "password_strength": {
+      "label": "Strength",
+      "very_weak": "Very weak",
+      "weak": "Weak",
+      "medium": "Medium",
+      "strong": "Strong",
+      "very_strong": "Very strong"
+    },
+    "password_check": {
+      "min_length": "8 characters minimum",
+      "uppercase": "One uppercase",
+      "lowercase": "One lowercase",
+      "number": "One number"
+    },
+    "confirm_18plus": "I certify that I am 18 years or older",
+    "adults_only": "This site is for adults only",
+    "newsletter_text": "Receive exclusive offers and get -10% on my first order",
+    "login_button": "Log in",
+    "register_button": "Sign up",
+    "no_account": "Don't have an account?",
+    "have_account": "Already have an account?"
   }
 }
