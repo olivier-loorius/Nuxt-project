@@ -84,7 +84,8 @@
       "Bash(cp locales/en.json i18n/locales/en.json)",
       "Bash(git commit -m \"$(cat <<''EOF''\nWIP: feature/auth - Refactoring structure i18n et ajout authentification\n\n- Déplacement des fichiers de traduction de i18n/locales/ vers locales/\n- Mise à jour de la configuration i18n dans nuxt.config.ts\n- Ajout du composant modal d''authentification (AuthModal.vue)\n- Ajout des composants UI shadcn-vue (checkbox, input, label)\n- Création du composable useAuth pour la logique d''authentification\n- Ajout de nouvelles pages (about, categories, legal, produits)\n- Configuration de content.config.ts\n- Ajout des types de base de données Supabase\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
       "Bash(mv locales/*.json i18n/locales/)",
-      "Bash(rmdir locales)"
+      "Bash(rmdir locales)",
+      "Bash(git checkout -b feature/statut)"
     ],
     "deny": [],
     "ask": []

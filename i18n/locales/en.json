@@ -208,7 +208,7 @@
     "login_subtitle": "Access your Boys & Toys account",
     "register_subtitle": "Join the Boys & Toys community",
     "email": "Email",
-    "email_placeholder": "your@email.com",
+    "email_placeholder": "your{'@'}email.com",
     "email_required": "Email required",
     "email_invalid": "Invalid email",
     "password": "Password",
