@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from "vue"
-import type { BadgeVariants } from "./index"
+import type { AlertVariants } from "./index"
 import { cn } from "@/lib/utils"
-import { badgeVariants } from "./index"
+import { alertVariants } from "./index"
 
 const props = defineProps<{
-  variant?: BadgeVariants["variant"]
   class?: HTMLAttributes["class"]
+  variant?: AlertVariants["variant"]
 }>()
 </script>
 
 <template>
-  <div :class="cn(badgeVariants({ variant }), props.class)">
+  <div :class="cn(alertVariants({ variant }), props.class)" role="alert">
     <slot />
   </div>
 </template>

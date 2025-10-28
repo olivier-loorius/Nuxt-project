@@ -281,14 +281,26 @@ const handleSubmit = async () => {
         throw new Error('Vous devez confirmer avoir 18 ans ou plus')
       }
 
-      await signUp(email.value, password.value, {
-        newsletter: newsletter.value,
-        age_verified: confirm18Plus.value
-      })
+      const metadata = {
+        age_verified: confirm18Plus.value,
+        newsletter: newsletter.value
+      }
+
+      console.log('🔍 AUDIT AuthModal - Metadata AVANT signUp:', metadata)
+      console.log('🔍 AUDIT AuthModal - Email:', email.value)
+
+      const result = await signUp(email.value, password.value, metadata)
+
+      console.log('🔍 AUDIT AuthModal - Data APRÈS signUp:', result)
 
       closeModal()
     } else {
-      await signIn(email.value, password.value)
+      console.log('🔍 AUDIT AuthModal - Mode login, email:', email.value)
+
+      const result = await signIn(email.value, password.value)
+
+      console.log('🔍 AUDIT AuthModal - Session APRÈS signIn:', result)
+
       closeModal()
     }
   } catch (err: any) {

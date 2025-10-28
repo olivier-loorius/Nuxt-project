@@ -1,0 +1,328 @@
+<template>
+  <div class="container max-w-3xl mx-auto px-4 md:px-6 py-8">
+    <h1 class="text-3xl font-sora font-bold text-midnight mb-8">Mon profil</h1>
+
+    <div v-if="loading" class="bg-chalk p-6 md:p-8">
+      <div class="space-y-6 animate-pulse">
+        <div>
+          <div class="h-4 bg-concrete/50 w-20 mb-2"></div>
+          <div class="h-12 bg-concrete/30"></div>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <div class="h-4 bg-concrete/50 w-16 mb-2"></div>
+            <div class="h-12 bg-concrete/30"></div>
+          </div>
+          <div>
+            <div class="h-4 bg-concrete/50 w-16 mb-2"></div>
+            <div class="h-12 bg-concrete/30"></div>
+          </div>
+        </div>
+        <div class="h-12 bg-concrete/30 w-32"></div>
+      </div>
+    </div>
+
+    <div v-else class="bg-chalk p-6 md:p-8">
+      <form @submit.prevent="handleSubmit">
+        <div class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="md:col-span-2">
+              <label for="email" class="block font-sora font-semibold text-sm text-midnight mb-2">
+                Email
+              </label>
+              <input
+                id="email"
+                :value="user?.email"
+                type="email"
+                readonly
+                disabled
+                class="btn-beveled w-full bg-concrete/20 border-2 border-concrete text-midnight/50 px-4 py-3 cursor-not-allowed focus:outline-none"
+              />
+              <p class="text-xs text-midnight/50 mt-1">
+                L'email ne peut pas être modifié
+              </p>
+            </div>
+
+            <div class="md:col-span-2">
+              <label for="password" class="block font-sora font-semibold text-sm text-midnight mb-2">
+                Mot de passe
+              </label>
+              <div class="relative">
+                <input
+                  id="password"
+                  value="••••••••••••"
+                  :type="showPassword ? 'text' : 'password'"
+                  readonly
+                  disabled
+                  class="btn-beveled w-full bg-concrete/20 border-2 border-concrete text-midnight/50 px-4 py-3 pr-12 cursor-not-allowed focus:outline-none"
+                />
+                <button
+                  type="button"
+                  @click="showPassword = !showPassword"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-midnight/50 hover:text-midnight transition-colors"
+                >
+                  <Eye v-if="!showPassword" class="w-5 h-5" />
+                  <EyeOff v-else class="w-5 h-5" />
+                </button>
+              </div>
+              <p class="text-xs text-midnight/50 mt-1">
+                Le mot de passe ne peut pas être modifié ici
+              </p>
+            </div>
+          </div>
+
+          <div class="border-t-2 border-concrete pt-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label for="firstName" class="block font-sora font-semibold text-sm text-midnight mb-2">
+                  Prénom <span class="text-alert">*</span>
+                </label>
+                <input
+                  id="firstName"
+                  v-model="formData.first_name"
+                  type="text"
+                  required
+                  :disabled="!isEditing"
+                  :class="[
+                    'btn-beveled w-full border-2 border-concrete px-4 py-3 focus:outline-none',
+                    isEditing
+                      ? 'bg-white text-midnight focus:ring-2 focus:ring-amber'
+                      : 'bg-concrete/20 text-midnight/50 cursor-not-allowed'
+                  ]"
+                  placeholder="Jean"
+                />
+              </div>
+
+              <div>
+                <label for="lastName" class="block font-sora font-semibold text-sm text-midnight mb-2">
+                  Nom <span class="text-alert">*</span>
+                </label>
+                <input
+                  id="lastName"
+                  v-model="formData.last_name"
+                  type="text"
+                  required
+                  :disabled="!isEditing"
+                  :class="[
+                    'btn-beveled w-full border-2 border-concrete px-4 py-3 focus:outline-none',
+                    isEditing
+                      ? 'bg-white text-midnight focus:ring-2 focus:ring-amber'
+                      : 'bg-concrete/20 text-midnight/50 cursor-not-allowed'
+                  ]"
+                  placeholder="Dupont"
+                />
+              </div>
+
+              <div class="md:col-span-2">
+                <label for="birthDate" class="block font-sora font-semibold text-sm text-midnight mb-2">
+                  Date de naissance
+                </label>
+                <input
+                  id="birthDate"
+                  v-model="formData.birth_date"
+                  type="date"
+                  :disabled="!isEditing"
+                  :class="[
+                    'btn-beveled w-full border-2 border-concrete px-4 py-3 focus:outline-none',
+                    isEditing
+                      ? 'bg-white text-midnight focus:ring-2 focus:ring-amber'
+                      : 'bg-concrete/20 text-midnight/50 cursor-not-allowed'
+                  ]"
+                />
+              </div>
+
+              <div class="md:col-span-2">
+                <label for="phone" class="block font-sora font-semibold text-sm text-midnight mb-2">
+                  Téléphone
+                </label>
+                <PhoneInput
+                  v-model="formData.phone"
+                  :disabled="!isEditing"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div v-if="!isEditing" class="mt-6">
+          <button
+            type="button"
+            @click="enterEditMode"
+            class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-copper px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300"
+          >
+            Modifier
+          </button>
+        </div>
+
+        <div v-else class="flex flex-col sm:flex-row gap-4 mt-6">
+          <button
+            type="submit"
+            :disabled="saving"
+            class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-copper px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {{ saving ? "Enregistrement..." : "Enregistrer" }}
+          </button>
+          <button
+            type="button"
+            @click="cancelEdit"
+            :disabled="saving"
+            class="btn-beveled border-2 border-concrete bg-white text-midnight hover:bg-concrete/20 px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Annuler
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div v-if="!loading" class="mt-12 pt-8 border-t-2 border-concrete">
+      <button
+        type="button"
+        @click="showDeleteModal = true"
+        class="text-xs text-red-600 hover:text-red-700 underline font-manrope transition-colors duration-200"
+      >
+        Supprimer mon compte
+      </button>
+    </div>
+
+    <SuccessModal
+      v-model="showSuccessModal"
+      title="Profil mis à jour"
+      message="Vos informations ont été enregistrées avec succès"
+    />
+
+    <SuccessModal
+      v-model="showDeleteSuccessModal"
+      title="Compte supprimé"
+      message="Votre compte a été supprimé avec succès"
+    />
+
+    <ConfirmModal
+      v-model="showDeleteModal"
+      title="Supprimer votre compte"
+      message="Êtes-vous sûr de vouloir supprimer définitivement votre compte ? Cette action est irréversible."
+      @confirm="handleDeleteAccount"
+    />
+  </div>
+</template>
+
+<script setup lang="ts">
+import type { Tables } from '~/types/database.types'
+import { Eye, EyeOff } from 'lucide-vue-next'
+
+definePageMeta({
+  layout: "compte",
+  middleware: "auth",
+})
+
+const PhoneInput = defineAsyncComponent(() => import('~/components/PhoneInput.vue'))
+
+const user = useSupabaseUser()
+const { fetchProfile, updateProfile, deleteAccount } = useProfile()
+
+const loading = ref(true)
+const saving = ref(false)
+const isEditing = ref(false)
+const showSuccessModal = ref(false)
+const showDeleteModal = ref(false)
+const showDeleteSuccessModal = ref(false)
+const showPassword = ref(false)
+
+const formData = reactive({
+  first_name: '',
+  last_name: '',
+  birth_date: '',
+  phone: ''
+})
+
+const originalData = ref({
+  first_name: '',
+  last_name: '',
+  birth_date: '',
+  phone: ''
+})
+
+const canSubmit = computed(() => {
+  return (
+    formData.first_name.trim().length > 0 &&
+    formData.last_name.trim().length > 0 &&
+    !saving.value
+  )
+})
+
+const loadProfile = async () => {
+  const profile = await fetchProfile()
+
+  if (profile) {
+    formData.first_name = profile.first_name || ''
+    formData.last_name = profile.last_name || ''
+    formData.birth_date = profile.birth_date || ''
+    formData.phone = profile.phone || ''
+
+    originalData.value = {
+      first_name: profile.first_name || '',
+      last_name: profile.last_name || '',
+      birth_date: profile.birth_date || '',
+      phone: profile.phone || ''
+    }
+  }
+}
+
+const enterEditMode = () => {
+  isEditing.value = true
+}
+
+const cancelEdit = () => {
+  formData.first_name = originalData.value.first_name
+  formData.last_name = originalData.value.last_name
+  formData.birth_date = originalData.value.birth_date
+  formData.phone = originalData.value.phone
+  isEditing.value = false
+}
+
+const handleSubmit = async () => {
+  saving.value = true
+
+  try {
+    const success = await updateProfile({
+      first_name: formData.first_name,
+      last_name: formData.last_name,
+      birth_date: formData.birth_date || null,
+      phone: formData.phone || null
+    })
+
+    if (success) {
+      originalData.value = {
+        first_name: formData.first_name,
+        last_name: formData.last_name,
+        birth_date: formData.birth_date,
+        phone: formData.phone
+      }
+      isEditing.value = false
+      showSuccessModal.value = true
+    }
+  } catch (error) {
+    console.error('Error updating profile:', error)
+  } finally {
+    saving.value = false
+  }
+}
+
+const handleDeleteAccount = async (password: string) => {
+  showDeleteModal.value = false
+  const success = await deleteAccount()
+  if (success) {
+    showDeleteSuccessModal.value = true
+  }
+}
+
+watch(showDeleteSuccessModal, (newValue, oldValue) => {
+  if (oldValue === true && newValue === false) {
+    navigateTo('/')
+  }
+})
+
+onMounted(async () => {
+  await loadProfile()
+  loading.value = false
+})
+</script>

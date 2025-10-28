@@ -292,17 +292,5 @@
       "delete": "Supprimer",
       "default": "Par défaut"
     }
-  },
-  "profile": {
-    "updateSuccess": "Profil mis à jour",
-    "updateSuccessDescription": "Vos informations ont été enregistrées avec succès",
-    "updateError": "Erreur de mise à jour",
-    "notAuthenticated": "Session utilisateur invalide. Veuillez vous reconnecter.",
-    "validationFailed": "Validation échouée",
-    "phoneInvalid": "Le numéro de téléphone est invalide",
-    "phoneShort": "Le numéro de téléphone est trop court"
-  },
-  "errors": {
-    "generic": "Une erreur est survenue"
   }
 }

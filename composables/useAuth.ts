@@ -70,21 +70,45 @@ export const getStrengthLabel = (strength: number): string => {
   return labels[strength] || 'auth.password_strength.very_weak'
 }
 
+import { toast } from 'vue-sonner'
+
 export const useAuth = () => {
   const supabase = useSupabaseClient()
   const user = useSupabaseUser()
 
   const signIn = async (email: string, password: string) => {
+    console.log('🔍 AUDIT useAuth signIn - Email:', email)
+
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password
     })
 
-    if (error) throw error
+    console.log('🔍 AUDIT useAuth signIn - Data:', data)
+    console.log('🔍 AUDIT useAuth signIn - Error:', error)
+    console.log('🔍 AUDIT useAuth signIn - User:', data?.user)
+    console.log('🔍 AUDIT useAuth signIn - Session:', data?.session)
+
+    if (error) {
+      toast.error('Connexion échouée', {
+        description: error.message
+      })
+      throw error
+    }
+
+    toast.success('Connexion réussie', {
+      description: `Bienvenue ${data.user?.email}`
+    })
     return data
   }
 
   const signUp = async (email: string, password: string, metadata?: UserMetadata) => {
+    console.log('🔵 signUp CALLED')
+    console.log('🔵 signUp email:', email)
+    console.log('🔵 signUp password length:', password?.length)
+    console.log('🔵 signUp metadata:', metadata)
+
+    console.log('🔵 BEFORE supabase.auth.signUp call')
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -92,14 +116,50 @@ export const useAuth = () => {
         data: metadata || {}
       }
     })
+    console.log('🔵 AFTER supabase.auth.signUp call')
 
-    if (error) throw error
+    console.log('🔵 signUp data:', data)
+    console.log('🔵 signUp error:', error)
+    console.log('🔵 signUp data.user:', data?.user)
+    console.log('🔵 signUp data.user.id:', data?.user?.id)
+    console.log('🔵 signUp data.user.email:', data?.user?.email)
+    console.log('🔵 signUp data.user.user_metadata:', data?.user?.user_metadata)
+    console.log('🔵 signUp data.session:', data?.session)
+
+    if (error) {
+      console.log('🔴 signUp ERROR:', error.message)
+      console.log('🔴 signUp ERROR code:', error.status)
+      toast.error('Inscription échouée', {
+        description: error.message
+      })
+      throw error
+    }
+
+    console.log('🟢 signUp SUCCESS')
+
+    if (data?.user) {
+      console.log('🔵 BEFORE profile creation')
+      console.log('🔵 User created with ID:', data.user.id)
+    }
+
+    toast.success('Compte créé avec succès', {
+      description: 'Vérifiez votre email pour confirmer votre compte'
+    })
     return data
   }
 
   const signOut = async () => {
     const { error } = await supabase.auth.signOut()
-    if (error) throw error
+    if (error) {
+      toast.error('Erreur de déconnexion', {
+        description: error.message
+      })
+      throw error
+    }
+
+    toast.success('Déconnexion réussie', {
+      description: 'À bientôt !'
+    })
     await navigateTo('/')
   }
 

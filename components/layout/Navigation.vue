@@ -48,8 +48,7 @@
             </button>
 
             <!-- User Account / Auth (Desktop) -->
-            <!-- TODO: Change v-if="true" to v-if="!user" when Supabase is configured -->
-            <div v-if="true" class="hidden lg:block">
+            <div v-if="!user" class="hidden lg:block">
               <button
                 class="icon-btn"
                 :aria-label="$t('nav.login')"
@@ -58,51 +57,47 @@
                 <User :size="20" />
               </button>
             </div>
-            <!-- TODO: Uncomment when Supabase is configured -->
-            <!-- <div v-else class="hidden lg:block relative">
+            <div v-else class="hidden lg:block relative">
               <button
                 @click="showUserDropdown = !showUserDropdown"
-                class="icon-btn p-1"
+                class="icon-btn relative"
                 :aria-label="$t('nav.account')"
               >
-                <img
-                  v-if="user.user_metadata?.avatar_url"
-                  :src="user.user_metadata.avatar_url"
-                  :alt="user.email"
-                  class="w-8 h-8 rounded-full object-cover border-2 border-amber"
-                />
-                <div v-else class="w-8 h-8 rounded-full bg-amber/20 flex items-center justify-center">
-                  <User :size="18" class="text-amber" />
-                </div>
+                <User :size="20" class="text-amber" />
+                <!-- Indicateur de connexion - vert pro -->
+                <span class="absolute bottom-0 right-0 w-2 h-2 bg-emerald-500 rounded-full shadow-sm"></span>
               </button>
 
               <div
                 v-if="showUserDropdown"
-                class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-[60] animate-fade-in border border-concrete"
+                class="absolute right-0 mt-2 w-56 bg-white border-2 border-concrete shadow-lg z-[60] animate-fade-in"
               >
                 <NuxtLink
-                  to="/profil"
-                  class="block px-4 py-2 text-sm text-midnight hover:bg-amber hover:text-white transition-colors duration-200"
+                  to="/compte"
+                  class="flex items-center gap-3 px-5 py-4 text-xs font-bold tracking-widest uppercase text-midnight hover:bg-amber hover:text-white transition-all duration-200 group border-l-4 border-transparent hover:border-amber"
                   @click="showUserDropdown = false"
                 >
-                  Mon profil
+                  <LayoutDashboard :size="16" class="text-amber group-hover:text-white transition-colors" />
+                  <span>{{ $t('compte.menu.dashboard') }}</span>
                 </NuxtLink>
                 <NuxtLink
-                  to="/commandes"
-                  class="block px-4 py-2 text-sm text-midnight hover:bg-amber hover:text-white transition-colors duration-200"
+                  to="/compte/profil"
+                  class="flex items-center gap-3 px-5 py-4 text-xs font-bold tracking-widest uppercase text-midnight hover:bg-amber hover:text-white transition-all duration-200 group border-l-4 border-transparent hover:border-amber"
                   @click="showUserDropdown = false"
                 >
-                  Mes commandes
+                  <UserCircle :size="16" class="text-amber group-hover:text-white transition-colors" />
+                  <span>{{ $t('compte.menu.profil') }}</span>
                 </NuxtLink>
-                <div class="border-t border-concrete"></div>
+                <div class="border-t-2 border-concrete"></div>
                 <button
                   @click="handleLogout"
-                  class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors duration-200"
+                  class="flex items-center gap-3 w-full text-left px-5 py-4 text-xs font-bold tracking-widest uppercase text-red-600 hover:bg-red-50 transition-all duration-200 group border-l-4 border-transparent hover:border-red-500"
                 >
-                  Déconnexion
+                  <LogOut :size="16" class="text-red-500 group-hover:text-red-600 transition-colors" />
+                  <span>{{ $t('compte.menu.logout') }}</span>
                 </button>
               </div>
-            </div> -->
+            </div>
 
             <!-- Language Selector (Desktop Only >1024px) -->
             <div class="relative hidden lg:block">
@@ -167,8 +162,13 @@
           <button class="icon-btn" :aria-label="$t('aria.favoritesButton')">
             <Heart :size="20" />
           </button>
-          <button class="icon-btn" :aria-label="$t('aria.accountButton')" @click="handleAuthClick">
+          <button v-if="!user" class="icon-btn" :aria-label="$t('aria.accountButton')" @click="handleAuthClick">
             <User :size="20" />
+          </button>
+          <button v-else class="icon-btn relative" :aria-label="$t('nav.account')" @click="navigateTo('/compte')">
+            <User :size="20" class="text-amber" />
+            <!-- Indicateur mobile - vert pro -->
+            <span class="absolute bottom-0 right-0 w-2 h-2 bg-emerald-500 rounded-full shadow-sm"></span>
           </button>
           <div class="flex-1"></div>
           <button
@@ -203,15 +203,14 @@
 </template>
 
 <script setup lang="ts">
-import { Search, Heart, ShoppingCart, User, Menu, Globe, ChevronDown } from 'lucide-vue-next'
-// import { useAuth } from '~/composables/useAuth' // TODO: Uncomment when Supabase is configured
+import { Search, Heart, ShoppingCart, User, Menu, Globe, ChevronDown, LayoutDashboard, UserCircle, LogOut } from 'lucide-vue-next'
+import { useAuth } from '~/composables/useAuth'
 
 const { locale, setLocale } = useI18n()
 const route = useRoute()
 
-// TODO: Configure Supabase
-// 1. Create a Supabase project at https://supabase.com
 const user = useSupabaseUser()
+const { signOut } = useAuth()
 
 const isScrolled = ref(false)
 const showLangDropdown = ref(false)
@@ -254,21 +253,13 @@ const switchLocale = (newLocale: 'fr' | 'en') => {
   showLangDropdown.value = false
 }
 
-// TODO: Uncomment when Supabase is configured
-// const { signOut } = useAuth()
-//
-// const handleLogout = async () => {
-//   try {
-//     await signOut()
-//     showUserDropdown.value = false
-//     console.log('✅ Déconnexion réussie')
-//   } catch (error: any) {
-//     console.error('❌ Logout error:', error)
-//   }
-// }
-
 const handleLogout = async () => {
-  console.log('⚠️ Supabase not configured yet - Logout disabled')
+  try {
+    await signOut()
+    showUserDropdown.value = false
+  } catch (error: any) {
+    console.error('❌ Logout error:', error)
+  }
 }
 
 // Handle auth modal click (mobile & desktop)
@@ -283,6 +274,12 @@ const handleAuthClick = () => {
 }
 
 onMounted(() => {
+  console.log('🔍 AUDIT Navigation.vue - onMounted')
+  console.log('🔍 AUDIT Navigation.vue - user.value complet:', user.value)
+  console.log('🔍 AUDIT Navigation.vue - user.value?.sub:', user.value?.sub)
+  console.log('🔍 AUDIT Navigation.vue - user.value?.email:', user.value?.email)
+  console.log('🔍 AUDIT Navigation.vue - user.value?.user_metadata:', user.value?.user_metadata)
+
   window.addEventListener('scroll', handleScroll)
 })
 
