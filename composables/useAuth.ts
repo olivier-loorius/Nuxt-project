@@ -1,3 +1,18 @@
+// Import des fonctions de validation depuis le composable dédié
+import {
+  validateEmail,
+  validatePassword,
+  validatePhone,
+  getStrengthLabel,
+  type EmailValidation,
+  type PasswordValidation,
+  type PhoneValidation
+} from './useFormValidation'
+
+// ============================================
+// BACKUP - Définitions originales commentées
+// ============================================
+/*
 export interface EmailValidation {
   isValid: boolean
   message?: string
@@ -13,12 +28,6 @@ export interface PasswordValidation {
     hasNumber: boolean
     hasSpecial: boolean
   }
-}
-
-export interface UserMetadata {
-  firstName?: string
-  lastName?: string
-  [key: string]: any
 }
 
 export const validateEmail = (email: string): EmailValidation => {
@@ -69,6 +78,18 @@ export const getStrengthLabel = (strength: number): string => {
   }
   return labels[strength] || 'auth.password_strength.very_weak'
 }
+*/
+// ============================================
+
+export interface UserMetadata {
+  firstName?: string
+  lastName?: string
+  [key: string]: any
+}
+
+// Ré-export des types et fonctions pour compatibilité
+export type { EmailValidation, PasswordValidation, PhoneValidation }
+export { validateEmail, validatePassword, validatePhone, getStrengthLabel }
 
 import { toast } from 'vue-sonner'
 
