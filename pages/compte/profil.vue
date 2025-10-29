@@ -214,7 +214,7 @@ definePageMeta({
   middleware: "auth",
 })
 
-const PhoneInput = defineAsyncComponent(() => import('~/components/PhoneInput.vue'))
+const PhoneInput = defineAsyncComponent(() => import('~/components/ui/input/PhoneInput.vue'))
 
 const user = useSupabaseUser()
 const { fetchProfile, updateProfile, deleteAccount } = useProfile()
