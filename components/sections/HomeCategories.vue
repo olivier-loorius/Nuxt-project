@@ -97,6 +97,7 @@
 
           <!-- Ligne 2: Cat4(3) + Texte(5) + Cat5(4) = 12 cols -->
           <CategoryCard
+            v-if="categories[3]"
             :category="categories[3]"
             :index="3"
             :is-visible="isVisible"
@@ -111,6 +112,7 @@
           </div>
 
           <CategoryCard
+            v-if="categories[4]"
             :category="categories[4]"
             :index="4"
             :is-visible="isVisible"
@@ -199,8 +201,8 @@ const categories: Category[] = [
 
 useIntersectionObserver(
   categoriesGrid,
-  ([{ isIntersecting }]) => {
-    if (isIntersecting) {
+  ([entry]) => {
+    if (entry?.isIntersecting) {
       isVisible.value = true
     }
   },
