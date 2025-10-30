@@ -33,6 +33,7 @@ export default defineNuxtConfig({
   },
 
   i18n: {
+    restructureDir: '.',
     locales: [
       {
         code: 'fr',
