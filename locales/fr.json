@@ -1,0 +1,330 @@
+{
+  "nav": {
+    "search": "Rechercher",
+    "favorites": "Favoris",
+    "cart": "Panier",
+    "account": "Compte",
+    "login": "Connexion"
+  },
+  "pages": {
+    "nouveautes": "Nouveautés",
+    "best-sellers": "Best-sellers",
+    "categories": "Catégories",
+    "lingerie": "Lingerie",
+    "accessoires": "Accessoires",
+    "idees-cadeaux": "Idées cadeaux",
+    "promotions": "Promotions"
+  },
+  "aria": {
+    "searchButton": "Rechercher",
+    "favoritesButton": "Favoris",
+    "cartButton": "Panier",
+    "accountButton": "Compte",
+    "menuButton": "Menu",
+    "languageSelector": "Sélecteur de langue"
+  },
+  "banner": {
+    "adultsOnly": "Site réservé aux adultes (18+)",
+    "delivery": "Livraison discrète 24-48h",
+    "payment": "Paiement 100% sécurisé",
+    "returns": "Retours sous 30 jours"
+  },
+  "hero": {
+    "title": "Découvrez notre collection",
+    "subtitle": "L'élégance et le confort réunis",
+    "cta": "Découvrir",
+    "imageAlt": "Produit nouveauté",
+    "badge": "Nouveauté",
+    "description": "Découvrez notre dernière nouveauté alliant design et performance",
+    "ctaDiscover": "Découvrir Lingerie",
+    "ctaBuy": "Acheter maintenant",
+    "buy": "Acheter",
+    "slide1": {
+      "title": "Ensemble Midnight Collection",
+      "description": "Matériaux premium certifiés pour un confort absolu au quotidien",
+      "cta": "Découvrir"
+    },
+    "slide2": {
+      "title": "Coffret Découverte Essentiel",
+      "description": "Tout ce dont vous avez besoin pour commencer en toute sérénité",
+      "cta": "Découvrir"
+    },
+    "slide3": {
+      "title": "Gamme Performance +",
+      "description": "Innovation technique et design pour des sensations inédites",
+      "cta": "Découvrir"
+    },
+    "usp": {
+      "delivery": {
+        "title": "Livraison rapide",
+        "desc": "Livraison en 48h partout en France"
+      },
+      "payment": {
+        "title": "Paiement sécurisé",
+        "desc": "Vos transactions sont protégées"
+      },
+      "returns": {
+        "title": "Retours gratuits",
+        "desc": "Retours sous 30 jours sans frais"
+      }
+    }
+  },
+  "brand": {
+    "label": "Notre ADN",
+    "title": "Le bien-être masculin sans compromis",
+    "paragraph1": "Nous croyons que le bien-être intime mérite la même attention que votre santé physique. Sans tabou, sans compromis sur la qualité.",
+    "paragraph2": "Matériaux premium certifiés, design pensé pour vous, discrétion absolue. Parce que votre intimité mérite le meilleur.",
+    "cta": "En savoir plus"
+  },
+  "bestsellers": {
+    "title": "Nos Best-sellers",
+    "viewAll": "Voir tous nos produits",
+    "addToCart": "Ajouter"
+  },
+  "categories": {
+    "title": "Nos Collections",
+    "lingerie": "Lingerie",
+    "accessoires": "Accessoires",
+    "nouveautes": "Nouveautés",
+    "bestSellers": "Best-sellers",
+    "ideesCadeaux": "Idées cadeaux",
+    "promotions": "Promotions",
+    "allCategories": "Catégories",
+    "cat1": "Stimulateurs",
+    "cat2": "Masturbateurs",
+    "cat3": "Anneaux",
+    "cat4": "Lubrifiants",
+    "cat5": "Accessoires",
+    "cat6": "Nettoyants",
+    "cat7": "Nouveautés",
+    "discover": "Découvrir",
+    "textBlock": {
+      "title": "Explorez nos collections",
+      "description": "Découvrez notre sélection premium de produits pour le bien-être masculin. Qualité certifiée, discrétion absolue."
+    }
+  },
+  "trust": {
+    "title": "Nos Engagements Premium",
+    "delivery": {
+      "short": "Livraison Express"
+    },
+    "discretion": {
+      "short": "Discrétion Totale"
+    },
+    "certified": {
+      "short": "Qualité Certifiée"
+    },
+    "payment": {
+      "short": "Paiement Sécurisé"
+    }
+  },
+  "vision": {
+    "title": "Notre Vision",
+    "step1": {
+      "title": "Approche Adulte & Sophistiquée",
+      "description": "Le plaisir masculin mérite une approche adulte, sophistiquée et sans tabou. Nous proposons des produits qui respectent votre intimité et votre intelligence."
+    },
+    "step2": {
+      "title": "Innovations Technologiques",
+      "description": "Nous sélectionnons les meilleures innovations technologiques du marché, testées et certifiées pour votre sécurité et votre satisfaction."
+    },
+    "step3": {
+      "title": "Bien-être & Équilibre",
+      "description": "Votre bien-être intime fait partie intégrante d'une vie équilibrée et épanouie. Investir dans votre plaisir, c'est investir en vous."
+    },
+    "cta": "En savoir plus"
+  },
+  "newsletter": {
+    "title": "Rejoignez le club",
+    "subtitle": "Nouveautés en avant-première et -10% sur votre première commande",
+    "placeholder": "Votre adresse email",
+    "button": "S'inscrire",
+    "accept": "J'accepte de recevoir la newsletter",
+    "legalText": "En vous inscrivant, vous acceptez de recevoir nos emails marketing. Désinscription possible à tout moment.",
+    "privacyPolicy": "Politique de confidentialité"
+  },
+  "transition": {
+    "title": "Notre engagement",
+    "description": "Une approche premium et sophistiquée du bien-être masculin"
+  },
+  "home": {
+    "visionTrust": {
+      "quote": "Le plaisir n'est pas un tabou, c'est une science",
+      "description": "Nous sélectionnons les meilleures innovations",
+      "cta": "Découvrir"
+    }
+  },
+  "footer": {
+    "tagline": "Le bien-être masculin sans compromis",
+    "follow": "Suivez-nous",
+    "legal": {
+      "title": "Légal",
+      "cgv": "CGV",
+      "cgu": "CGU",
+      "mentions": "Mentions légales",
+      "privacy": "Confidentialité",
+      "faq": "FAQ"
+    },
+    "social": {
+      "title": "Suivez-nous"
+    },
+    "contact": {
+      "title": "Contact",
+      "email": "contact{'@'}boysandtoys.fr",
+      "phone": "+33 1 23 45 67 89"
+    },
+    "trust": {
+      "secure": "Réservé aux adultes (18+)",
+      "discreet": "Livraison discrète",
+      "payment": "Paiement sécurisé"
+    },
+    "info": {
+      "title": "Informations",
+      "contact": "Contact",
+      "about": "À propos",
+      "delivery": "Livraison"
+    },
+    "copyright": "Tous droits réservés.",
+    "cookies": {
+      "aria": "Paramètres des cookies",
+      "label": "Paramètres des cookies",
+      "buttonLabel": "Cookies"
+    },
+    "settings": {
+      "aria": "Paramètres généraux",
+      "label": "Paramètres"
+    },
+    "payments": {
+      "title": "Paiements acceptés"
+    },
+    "scrollTop": {
+      "aria": "Retour en haut"
+    }
+  },
+  "auth": {
+    "close": "Fermer",
+    "login": "Connexion",
+    "register": "Inscription",
+    "login_subtitle": "Accédez à votre compte Boys & Toys",
+    "register_subtitle": "Rejoignez la communauté Boys & Toys",
+    "email": "Email",
+    "email_placeholder": "votre{'@'}email.com",
+    "email_required": "Email requis",
+    "email_invalid": "Email invalide",
+    "password": "Mot de passe",
+    "password_placeholder": "Votre mot de passe",
+    "password_create_placeholder": "Créer un mot de passe",
+    "password_confirm": "Confirmer le mot de passe",
+    "password_confirm_placeholder": "Confirmer votre mot de passe",
+    "password_mismatch": "Les mots de passe ne correspondent pas",
+    "show_password": "Afficher le mot de passe",
+    "hide_password": "Masquer le mot de passe",
+    "password_strength": {
+      "label": "Force",
+      "very_weak": "Très faible",
+      "weak": "Faible",
+      "medium": "Moyen",
+      "strong": "Fort",
+      "very_strong": "Très fort"
+    },
+    "password_check": {
+      "min_length": "8 caractères minimum",
+      "uppercase": "Une majuscule",
+      "lowercase": "Une minuscule",
+      "number": "Un chiffre"
+    },
+    "confirm_18plus": "Je certifie avoir 18 ans ou plus",
+    "adults_only": "Ce site est réservé aux adultes",
+    "newsletter_text": "Recevoir les offres exclusives et bénéficier de -10% sur ma première commande",
+    "login_button": "Se connecter",
+    "register_button": "S'inscrire",
+    "no_account": "Pas encore de compte ?",
+    "have_account": "Vous avez déjà un compte ?",
+    "errors": {
+      "required_fields": "Veuillez remplir tous les champs requis",
+      "password_mismatch_error": "Les mots de passe ne correspondent pas",
+      "age_confirm_required": "Vous devez confirmer avoir 18 ans ou plus",
+      "unknown": "Une erreur est survenue"
+    }
+  },
+  "modals": {
+    "success": {
+      "close": "Fermer"
+    },
+    "confirm": {
+      "password_label": "Mot de passe",
+      "password_placeholder": "Entrez votre mot de passe",
+      "password_aria": "Afficher ou masquer le mot de passe",
+      "cancel": "Annuler",
+      "delete": "Supprimer"
+    }
+  },
+  "compte": {
+    "menu": {
+      "dashboard": "Mon compte",
+      "profil": "Mon profil",
+      "commandes": "Mes commandes",
+      "favoris": "Mes favoris",
+      "adresses": "Mes adresses",
+      "logout": "Déconnexion"
+    },
+    "dashboard": {
+      "title": "Mon compte",
+      "welcome": "Bienvenue",
+      "quick_links": "Accès rapide"
+    },
+    "profil": {
+      "title": "Mon profil",
+      "subtitle": "Gérez vos informations personnelles",
+      "personal_info": "Informations personnelles",
+      "email": "Email",
+      "email_readonly": "L'email ne peut pas être modifié",
+      "password": "Mot de passe",
+      "password_readonly": "Le mot de passe ne peut pas être modifié ici",
+      "password_aria": "Afficher ou masquer le mot de passe",
+      "first_name": "Prénom",
+      "first_name_placeholder": "Jean",
+      "last_name": "Nom",
+      "last_name_placeholder": "Dupont",
+      "birth_date": "Date de naissance",
+      "phone": "Téléphone",
+      "edit_button": "Modifier",
+      "save_button": "Enregistrer",
+      "saving_button": "Enregistrement...",
+      "cancel_button": "Annuler",
+      "delete_account": "Supprimer mon compte",
+      "success_title": "Profil mis à jour",
+      "success_message": "Vos informations ont été enregistrées avec succès",
+      "delete_success_title": "Compte supprimé",
+      "delete_success_message": "Votre compte a été supprimé avec succès",
+      "delete_confirm_title": "Supprimer votre compte",
+      "delete_confirm_message": "Êtes-vous sûr de vouloir supprimer définitivement votre compte ? Cette action est irréversible."
+    },
+    "commandes": {
+      "title": "Mes commandes",
+      "subtitle": "Consultez l'historique de vos commandes",
+      "no_orders": "Vous n'avez pas encore passé de commande",
+      "order_number": "Commande n°",
+      "order_date": "Date",
+      "status": "Statut",
+      "total": "Total",
+      "view_details": "Voir les détails"
+    },
+    "favoris": {
+      "title": "Mes favoris",
+      "subtitle": "Retrouvez vos produits préférés",
+      "no_favorites": "Vous n'avez pas encore de favoris",
+      "add_to_cart": "Ajouter au panier",
+      "remove": "Retirer"
+    },
+    "adresses": {
+      "title": "Mes adresses",
+      "subtitle": "Gérez vos adresses de livraison",
+      "no_addresses": "Vous n'avez pas encore d'adresse enregistrée",
+      "add_address": "Ajouter une adresse",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "default": "Par défaut"
+    }
+  }
+}

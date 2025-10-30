@@ -97,6 +97,7 @@
 
           <!-- Ligne 2: Cat4(3) + Texte(5) + Cat5(4) = 12 cols -->
           <CategoryCard
+            v-if="categories[3]"
             :category="categories[3]"
             :index="3"
             :is-visible="isVisible"
@@ -111,6 +112,7 @@
           </div>
 
           <CategoryCard
+            v-if="categories[4]"
             :category="categories[4]"
             :index="4"
             :is-visible="isVisible"
@@ -135,47 +137,6 @@
 <script setup lang="ts">
 import { useIntersectionObserver } from '@vueuse/core'
 
-/**
- * HomeCategories - Grille Masonry Moderne Responsive - FULLY REFACTORED
- *
- * REFACTO COMPLÈTE (Partie 1 + 2):
- * - Créé array categories avec 7 objets TypeScript { slug, image, titleKey }
- * - MOBILE: remplacé 7 cards hardcodées par v-for CategoryCard variant='mobile'
- * - TABLET: remplacé 7 cards hardcodées par v-for CategoryCard variant='tablet'
- * - DESKTOP: remplacé 7 cards hardcodées par v-for CategoryCard variant='desktop'
- * - Blocs texte tablet/desktop conservés au centre avec stagger animation
- * - Économie totale: 283 lignes (476 → 193 lignes, 59% réduction)
- *
- * ARCHITECTURE DATA-DRIVEN:
- * - 1 array categories[] réutilisé pour les 3 breakpoints
- * - CategoryCard component avec 3 variants (mobile/tablet/desktop)
- * - Col-span dynamique géré dans CategoryCard via computed properties
- * - Index stagger ajusté pour chaque section (slice + offset)
- *
- * RESPONSIVE MOBILE (< 768px):
- * - Bloc texte en haut (visible uniquement mobile)
- * - 7 CategoryCard variant='mobile' (bandeaux h-24)
- * - Flex column gap-4
- *
- * RESPONSIVE TABLET (768px - 1024px):
- * - Grid grid-cols-6 gap-6
- * - 3 CategoryCard (Cat1-3) → Bloc texte → 4 CategoryCard (Cat4-7)
- * - Stagger: index 0-2, texte index 3, cards index 4-7
- *
- * RESPONSIVE DESKTOP (>= 1024px):
- * - Grid grid-cols-12 gap-10 (masonry layout 3 lignes)
- * - Ligne 1: Cat1-2-3 (4+3+5=12 cols)
- * - Ligne 2: Cat4 + Texte + Cat5 (3+5+4=12 cols)
- * - Ligne 3: Cat6-7 (5+7=12 cols)
- * - Stagger: Cat1-3 (index 0-2), Cat4 (index 3), Texte (index 4), Cat5 (index 5), Cat6-7 (index 6-7)
- *
- * SCROLL REVEAL:
- * - IntersectionObserver sur categoriesGrid ref
- * - isVisible prop passé à tous CategoryCard
- * - Blocs texte tablet/desktop avec isVisible
- * - Stagger delays: index * 100ms
- */
-
 interface Category {
   slug: string
   image: string
@@ -199,8 +160,8 @@ const categories: Category[] = [
 
 useIntersectionObserver(
   categoriesGrid,
-  ([{ isIntersecting }]) => {
-    if (isIntersecting) {
+  ([entry]) => {
+    if (entry?.isIntersecting) {
       isVisible.value = true
     }
   },

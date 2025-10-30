@@ -1,9 +1,3 @@
-/**
- * TYPES PRODUITS - Boys & Toys
- *
- * Interfaces TypeScript pour la gestion du catalogue produits
- */
-
 export interface Product {
   id: string
   slug: string

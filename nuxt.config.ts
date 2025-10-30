@@ -6,7 +6,6 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@pinia/nuxt',
     '@vueuse/nuxt',
-    '@nuxt/content',
     '@nuxtjs/tailwindcss',
     '@nuxt/image',
     '@nuxtjs/supabase'
@@ -26,14 +25,11 @@ export default defineNuxtConfig({
   },
 
     supabase: {
-    redirectOptions: {
-      login: '/',
-      callback: '/auth/confirm',
-      exclude: ['/', '/nouveautes', '/best-sellers'], // Pages publiques
-    }
+    redirect: false
   },
 
   i18n: {
+    restructureDir: '.',
     locales: [
       {
         code: 'fr',
@@ -46,14 +42,13 @@ export default defineNuxtConfig({
         name: 'English'
       }
     ],
-    lazy: true,
-    langDir: 'i18n/locales',
+    langDir: 'locales',
     defaultLocale: 'fr',
     strategy: 'prefix_except_default',
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',
-      redirectOn: 'root',
+      redirectOn: 'no prefix',
       alwaysRedirect: false,
       fallbackLocale: 'fr'
     }

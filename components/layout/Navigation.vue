@@ -3,25 +3,19 @@
     class="sticky top-0 z-50 bg-chalk backdrop-blur-md transition-shadow"
     :class="{ 'shadow-md': isScrolled }"
   >
-    <!-- Top Bar -->
     <div class="h-[60px] border-b border-concrete">
       <div class="container mx-auto px-6 h-full">
         <div class="flex items-center justify-between h-full">
-          <!-- Logo (Always Left, Centered on Desktop >1024px) -->
           <NuxtLink to="/" class="text-2xl font-bold font-display text-midnight hover:scale-105 transition-transform duration-200 lg:absolute lg:left-1/2 lg:-translate-x-1/2">
             Boys & Toys
           </NuxtLink>
-
-          <!-- Left Icons (Desktop Only >1024px) -->
           <div class="hidden lg:flex items-center gap-2">
             <button class="icon-btn" :aria-label="$t('aria.searchButton')" @click="showSearch = true">
               <Search :size="20" />
             </button>
           </div>
 
-          <!-- Right Icons -->
           <div class="flex items-center gap-4 ml-auto">
-            <!-- Search + Cart Group (Mobile/Tablet <1024px) -->
             <div class="flex items-center gap-2 lg:hidden">
               <button class="icon-btn" :aria-label="$t('aria.searchButton')" @click="showSearch = true">
                 <Search :size="20" />
@@ -34,7 +28,6 @@
               </button>
             </div>
 
-            <!-- Cart (Desktop Only) -->
             <button class="hidden lg:inline-flex icon-btn relative" :aria-label="$t('aria.cartButton')">
               <ShoppingCart :size="20" />
               <span v-if="cartItems > 0" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-copper text-white text-xs flex items-center justify-center">
@@ -42,14 +35,10 @@
               </span>
             </button>
 
-            <!-- Desktop Only Icons (>1024px) -->
             <button class="hidden lg:inline-flex icon-btn" :aria-label="$t('aria.favoritesButton')">
               <Heart :size="20" />
             </button>
-
-            <!-- User Account / Auth (Desktop) -->
-            <!-- TODO: Change v-if="true" to v-if="!user" when Supabase is configured -->
-            <div v-if="true" class="hidden lg:block">
+            <div v-if="!user" class="hidden lg:block">
               <button
                 class="icon-btn"
                 :aria-label="$t('nav.login')"
@@ -58,53 +47,44 @@
                 <User :size="20" />
               </button>
             </div>
-            <!-- TODO: Uncomment when Supabase is configured -->
-            <!-- <div v-else class="hidden lg:block relative">
+            <div v-else class="hidden lg:block relative">
               <button
                 @click="showUserDropdown = !showUserDropdown"
-                class="icon-btn p-1"
+                class="icon-btn relative"
                 :aria-label="$t('nav.account')"
               >
-                <img
-                  v-if="user.user_metadata?.avatar_url"
-                  :src="user.user_metadata.avatar_url"
-                  :alt="user.email"
-                  class="w-8 h-8 rounded-full object-cover border-2 border-amber"
-                />
-                <div v-else class="w-8 h-8 rounded-full bg-amber/20 flex items-center justify-center">
-                  <User :size="18" class="text-amber" />
-                </div>
+                <User :size="20" class="text-amber" />
+                <span class="absolute bottom-0 right-0 w-2 h-2 bg-emerald-500 rounded-full shadow-sm"></span>
               </button>
 
               <div
                 v-if="showUserDropdown"
-                class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden z-[60] animate-fade-in border border-concrete"
+                class="absolute right-0 mt-2 w-56 bg-white border-2 border-concrete shadow-lg z-[60] animate-fade-in"
               >
-                <NuxtLink
-                  to="/profil"
-                  class="block px-4 py-2 text-sm text-midnight hover:bg-amber hover:text-white transition-colors duration-200"
-                  @click="showUserDropdown = false"
+                <button
+                  @click="handleNavigateToAccount"
+                  class="flex items-center gap-3 w-full text-left px-5 py-4 text-xs font-bold tracking-widest uppercase text-midnight hover:bg-amber hover:text-white transition-all duration-200 group border-l-4 border-transparent hover:border-amber"
                 >
-                  Mon profil
-                </NuxtLink>
-                <NuxtLink
-                  to="/commandes"
-                  class="block px-4 py-2 text-sm text-midnight hover:bg-amber hover:text-white transition-colors duration-200"
-                  @click="showUserDropdown = false"
+                  <LayoutDashboard :size="16" class="text-amber group-hover:text-white transition-colors" />
+                  <span>{{ $t('compte.menu.dashboard') }}</span>
+                </button>
+                <button
+                  @click="handleNavigateToProfil"
+                  class="flex items-center gap-3 w-full text-left px-5 py-4 text-xs font-bold tracking-widest uppercase text-midnight hover:bg-amber hover:text-white transition-all duration-200 group border-l-4 border-transparent hover:border-amber"
                 >
-                  Mes commandes
-                </NuxtLink>
-                <div class="border-t border-concrete"></div>
+                  <UserCircle :size="16" class="text-amber group-hover:text-white transition-colors" />
+                  <span>{{ $t('compte.menu.profil') }}</span>
+                </button>
+                <div class="border-t-2 border-concrete"></div>
                 <button
                   @click="handleLogout"
-                  class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors duration-200"
+                  class="flex items-center gap-3 w-full text-left px-5 py-4 text-xs font-bold tracking-widest uppercase text-red-600 hover:bg-red-50 transition-all duration-200 group border-l-4 border-transparent hover:border-red-500"
                 >
-                  Déconnexion
+                  <LogOut :size="16" class="text-red-500 group-hover:text-red-600 transition-colors" />
+                  <span>{{ $t('compte.menu.logout') }}</span>
                 </button>
               </div>
-            </div> -->
-
-            <!-- Language Selector (Desktop Only >1024px) -->
+            </div>
             <div class="relative hidden lg:block">
               <button
                 class="icon-btn flex items-center gap-1"
@@ -132,8 +112,6 @@
                 </button>
               </div>
             </div>
-
-            <!-- Mobile/Tablet Burger (<1024px) -->
             <button class="lg:hidden icon-btn" :aria-label="$t('aria.menuButton')" @click="toggleMobileMenu">
               <Menu :size="24" />
             </button>
@@ -141,8 +119,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Sub Nav (Desktop >1024px) -->
     <nav class="hidden lg:block border-b border-concrete">
       <div class="container mx-auto px-8">
         <div class="flex flex-wrap items-center justify-center h-12 gap-x-6 text-sm tracking-wide">
@@ -158,17 +134,18 @@
         </div>
       </div>
     </nav>
-
-    <!-- Mobile/Tablet Menu (<1024px) -->
     <div v-if="mobileMenuOpen" class="lg:hidden bg-chalk border-b border-concrete animate-slide-down">
       <div class="container mx-auto px-4 py-4">
-        <!-- Mobile Actions -->
         <div class="flex items-center gap-4 pb-4 border-b border-concrete mb-4">
           <button class="icon-btn" :aria-label="$t('aria.favoritesButton')">
             <Heart :size="20" />
           </button>
-          <button class="icon-btn" :aria-label="$t('aria.accountButton')" @click="handleAuthClick">
+          <button v-if="!user" class="icon-btn" :aria-label="$t('aria.accountButton')" @click="handleAuthClick">
             <User :size="20" />
+          </button>
+          <button v-else class="icon-btn relative" :aria-label="$t('nav.account')" @click="navigateTo('/compte')">
+            <User :size="20" class="text-amber" />
+            <span class="absolute bottom-0 right-0 w-2 h-2 bg-emerald-500 rounded-full shadow-sm"></span>
           </button>
           <div class="flex-1"></div>
           <button
@@ -178,8 +155,6 @@
             {{ locale === 'fr' ? 'EN' : 'FR' }}
           </button>
         </div>
-
-        <!-- Mobile Navigation Links -->
         <nav class="flex flex-col gap-3">
           <NuxtLink
             v-for="link in navLinks"
@@ -194,31 +169,27 @@
       </div>
     </div>
 
-    <!-- Search Overlay -->
     <FeaturesSearchOverlay v-model="showSearch" />
-
-    <!-- Auth Modal -->
     <AuthModal v-model="showAuthModal" />
   </header>
 </template>
 
 <script setup lang="ts">
-import { Search, Heart, ShoppingCart, User, Menu, Globe, ChevronDown } from 'lucide-vue-next'
-// import { useAuth } from '~/composables/useAuth' // TODO: Uncomment when Supabase is configured
+import { Search, Heart, ShoppingCart, User, Menu, Globe, ChevronDown, LayoutDashboard, UserCircle, LogOut } from 'lucide-vue-next'
+import { useAuth } from '~/composables/useAuth'
 
-const { locale, setLocale } = useI18n()
+const { t, locale, setLocale } = useI18n()
 const route = useRoute()
 
-// TODO: Configure Supabase
-// 1. Create a Supabase project at https://supabase.com
 const user = useSupabaseUser()
+const { signOut } = useAuth()
 
 const isScrolled = ref(false)
 const showLangDropdown = ref(false)
 const mobileMenuOpen = ref(false)
 const showAuthModal = ref(false)
 const showUserDropdown = ref(false)
-const cartItems = ref(2) // Mock pour test
+const cartItems = ref(2)
 const showSearch = ref(false)
 
 const navLinks = [
@@ -254,29 +225,27 @@ const switchLocale = (newLocale: 'fr' | 'en') => {
   showLangDropdown.value = false
 }
 
-// TODO: Uncomment when Supabase is configured
-// const { signOut } = useAuth()
-//
-// const handleLogout = async () => {
-//   try {
-//     await signOut()
-//     showUserDropdown.value = false
-//     console.log('✅ Déconnexion réussie')
-//   } catch (error: any) {
-//     console.error('❌ Logout error:', error)
-//   }
-// }
-
 const handleLogout = async () => {
-  console.log('⚠️ Supabase not configured yet - Logout disabled')
+  try {
+    await signOut()
+    showUserDropdown.value = false
+  } catch (error: any) {
+    console.error('Logout error:', error)
+  }
 }
 
-// Handle auth modal click (mobile & desktop)
+const handleNavigateToAccount = async () => {
+  showUserDropdown.value = false
+  await navigateTo('/compte')
+}
+
+const handleNavigateToProfil = async () => {
+  showUserDropdown.value = false
+  await navigateTo('/compte/profil')
+}
+
 const handleAuthClick = () => {
-  console.log('🔒 Auth button clicked - Opening AuthModal')
-  console.log('📱 Current device: mobile menu open =', mobileMenuOpen.value)
   showAuthModal.value = true
-  // Close mobile menu if open
   if (mobileMenuOpen.value) {
     closeMobileMenu()
   }

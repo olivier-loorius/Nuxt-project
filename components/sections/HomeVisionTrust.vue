@@ -50,34 +50,6 @@
 <script setup lang="ts">
 import { Truck, ShieldCheck, Award, Lock } from 'lucide-vue-next'
 
-/**
- * SECTION HOME VISION + TRUST - Refactorisée
- *
- * REFACTO:
- * - Utilise TrustItem.vue réutilisable
- * - Data-driven avec array trustItems
- * - Avant: 108 lignes → Après: 86 lignes
- * - Économie: -22 lignes (-20%)
- *
- * STRUCTURE:
- * - Grid responsive: 1 colonne (mobile) / 10 colonnes (desktop)
- * - Col1 (7 colonnes desktop): Image + texte superposé
- * - Col2 (3 colonnes desktop): 4 items trust avec TrustItem component
- *
- * COL1 - IMAGE + TEXTE:
- * - Image de fond couvrant toute la zone
- * - Overlay gradient midnight
- * - Contenu texte superposé (citation + description + CTA)
- * - Mobile: h-96 (hauteur fixe)
- *
- * COL2 - TRUST ITEMS:
- * - Background chalk
- * - 4 TrustItem avec gap-10
- * - Icônes Lucide 32px text-amber
- * - Titres text-xs Sora semibold uppercase
- * - Border-b entre items (sauf dernier via showBorder)
- */
-
 const localePath = useLocalePath()
 
 const trustItems = [

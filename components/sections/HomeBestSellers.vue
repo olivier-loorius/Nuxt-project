@@ -25,21 +25,6 @@
 <script setup lang="ts">
 import type { Product } from '~/types/product'
 
-/**
- * HomeBestSellers - Section Best-sellers avec ProductCard
- *
- * REFACTO:
- * - Utilise ProductCard.vue réutilisable
- * - Data-driven avec array products
- * - Avant: 107 lignes → Après: 36 lignes
- * - Économie: -71 lignes (-67%)
- *
- * RESPONSIVE:
- * - Grid: grid-cols-2 md:grid-cols-3 lg:grid-cols-4
- * - Gap: gap-3 md:gap-6
- * - ProductCard gère le responsive en interne
- */
-
 const { t } = useI18n()
 
 const products: Product[] = [
