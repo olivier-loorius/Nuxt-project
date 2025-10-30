@@ -172,7 +172,10 @@
       "Bash(then echo \"components/ui/input existe\")",
       "Bash(else mkdir -p components/ui/input)",
       "Bash(git add:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(if [ -d \".nuxt\" ])",
+      "Bash(then rm -rf .nuxt)",
+      "Bash(else echo \".nuxt n''existe pas\")"
     ],
     "deny": [],
     "ask": []

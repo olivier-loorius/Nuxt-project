@@ -39,8 +39,8 @@
             {{ address.firstName }} {{ address.lastName }}
           </h3>
           <p class="text-midnight/80 text-sm leading-relaxed">
-            {{ address.street }}<br />
-            {{ address.zipCode }} {{ address.city }}<br />
+            {{ address.street }}<br>
+            {{ address.zipCode }} {{ address.city }}<br>
             {{ address.country }}
           </p>
           <p v-if="address.phone" class="text-midnight/60 text-sm mt-2">
