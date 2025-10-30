@@ -230,21 +230,7 @@ interface Address {
   isDefault: boolean
 }
 
-// Mock data - à remplacer par des vraies données depuis Supabase
-const addresses = ref<Address[]>([
-  // Exemple d'adresse - décommenter pour tester l'affichage
-  // {
-  //   id: '1',
-  //   firstName: 'Jean',
-  //   lastName: 'Dupont',
-  //   street: '123 Rue de la Paix',
-  //   zipCode: '75001',
-  //   city: 'Paris',
-  //   country: 'France',
-  //   phone: '+33 6 12 34 56 78',
-  //   isDefault: true
-  // }
-])
+const addresses = ref<Address[]>([])
 
 const showAddForm = ref(false)
 const formData = ref({
@@ -258,7 +244,6 @@ const formData = ref({
 })
 
 const handleSubmitAddress = () => {
-  // TODO: Sauvegarder dans Supabase
   const newAddress: Address = {
     id: Date.now().toString(),
     ...formData.value,
@@ -268,7 +253,6 @@ const handleSubmitAddress = () => {
   addresses.value.push(newAddress)
   showAddForm.value = false
 
-  // Reset form
   formData.value = {
     firstName: '',
     lastName: '',
@@ -281,12 +265,9 @@ const handleSubmitAddress = () => {
 }
 
 const editAddress = (addressId: string) => {
-  // TODO: Implémenter l'édition
-  console.log('Edit address:', addressId)
 }
 
 const deleteAddress = (addressId: string) => {
   addresses.value = addresses.value.filter(a => a.id !== addressId)
-  // TODO: Supprimer de Supabase
 }
 </script>

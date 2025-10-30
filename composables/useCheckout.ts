@@ -30,7 +30,6 @@ export function useCheckout() {
 
       const userId = user.value.sub
 
-      // Si saveToProfile est true, mettre à jour la table profiles
       if (shippingInfo.saveToProfile) {
         const { error: profileError } = await supabase
           .from('profiles')
@@ -49,7 +48,6 @@ export function useCheckout() {
         }
       }
 
-      // Toujours insérer dans la table addresses
       const { data: addressData, error: addressError } = await supabase
         .from('addresses')
         .insert({

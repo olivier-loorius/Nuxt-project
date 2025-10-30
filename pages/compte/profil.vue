@@ -302,7 +302,7 @@ const handleSubmit = async () => {
       showSuccessModal.value = true
     }
   } catch (error) {
-    console.error('Error updating profile:', error)
+    console.error('Profile update error:', error)
   } finally {
     saving.value = false
   }

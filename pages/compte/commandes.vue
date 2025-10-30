@@ -101,16 +101,16 @@ interface Order {
   total: number
 }
 
-// Mock data - à remplacer par des vraies données depuis Supabase
+
 const orders = ref<Order[]>([
-  // Exemple de commande - décommenter pour tester l'affichage
-  // {
-  //   id: '1',
-  //   number: 'BT2025-001',
-  //   date: '2025-01-15',
-  //   status: 'delivered',
-  //   total: 89.99
-  // }
+  
+  
+  
+  
+  
+  
+  
+  
 ])
 
 const getStatusClass = (status: Order['status']) => {

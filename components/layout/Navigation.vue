@@ -3,25 +3,19 @@
     class="sticky top-0 z-50 bg-chalk backdrop-blur-md transition-shadow"
     :class="{ 'shadow-md': isScrolled }"
   >
-    <!-- Top Bar -->
     <div class="h-[60px] border-b border-concrete">
       <div class="container mx-auto px-6 h-full">
         <div class="flex items-center justify-between h-full">
-          <!-- Logo (Always Left, Centered on Desktop >1024px) -->
           <NuxtLink to="/" class="text-2xl font-bold font-display text-midnight hover:scale-105 transition-transform duration-200 lg:absolute lg:left-1/2 lg:-translate-x-1/2">
             Boys & Toys
           </NuxtLink>
-
-          <!-- Left Icons (Desktop Only >1024px) -->
           <div class="hidden lg:flex items-center gap-2">
             <button class="icon-btn" :aria-label="$t('aria.searchButton')" @click="showSearch = true">
               <Search :size="20" />
             </button>
           </div>
 
-          <!-- Right Icons -->
           <div class="flex items-center gap-4 ml-auto">
-            <!-- Search + Cart Group (Mobile/Tablet <1024px) -->
             <div class="flex items-center gap-2 lg:hidden">
               <button class="icon-btn" :aria-label="$t('aria.searchButton')" @click="showSearch = true">
                 <Search :size="20" />
@@ -34,7 +28,6 @@
               </button>
             </div>
 
-            <!-- Cart (Desktop Only) -->
             <button class="hidden lg:inline-flex icon-btn relative" :aria-label="$t('aria.cartButton')">
               <ShoppingCart :size="20" />
               <span v-if="cartItems > 0" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-copper text-white text-xs flex items-center justify-center">
@@ -42,12 +35,9 @@
               </span>
             </button>
 
-            <!-- Desktop Only Icons (>1024px) -->
             <button class="hidden lg:inline-flex icon-btn" :aria-label="$t('aria.favoritesButton')">
               <Heart :size="20" />
             </button>
-
-            <!-- User Account / Auth (Desktop) -->
             <div v-if="!user" class="hidden lg:block">
               <button
                 class="icon-btn"
@@ -64,7 +54,6 @@
                 :aria-label="$t('nav.account')"
               >
                 <User :size="20" class="text-amber" />
-                <!-- Indicateur de connexion - vert pro -->
                 <span class="absolute bottom-0 right-0 w-2 h-2 bg-emerald-500 rounded-full shadow-sm"></span>
               </button>
 
@@ -72,22 +61,20 @@
                 v-if="showUserDropdown"
                 class="absolute right-0 mt-2 w-56 bg-white border-2 border-concrete shadow-lg z-[60] animate-fade-in"
               >
-                <NuxtLink
-                  to="/compte"
-                  class="flex items-center gap-3 px-5 py-4 text-xs font-bold tracking-widest uppercase text-midnight hover:bg-amber hover:text-white transition-all duration-200 group border-l-4 border-transparent hover:border-amber"
-                  @click="showUserDropdown = false"
+                <button
+                  @click="handleNavigateToAccount"
+                  class="flex items-center gap-3 w-full text-left px-5 py-4 text-xs font-bold tracking-widest uppercase text-midnight hover:bg-amber hover:text-white transition-all duration-200 group border-l-4 border-transparent hover:border-amber"
                 >
                   <LayoutDashboard :size="16" class="text-amber group-hover:text-white transition-colors" />
                   <span>{{ $t('compte.menu.dashboard') }}</span>
-                </NuxtLink>
-                <NuxtLink
-                  to="/compte/profil"
-                  class="flex items-center gap-3 px-5 py-4 text-xs font-bold tracking-widest uppercase text-midnight hover:bg-amber hover:text-white transition-all duration-200 group border-l-4 border-transparent hover:border-amber"
-                  @click="showUserDropdown = false"
+                </button>
+                <button
+                  @click="handleNavigateToProfil"
+                  class="flex items-center gap-3 w-full text-left px-5 py-4 text-xs font-bold tracking-widest uppercase text-midnight hover:bg-amber hover:text-white transition-all duration-200 group border-l-4 border-transparent hover:border-amber"
                 >
                   <UserCircle :size="16" class="text-amber group-hover:text-white transition-colors" />
                   <span>{{ $t('compte.menu.profil') }}</span>
-                </NuxtLink>
+                </button>
                 <div class="border-t-2 border-concrete"></div>
                 <button
                   @click="handleLogout"
@@ -98,8 +85,6 @@
                 </button>
               </div>
             </div>
-
-            <!-- Language Selector (Desktop Only >1024px) -->
             <div class="relative hidden lg:block">
               <button
                 class="icon-btn flex items-center gap-1"
@@ -127,8 +112,6 @@
                 </button>
               </div>
             </div>
-
-            <!-- Mobile/Tablet Burger (<1024px) -->
             <button class="lg:hidden icon-btn" :aria-label="$t('aria.menuButton')" @click="toggleMobileMenu">
               <Menu :size="24" />
             </button>
@@ -136,8 +119,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Sub Nav (Desktop >1024px) -->
     <nav class="hidden lg:block border-b border-concrete">
       <div class="container mx-auto px-8">
         <div class="flex flex-wrap items-center justify-center h-12 gap-x-6 text-sm tracking-wide">
@@ -153,11 +134,8 @@
         </div>
       </div>
     </nav>
-
-    <!-- Mobile/Tablet Menu (<1024px) -->
     <div v-if="mobileMenuOpen" class="lg:hidden bg-chalk border-b border-concrete animate-slide-down">
       <div class="container mx-auto px-4 py-4">
-        <!-- Mobile Actions -->
         <div class="flex items-center gap-4 pb-4 border-b border-concrete mb-4">
           <button class="icon-btn" :aria-label="$t('aria.favoritesButton')">
             <Heart :size="20" />
@@ -167,7 +145,6 @@
           </button>
           <button v-else class="icon-btn relative" :aria-label="$t('nav.account')" @click="navigateTo('/compte')">
             <User :size="20" class="text-amber" />
-            <!-- Indicateur mobile - vert pro -->
             <span class="absolute bottom-0 right-0 w-2 h-2 bg-emerald-500 rounded-full shadow-sm"></span>
           </button>
           <div class="flex-1"></div>
@@ -178,8 +155,6 @@
             {{ locale === 'fr' ? 'EN' : 'FR' }}
           </button>
         </div>
-
-        <!-- Mobile Navigation Links -->
         <nav class="flex flex-col gap-3">
           <NuxtLink
             v-for="link in navLinks"
@@ -194,10 +169,7 @@
       </div>
     </div>
 
-    <!-- Search Overlay -->
     <FeaturesSearchOverlay v-model="showSearch" />
-
-    <!-- Auth Modal -->
     <AuthModal v-model="showAuthModal" />
   </header>
 </template>
@@ -217,7 +189,7 @@ const showLangDropdown = ref(false)
 const mobileMenuOpen = ref(false)
 const showAuthModal = ref(false)
 const showUserDropdown = ref(false)
-const cartItems = ref(2) // Mock pour test
+const cartItems = ref(2)
 const showSearch = ref(false)
 
 const navLinks = [
@@ -258,28 +230,28 @@ const handleLogout = async () => {
     await signOut()
     showUserDropdown.value = false
   } catch (error: any) {
-    console.error('❌ Logout error:', error)
+    console.error('Logout error:', error)
   }
 }
 
-// Handle auth modal click (mobile & desktop)
+const handleNavigateToAccount = async () => {
+  showUserDropdown.value = false
+  await navigateTo('/compte')
+}
+
+const handleNavigateToProfil = async () => {
+  showUserDropdown.value = false
+  await navigateTo('/compte/profil')
+}
+
 const handleAuthClick = () => {
-  console.log('🔒 Auth button clicked - Opening AuthModal')
-  console.log('📱 Current device: mobile menu open =', mobileMenuOpen.value)
   showAuthModal.value = true
-  // Close mobile menu if open
   if (mobileMenuOpen.value) {
     closeMobileMenu()
   }
 }
 
 onMounted(() => {
-  console.log('🔍 AUDIT Navigation.vue - onMounted')
-  console.log('🔍 AUDIT Navigation.vue - user.value complet:', user.value)
-  console.log('🔍 AUDIT Navigation.vue - user.value?.sub:', user.value?.sub)
-  console.log('🔍 AUDIT Navigation.vue - user.value?.email:', user.value?.email)
-  console.log('🔍 AUDIT Navigation.vue - user.value?.user_metadata:', user.value?.user_metadata)
-
   window.addEventListener('scroll', handleScroll)
 })
 

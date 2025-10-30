@@ -74,7 +74,7 @@ const isActive = (path: string) => {
 </script>
 
 <style scoped>
-/* Scrollbar personnalisée pour mobile tabs */
+
 .overflow-x-auto::-webkit-scrollbar {
   height: 4px;
 }

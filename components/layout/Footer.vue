@@ -64,11 +64,11 @@
             {{ $t('footer.follow') }}
           </h3>
           <div class="space-y-2">
-            <a href="https://instagram.com/boysandtoys" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-sm font-body hover:text-amber transition-colors duration-300">
+            <a href="https:
               <Instagram class="h-4 w-4 text-amber/60 group-hover:text-amber transition-colors duration-300" />
               <span>Instagram</span>
             </a>
-            <a href="https://x.com/boysandtoys_x" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-sm font-body hover:text-amber transition-colors duration-300">
+            <a href="https:
               <Twitter class="h-4 w-4 text-amber/60 group-hover:text-amber transition-colors duration-300" />
               <span>Twitter/X</span>
             </a>
@@ -209,26 +209,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { Instagram, Twitter, ShieldCheck, Mail, Phone, Settings, Cookie, ArrowUp } from 'lucide-vue-next'
-
-/**
- * Footer - Structure grid responsive mobile/desktop
- *
- * STRUCTURE:
- * - Grid responsive: Mobile grid-cols-10 / Desktop md:grid-cols-12
- * - Colonnes: Branding (4) / Légal (2) / Réseaux (3) / Contact (3)
- * - Trust Badge 18+ centré avec bordure
- * - Paiements acceptés avec icônes brand
- * - Copyright + Cookies inline responsive
- * - Boutons fixes bottom-left
- *
- * DESIGN SYSTEM:
- * - Section: bg-midnight text-white/60 pt-16 pb-6 border-t border-white/10
- * - Container: max-w-7xl mx-auto px-8
- * - Grid: grid-cols-10 md:grid-cols-12 gap-6 md:gap-8 mb-12
- * - Titles: text-sm Sora bold uppercase tracking-wide
- * - Links: text-sm hover:text-amber transition-colors
- * - Icons: Lucide h-4 w-4 text-amber/60
- */
 
 interface FooterLabels {
   tagline: string

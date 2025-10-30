@@ -1,7 +1,7 @@
 export default defineAppConfig({
   nuxt: {
     routeRules: {
-      // Routes publiques
+      
       "/": { prerender: true },
       "/nouveautes": { prerender: true },
       "/best-sellers": { prerender: true },
@@ -13,7 +13,7 @@ export default defineAppConfig({
       "/about": { prerender: true },
       "/legal/**": { prerender: true },
 
-      // Routes protégées (compte)
+      
       "/compte/**": {
         ssr: false,
       },

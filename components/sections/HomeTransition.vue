@@ -18,24 +18,5 @@
 </template>
 
 <script setup lang="ts">
-/**
- * SECTION HOME TRANSITION
- *
- * Section de transition textuelle entre HomeCategories et HomeVisionTrust.
- * Crée une pause visuelle et introduit l'engagement de la marque.
- *
- * STRUCTURE:
- * - Section: bg-chalk py-12 (mobile) / py-16 (desktop)
- * - Container: max-w-4xl mx-auto text-center px-8
- * - Border top: border-t-2 border-amber w-24 mx-auto mb-8
- * - Titre: text-2xl (mobile) / text-3xl (desktop) Sora bold text-midnight mb-4
- * - Description: text-base Manrope text-midnight/70 leading-relaxed
- *
- * DESIGN DA STRICT:
- * - Typographie: Sora (titres) + Manrope (texte)
- * - Couleurs: midnight/amber/chalk uniquement
- * - Espacement: py-12 (mobile) / py-16 (desktop)
- * - Responsive: text-2xl → text-3xl
- * - Transitions: smooth (cohérent avec homepage)
- */
+
 </script>
