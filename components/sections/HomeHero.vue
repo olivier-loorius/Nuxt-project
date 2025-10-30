@@ -61,22 +61,6 @@
 </template>
 
 <script setup lang="ts">
-/**
- * HomeHero - Section Hero avec carrousel
- *
- * FEATURES:
- * - Carrousel 3 slides avec auto-rotation (7s)
- * - Images optimisées avec NuxtImg (WebP)
- * - 2 CTA par slide (Découvrir + Acheter)
- * - Navigation dots cliquables
- * - Gradient overlay pour lisibilité texte
- *
- * DESIGN:
- * - Polices: Sora (titres)
- * - Couleurs: --amber, --midnight, white
- * - Hauteur: 70vh
- * - Transition: opacity 1s
- */
 
 const { t } = useI18n()
 

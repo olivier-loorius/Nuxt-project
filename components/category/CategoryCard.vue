@@ -77,46 +77,6 @@
 </template>
 
 <script setup lang="ts">
-/**
- * CategoryCard - Carte catégorie responsive réutilisable
- *
- * Composant adaptatif avec 3 variants (mobile/tablet/desktop)
- * pour afficher une catégorie produit avec image et titre i18n.
- *
- * PROPS:
- * - category: { slug, image, titleKey }
- * - index: Index pour stagger animation (0-6 pour 7 catégories)
- * - isVisible: Trigger scroll reveal
- * - variant: 'mobile' | 'tablet' | 'desktop'
- *
- * VARIANTS:
- * - mobile: Bandeau horizontal h-24 (image left 2/5 + texte right 3/5)
- * - tablet: Card overlay min-h-[240px] avec col-span dynamique
- * - desktop: Card overlay min-h-[280px] avec col-span dynamique selon index
- *
- * COL-SPAN DESKTOP (grid-cols-12):
- * - Index 0 (Cat1): col-span-4
- * - Index 1 (Cat2): col-span-3
- * - Index 2 (Cat3): col-span-5
- * - Index 3 (Cat4): col-span-3
- * - Index 4 (Cat5): col-span-4
- * - Index 5 (Cat6): col-span-5
- * - Index 6 (Cat7): col-span-7
- *
- * ANIMATIONS:
- * - Scroll reveal: opacity-0 translate-y-4 → opacity-100 translate-y-0
- * - Stagger delay: index * 100ms
- * - Hover: scale-105 sur image (duration-700)
- * - Border: hover:border-amber
- *
- * USAGE:
- * <CategoryCard
- *   :category="{ slug: 'stimulateurs', image: '/images/jouet1.jpg', titleKey: 'categories.cat1' }"
- *   :index="0"
- *   :is-visible="isVisible"
- *   variant="desktop"
- * />
- */
 
 interface Category {
   slug: string
@@ -131,10 +91,6 @@ const props = defineProps<{
   variant: 'mobile' | 'tablet' | 'desktop'
 }>()
 
-/**
- * Col-span dynamique pour tablet (grid-cols-6)
- * Pattern: 3, 3, 6, 6, 3, 3, 3
- */
 const tabletColSpan = computed(() => {
   const tabletSpans = {
     0: 'col-span-3',
@@ -148,10 +104,6 @@ const tabletColSpan = computed(() => {
   return tabletSpans[props.index as keyof typeof tabletSpans] || 'col-span-3'
 })
 
-/**
- * Col-span dynamique pour desktop (grid-cols-12)
- * Pattern masonry original HomeCategories
- */
 const desktopColSpan = computed(() => {
   const desktopSpans = {
     0: 'col-span-4',

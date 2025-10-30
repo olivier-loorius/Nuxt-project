@@ -25,11 +25,7 @@ export default defineNuxtConfig({
   },
 
     supabase: {
-    redirectOptions: {
-      login: '/',
-      callback: '/auth/confirm',
-      exclude: ['/', '/nouveautes', '/best-sellers'], // Pages publiques
-    }
+    redirect: false
   },
 
   i18n: {
@@ -52,7 +48,7 @@ export default defineNuxtConfig({
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',
-      redirectOn: 'root',
+      redirectOn: 'no prefix',
       alwaysRedirect: false,
       fallbackLocale: 'fr'
     }

@@ -1,31 +1,24 @@
 import { createClient } from '@supabase/supabase-js'
 import { config } from 'dotenv'
 
-// Charger les variables d'environnement
 config()
 
 const supabaseUrl = process.env.SUPABASE_URL || ''
 const supabaseKey = process.env.SUPABASE_KEY || ''
 
 if (!supabaseUrl || !supabaseKey) {
-  console.error('❌ SUPABASE_URL et SUPABASE_KEY doivent être définis dans .env')
+  console.error('SUPABASE_URL and SUPABASE_KEY must be defined in .env')
   process.exit(1)
 }
 
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 async function getDatabaseSchema() {
-  console.log('📊 Récupération de la structure de la base de données...\n')
-
   try {
-    // Requête SQL pour obtenir toutes les tables et leurs colonnes
     const { data: tables, error: tablesError } = await supabase.rpc('get_all_tables_info')
 
     if (tablesError) {
-      console.error('❌ Erreur lors de la récupération des tables:', tablesError)
-
-      // Fallback: essayer de lire les tables connues
-      console.log('\n📋 Tentative de lecture des tables publiques...\n')
+      console.error('Error fetching tables:', tablesError)
 
       const { data: publicTables, error: pgError } = await supabase
         .from('information_schema.tables')
@@ -33,26 +26,19 @@ async function getDatabaseSchema() {
         .eq('table_schema', 'public')
 
       if (pgError) {
-        console.error('❌ Erreur:', pgError)
+        console.error('Error:', pgError)
         return
       }
 
-      console.log('Tables trouvées:', publicTables)
       return
     }
 
-    console.log('✅ Structure récupérée avec succès!\n')
-    console.log(JSON.stringify(tables, null, 2))
-
   } catch (error) {
-    console.error('❌ Erreur:', error)
+    console.error('Error:', error)
   }
 }
 
-// Alternative: Requête SQL directe pour obtenir la structure
 async function getDatabaseSchemaSQL() {
-  console.log('📊 Récupération de la structure via SQL...\n')
-
   const query = `
     SELECT
       t.table_name,
@@ -73,19 +59,12 @@ async function getDatabaseSchemaSQL() {
   const { data, error } = await supabase.rpc('exec_sql', { query })
 
   if (error) {
-    console.error('❌ Erreur SQL:', error.message)
-
-    // Dernière tentative: lister manuellement les tables connues
-    console.log('\n📋 Lecture manuelle des tables courantes...\n')
+    console.error('SQL error:', error.message)
     await listKnownTables()
     return
   }
-
-  console.log('✅ Structure SQL récupérée!\n')
-  console.log(JSON.stringify(data, null, 2))
 }
 
-// Liste manuelle des tables pour inspection
 async function listKnownTables() {
   const knownTables = [
     'profiles',
@@ -99,8 +78,6 @@ async function listKnownTables() {
     'reviews'
   ]
 
-  console.log('🔍 Inspection des tables connues:\n')
-
   for (const tableName of knownTables) {
     try {
       const { data, error, count } = await supabase
@@ -108,25 +85,14 @@ async function listKnownTables() {
         .select('*', { count: 'exact', head: true })
 
       if (error) {
-        console.log(`❌ ${tableName}: n'existe pas ou erreur d'accès`)
-      } else {
-        console.log(`✅ ${tableName}: ${count || 0} lignes`)
       }
     } catch (e) {
-      console.log(`❌ ${tableName}: erreur`)
     }
   }
 }
 
-// Fonction principale
 async function main() {
-  console.log('🚀 Début de l\'analyse de la base de données\n')
-  console.log('=' .repeat(60))
-
   await listKnownTables()
-
-  console.log('\n' + '='.repeat(60))
-  console.log('\n✨ Analyse terminée!')
 }
 
 main()

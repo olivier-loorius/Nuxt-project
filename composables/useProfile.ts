@@ -97,7 +97,7 @@ export const useProfile = () => {
       const { error: signOutError } = await supabase.auth.signOut()
 
       if (signOutError) {
-        console.error('Error signing out after account deletion:', signOutError)
+        console.error('Signout error:', signOutError)
       }
 
       return true

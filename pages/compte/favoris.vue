@@ -98,16 +98,7 @@ interface Product {
   image?: string
 }
 
-// Mock data - à remplacer par des vraies données depuis Supabase
-const favorites = ref<Product[]>([
-  // Exemple de produit - décommenter pour tester l'affichage
-  // {
-  //   id: '1',
-  //   name: 'Ensemble Midnight Collection',
-  //   price: 89.99,
-  //   image: 'https://placehold.co/400x400/f5f5f0/1a1d2e?text=Product'
-  // }
-])
+const favorites = ref<Product[]>([])
 
 const formatPrice = (price: number) => {
   return new Intl.NumberFormat('fr-FR', {
@@ -118,11 +109,8 @@ const formatPrice = (price: number) => {
 
 const removeFavorite = (productId: string) => {
   favorites.value = favorites.value.filter(p => p.id !== productId)
-  // TODO: Supprimer de la base de données Supabase
 }
 
 const addToCart = (productId: string) => {
-  // TODO: Ajouter au panier
-  console.log('Add to cart:', productId)
 }
 </script>

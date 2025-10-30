@@ -89,7 +89,7 @@ const userDisplayName = computed(() => {
   return 'Utilisateur'
 })
 
-// Mock data - à remplacer par des vraies données
+
 const orderCount = ref(0)
 const favoritesCount = ref(0)
 const addressCount = ref(0)

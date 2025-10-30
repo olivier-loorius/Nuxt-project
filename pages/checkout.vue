@@ -174,7 +174,7 @@ const handleSubmit = async () => {
     })
 
     if (result.success) {
-      // Redirection vers la page de paiement ou confirmation
+      
       await navigateTo('/checkout/payment')
     } else {
       error.value = result.error
@@ -186,10 +186,8 @@ const handleSubmit = async () => {
   }
 }
 
-// Redirection si pas connecté
 watchEffect(() => {
   if (!user.value) {
-    navigateTo('/auth/login')
   }
 })
 </script>

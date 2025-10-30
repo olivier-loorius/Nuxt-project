@@ -48,36 +48,12 @@
 <script setup lang="ts">
 import type { Product } from '~/types/product'
 
-/**
- * ProductCard - Carte produit réutilisable
- *
- * PROPS:
- * - product: objet Product avec name, price, badge, image, slug
- *
- * FEATURES:
- * - Image optimisée avec NuxtImg (WebP, lazy-loading, responsive)
- * - Hover: zoom image + bordure amber
- * - Badge personnalisable
- * - Bouton CTA "Ajouter au panier"
- * - Navigation vers page produit
- *
- * DESIGN:
- * - Polices: Sora (titres), Manrope (prix)
- * - Couleurs: --amber, --midnight, --concrete
- * - Aspect ratio: 3:4 (portrait)
- */
-
 const props = defineProps<{
   product: Product
 }>()
 
 const { locale } = useI18n()
 
-/**
- * Formater le prix en euros (i18n-aware)
- * FR: 49,90 €
- * EN: €49.90
- */
 const formatPrice = (price: number): string => {
   return new Intl.NumberFormat(locale.value === 'fr' ? 'fr-FR' : 'en-GB', {
     style: 'currency',

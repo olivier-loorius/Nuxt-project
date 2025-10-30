@@ -287,21 +287,10 @@ const handleSubmit = async () => {
         newsletter: newsletter.value
       }
 
-      console.log('🔍 AUDIT AuthModal - Metadata AVANT signUp:', metadata)
-      console.log('🔍 AUDIT AuthModal - Email:', email.value)
-
       const result = await signUp(email.value, password.value, metadata)
-
-      console.log('🔍 AUDIT AuthModal - Data APRÈS signUp:', result)
-
       closeModal()
     } else {
-      console.log('🔍 AUDIT AuthModal - Mode login, email:', email.value)
-
       const result = await signIn(email.value, password.value)
-
-      console.log('🔍 AUDIT AuthModal - Session APRÈS signIn:', result)
-
       closeModal()
     }
   } catch (err: any) {

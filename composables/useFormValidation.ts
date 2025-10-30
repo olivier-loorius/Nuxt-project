@@ -66,7 +66,6 @@ export const validatePhone = (phone: string): PhoneValidation => {
     }
   }
 
-  // Format international : +33... ou 00... ou format national français
   const phoneRegex = /^(?:(?:\+|00)33|0)[1-9](?:[0-9]{8})$/
   const cleanPhone = phone.replace(/[\s.-]/g, '')
   const isValid = phoneRegex.test(cleanPhone)

@@ -58,19 +58,6 @@
 </template>
 
 <script setup lang="ts">
-/**
- * HomeNewsletter - Inline Grid Layout
- *
- * DESIGN:
- * - Section: bg-midnight py-12
- * - Grid: lg:grid-cols-5 gap-8 items-center max-w-7xl mx-auto px-6
- * - Gauche (col-span-2): h2 text-2xl Sora semibold text-white mb-2, p text-sm text-chalk/80
- * - Droite (col-span-3): form flex gap-2 mb-3
- * - Input: bg-white/10 border border-white/20 text-white placeholder-white/50 px-4 py-3 rounded-md flex-1
- * - Button: bg-amber text-midnight px-6 py-3 rounded-md font-semibold hover:bg-copper
- * - Legal: text-xs text-chalk/60
- * - Mobile: stack gap-6
- */
 
 const { t } = useI18n()
 
