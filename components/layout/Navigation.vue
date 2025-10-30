@@ -178,7 +178,7 @@
 import { Search, Heart, ShoppingCart, User, Menu, Globe, ChevronDown, LayoutDashboard, UserCircle, LogOut } from 'lucide-vue-next'
 import { useAuth } from '~/composables/useAuth'
 
-const { locale, setLocale } = useI18n()
+const { t, locale, setLocale } = useI18n()
 const route = useRoute()
 
 const user = useSupabaseUser()
