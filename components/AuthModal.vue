@@ -12,7 +12,7 @@
         <button
           type="button"
           @click="closeModal"
-          class="absolute top-4 right-4 p-2 hover:bg-midnight/5 rounded-lg transition-colors duration-300 z-10"
+          class="absolute top-4 right-4 p-2 hover:bg-midnight/5 rounded-lg transition-colors duration-300 z-10 focus-visible:ring-2 focus-visible:ring-amber"
           :aria-label="$t('auth.close')"
         >
           <X class="h-4 w-4 text-midnight/60 hover:text-midnight" stroke-width="1.5" />
@@ -39,7 +39,7 @@
               type="email"
               required
               :placeholder="$t('auth.email_placeholder')"
-              class="btn-beveled w-full px-4 py-3 border-2 border-concrete bg-white focus:border-amber focus:ring-2 focus:ring-amber/20 font-manrope text-midnight placeholder:text-midnight/40 transition-all duration-300 outline-none"
+              class="btn-beveled w-full px-4 py-3 border-2 border-concrete bg-white focus:border-amber focus:ring-2 focus:ring-amber/20 focus-visible:ring-2 focus-visible:ring-amber font-manrope text-midnight placeholder:text-midnight/40 transition-all duration-300 outline-none"
               :class="{ 'border-red-500 focus:border-red-500 focus:ring-red-500/20': emailTouched && !emailValid }"
               @blur="emailTouched = true"
             />
@@ -60,12 +60,12 @@
                 :type="showPassword ? 'text' : 'password'"
                 required
                 :placeholder="mode === 'login' ? $t('auth.password_placeholder') : $t('auth.password_create_placeholder')"
-                class="btn-beveled w-full px-4 py-3 pr-12 border-2 border-concrete bg-white focus:border-amber focus:ring-2 focus:ring-amber/20 font-manrope text-midnight placeholder:text-midnight/40 transition-all duration-300 outline-none"
+                class="btn-beveled w-full px-4 py-3 pr-12 border-2 border-concrete bg-white focus:border-amber focus:ring-2 focus:ring-amber/20 focus-visible:ring-2 focus-visible:ring-amber font-manrope text-midnight placeholder:text-midnight/40 transition-all duration-300 outline-none"
               />
               <button
                 type="button"
                 @click="showPassword = !showPassword"
-                class="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-midnight/5 rounded transition-colors duration-300"
+                class="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-midnight/5 rounded transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-amber"
                 :aria-label="showPassword ? $t('auth.hide_password') : $t('auth.show_password')"
               >
                 <Eye v-if="!showPassword" class="h-4 w-4 text-midnight/40" stroke-width="1.5" />
@@ -132,14 +132,14 @@
                 :type="showPassword ? 'text' : 'password'"
                 required
                 :placeholder="$t('auth.password_confirm_placeholder')"
-                class="btn-beveled w-full px-4 py-3 pr-12 border-2 border-concrete bg-white focus:border-amber focus:ring-2 focus:ring-amber/20 font-manrope text-midnight placeholder:text-midnight/40 transition-all duration-300 outline-none"
+                class="btn-beveled w-full px-4 py-3 pr-12 border-2 border-concrete bg-white focus:border-amber focus:ring-2 focus:ring-amber/20 focus-visible:ring-2 focus-visible:ring-amber font-manrope text-midnight placeholder:text-midnight/40 transition-all duration-300 outline-none"
                 :class="{ 'border-red-500 focus:border-red-500 focus:ring-red-500/20': passwordConfirmTouched && !passwordMatch }"
                 @blur="passwordConfirmTouched = true"
               />
               <button
                 type="button"
                 @click="showPassword = !showPassword"
-                class="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-midnight/5 rounded transition-colors duration-300"
+                class="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-midnight/5 rounded transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-amber"
                 :aria-label="showPassword ? $t('auth.hide_password') : $t('auth.show_password')"
               >
                 <Eye v-if="!showPassword" class="h-4 w-4 text-midnight/40" stroke-width="1.5" />
@@ -158,7 +158,7 @@
               v-model="confirm18Plus"
               type="checkbox"
               required
-              class="w-4 h-4 mt-0.5 accent-amber cursor-pointer"
+              class="w-4 h-4 mt-0.5 accent-amber cursor-pointer focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2"
             />
             <div class="flex-1">
               <div class="flex items-center gap-2">
@@ -178,7 +178,7 @@
               id="auth-newsletter"
               v-model="newsletter"
               type="checkbox"
-              class="w-4 h-4 accent-amber cursor-pointer"
+              class="w-4 h-4 accent-amber cursor-pointer focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2"
             />
             <span class="text-sm font-manrope text-midnight/70 group-hover:text-midnight transition-colors duration-300">
               {{ $t('auth.newsletter_text') }}
@@ -192,7 +192,7 @@
           <button
             type="submit"
             :disabled="loading || !canSubmit"
-            class="btn-beveled w-full px-6 py-3 border-2 border-amber bg-amber text-midnight font-sora font-semibold hover:bg-copper disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2"
+            class="btn-beveled w-full px-6 py-3 border-2 border-amber bg-amber text-midnight font-sora font-semibold hover:bg-copper disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2 focus-visible:ring-2 focus-visible:ring-amber"
           >
             <Loader2 v-if="loading" class="h-4 w-4 animate-spin" stroke-width="1.5" />
             <template v-else>
@@ -207,7 +207,7 @@
               <button
                 type="button"
                 @click="toggleMode"
-                class="text-amber font-semibold hover:underline transition-all duration-300 ml-1"
+                class="text-amber font-semibold hover:underline transition-all duration-300 ml-1 focus-visible:ring-2 focus-visible:ring-amber rounded"
               >
                 {{ mode === 'login' ? $t('auth.register') : $t('auth.login') }}
               </button>

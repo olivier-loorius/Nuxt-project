@@ -26,13 +26,14 @@
             :type="showPassword ? 'text' : 'password'"
             placeholder="Entrez votre mot de passe"
             required
-            class="btn-beveled w-full border-2 border-concrete px-4 py-3 pr-12 focus:outline-none bg-white text-midnight focus:ring-2 focus:ring-amber"
+            class="btn-beveled w-full border-2 border-concrete px-4 py-3 pr-12 focus:outline-none bg-white text-midnight focus:ring-2 focus:ring-amber focus-visible:ring-2 focus-visible:ring-amber"
             @keyup.enter="handleConfirm"
           />
           <button
             type="button"
             @click="showPassword = !showPassword"
-            class="absolute right-3 top-1/2 -translate-y-1/2 text-midnight/50 hover:text-midnight transition-colors"
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-midnight/50 hover:text-midnight transition-colors focus-visible:ring-2 focus-visible:ring-amber rounded"
+            aria-label="Afficher ou masquer le mot de passe"
           >
             <Eye v-if="!showPassword" class="w-5 h-5" />
             <EyeOff v-else class="w-5 h-5" />
@@ -44,7 +45,7 @@
         <button
           type="button"
           @click="handleCancel"
-          class="flex-1 btn-beveled border-2 border-midnight bg-white text-midnight hover:bg-concrete px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300"
+          class="flex-1 btn-beveled border-2 border-midnight bg-white text-midnight hover:bg-concrete px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 focus-visible:ring-2 focus-visible:ring-amber"
         >
           Annuler
         </button>
@@ -52,7 +53,7 @@
           type="button"
           @click="handleConfirm"
           :disabled="!password.trim()"
-          class="flex-1 btn-beveled border-2 border-red-600 bg-red-600 text-white hover:bg-red-700 hover:border-red-700 px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+          class="flex-1 btn-beveled border-2 border-red-600 bg-red-600 text-white hover:bg-red-700 hover:border-red-700 px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-amber"
         >
           Supprimer
         </button>

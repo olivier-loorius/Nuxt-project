@@ -36,7 +36,7 @@
                 type="email"
                 readonly
                 disabled
-                class="btn-beveled w-full bg-concrete/20 border-2 border-concrete text-midnight/50 px-4 py-3 cursor-not-allowed focus:outline-none"
+                class="btn-beveled w-full bg-concrete/20 border-2 border-concrete text-midnight/50 px-4 py-3 cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-amber"
               />
               <p class="text-xs text-midnight/50 mt-1">
                 L'email ne peut pas être modifié
@@ -54,12 +54,13 @@
                   :type="showPassword ? 'text' : 'password'"
                   readonly
                   disabled
-                  class="btn-beveled w-full bg-concrete/20 border-2 border-concrete text-midnight/50 px-4 py-3 pr-12 cursor-not-allowed focus:outline-none"
+                  class="btn-beveled w-full bg-concrete/20 border-2 border-concrete text-midnight/50 px-4 py-3 pr-12 cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-amber"
                 />
                 <button
                   type="button"
                   @click="showPassword = !showPassword"
-                  class="absolute right-3 top-1/2 -translate-y-1/2 text-midnight/50 hover:text-midnight transition-colors"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-midnight/50 hover:text-midnight transition-colors focus-visible:ring-2 focus-visible:ring-amber rounded"
+                  aria-label="Afficher ou masquer le mot de passe"
                 >
                   <Eye v-if="!showPassword" class="w-5 h-5" />
                   <EyeOff v-else class="w-5 h-5" />
@@ -86,7 +87,7 @@
                   :class="[
                     'btn-beveled w-full border-2 border-concrete px-4 py-3 focus:outline-none',
                     isEditing
-                      ? 'bg-white text-midnight focus:ring-2 focus:ring-amber'
+                      ? 'bg-white text-midnight focus:ring-2 focus:ring-amber focus-visible:ring-2 focus-visible:ring-amber'
                       : 'bg-concrete/20 text-midnight/50 cursor-not-allowed'
                   ]"
                   placeholder="Jean"
@@ -106,7 +107,7 @@
                   :class="[
                     'btn-beveled w-full border-2 border-concrete px-4 py-3 focus:outline-none',
                     isEditing
-                      ? 'bg-white text-midnight focus:ring-2 focus:ring-amber'
+                      ? 'bg-white text-midnight focus:ring-2 focus:ring-amber focus-visible:ring-2 focus-visible:ring-amber'
                       : 'bg-concrete/20 text-midnight/50 cursor-not-allowed'
                   ]"
                   placeholder="Dupont"
@@ -125,7 +126,7 @@
                   :class="[
                     'btn-beveled w-full border-2 border-concrete px-4 py-3 focus:outline-none',
                     isEditing
-                      ? 'bg-white text-midnight focus:ring-2 focus:ring-amber'
+                      ? 'bg-white text-midnight focus:ring-2 focus:ring-amber focus-visible:ring-2 focus-visible:ring-amber'
                       : 'bg-concrete/20 text-midnight/50 cursor-not-allowed'
                   ]"
                 />
@@ -148,7 +149,7 @@
           <button
             type="button"
             @click="enterEditMode"
-            class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-copper px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300"
+            class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-copper px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 focus-visible:ring-2 focus-visible:ring-amber"
           >
             Modifier
           </button>
@@ -158,7 +159,7 @@
           <button
             type="submit"
             :disabled="saving"
-            class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-copper px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-copper px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-amber"
           >
             {{ saving ? "Enregistrement..." : "Enregistrer" }}
           </button>
@@ -166,7 +167,7 @@
             type="button"
             @click="cancelEdit"
             :disabled="saving"
-            class="btn-beveled border-2 border-concrete bg-white text-midnight hover:bg-concrete/20 px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            class="btn-beveled border-2 border-concrete bg-white text-midnight hover:bg-concrete/20 px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-amber"
           >
             Annuler
           </button>
@@ -178,7 +179,7 @@
       <button
         type="button"
         @click="showDeleteModal = true"
-        class="text-xs text-red-600 hover:text-red-700 underline font-manrope transition-colors duration-200"
+        class="text-xs text-red-600 hover:text-red-700 underline font-manrope transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-amber rounded"
       >
         Supprimer mon compte
       </button>
