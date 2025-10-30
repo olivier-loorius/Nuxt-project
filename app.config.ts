@@ -16,7 +16,6 @@ export default defineAppConfig({
       // Routes protégées (compte)
       "/compte/**": {
         ssr: false,
-        middleware: ["auth"],
       },
     },
   },
