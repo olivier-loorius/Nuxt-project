@@ -189,7 +189,7 @@ const handleSubmit = async () => {
 // Redirection si pas connecté
 watchEffect(() => {
   if (!user.value) {
-    navigateTo('/auth/login')
+    // TODO: ouvrir AuthModal
   }
 })
 </script>

@@ -25,11 +25,7 @@ export default defineNuxtConfig({
   },
 
     supabase: {
-    redirectOptions: {
-      login: '/',
-      callback: '/auth/confirm',
-      exclude: ['/', '/nouveautes', '/best-sellers'], // Pages publiques
-    }
+    redirect: false
   },
 
   i18n: {

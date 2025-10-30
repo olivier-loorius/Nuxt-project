@@ -171,7 +171,8 @@
       "Bash(if [ -d \"components/ui/input\" ])",
       "Bash(then echo \"components/ui/input existe\")",
       "Bash(else mkdir -p components/ui/input)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(mv:*)"
     ],
     "deny": [],
     "ask": []
