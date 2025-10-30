@@ -64,11 +64,11 @@
             {{ $t('footer.follow') }}
           </h3>
           <div class="space-y-2">
-            <a href="https:
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-sm font-body hover:text-amber transition-colors duration-300 group">
               <Instagram class="h-4 w-4 text-amber/60 group-hover:text-amber transition-colors duration-300" />
               <span>Instagram</span>
             </a>
-            <a href="https:
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-sm font-body hover:text-amber transition-colors duration-300 group">
               <Twitter class="h-4 w-4 text-amber/60 group-hover:text-amber transition-colors duration-300" />
               <span>Twitter/X</span>
             </a>
