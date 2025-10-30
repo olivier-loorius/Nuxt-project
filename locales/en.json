@@ -239,7 +239,25 @@
     "login_button": "Log in",
     "register_button": "Sign up",
     "no_account": "Don't have an account?",
-    "have_account": "Already have an account?"
+    "have_account": "Already have an account?",
+    "errors": {
+      "required_fields": "Please fill in all required fields",
+      "password_mismatch_error": "Passwords do not match",
+      "age_confirm_required": "You must confirm that you are 18 years or older",
+      "unknown": "An error occurred"
+    }
+  },
+  "modals": {
+    "success": {
+      "close": "Close"
+    },
+    "confirm": {
+      "password_label": "Password",
+      "password_placeholder": "Enter your password",
+      "password_aria": "Show or hide password",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    }
   },
   "compte": {
     "menu": {
@@ -260,11 +278,27 @@
       "subtitle": "Manage your personal information",
       "personal_info": "Personal information",
       "email": "Email",
+      "email_readonly": "Email cannot be changed",
+      "password": "Password",
+      "password_readonly": "Password cannot be changed here",
+      "password_aria": "Show or hide password",
       "first_name": "First name",
+      "first_name_placeholder": "John",
       "last_name": "Last name",
+      "last_name_placeholder": "Doe",
+      "birth_date": "Date of birth",
       "phone": "Phone",
-      "save": "Save",
-      "cancel": "Cancel"
+      "edit_button": "Edit",
+      "save_button": "Save",
+      "saving_button": "Saving...",
+      "cancel_button": "Cancel",
+      "delete_account": "Delete my account",
+      "success_title": "Profile updated",
+      "success_message": "Your information has been saved successfully",
+      "delete_success_title": "Account deleted",
+      "delete_success_message": "Your account has been deleted successfully",
+      "delete_confirm_title": "Delete your account",
+      "delete_confirm_message": "Are you sure you want to permanently delete your account? This action is irreversible."
     },
     "commandes": {
       "title": "My orders",

@@ -223,6 +223,7 @@
 import { Mail, Lock, Eye, EyeOff, Check, X, ShieldCheck, Loader2, ArrowRight } from 'lucide-vue-next'
 import { useAuth, validateEmail, validatePassword, getStrengthLabel } from '~/composables/useAuth'
 
+const { t } = useI18n()
 const modelValue = defineModel<boolean>({ default: false })
 
 const closeModal = () => {
@@ -269,16 +270,16 @@ const handleSubmit = async () => {
 
   try {
     if (!canSubmit.value) {
-      throw new Error('Veuillez remplir tous les champs requis')
+      throw new Error(t('auth.errors.required_fields'))
     }
 
     if (mode.value === 'register') {
       if (!passwordMatch.value) {
-        throw new Error('Les mots de passe ne correspondent pas')
+        throw new Error(t('auth.errors.password_mismatch_error'))
       }
 
       if (!confirm18Plus.value) {
-        throw new Error('Vous devez confirmer avoir 18 ans ou plus')
+        throw new Error(t('auth.errors.age_confirm_required'))
       }
 
       const metadata = {
@@ -304,7 +305,7 @@ const handleSubmit = async () => {
       closeModal()
     }
   } catch (err: any) {
-    error.value = err.message || 'Une erreur est survenue'
+    error.value = err.message || t('auth.errors.unknown')
   } finally {
     loading.value = false
   }

@@ -32,7 +32,7 @@
           @click="close"
           class="w-full btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-copper px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300"
         >
-          Fermer
+          {{ $t('modals.success.close') }}
         </button>
       </DialogFooter>
     </DialogContent>

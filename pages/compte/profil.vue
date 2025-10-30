@@ -1,6 +1,6 @@
 <template>
   <div class="container max-w-3xl mx-auto px-4 md:px-6 py-8">
-    <h1 class="text-3xl font-sora font-bold text-midnight mb-8">Mon profil</h1>
+    <h1 class="text-3xl font-sora font-bold text-midnight mb-8">{{ $t('compte.profil.title') }}</h1>
 
     <div v-if="loading" class="bg-chalk p-6 md:p-8">
       <div class="space-y-6 animate-pulse">
@@ -28,7 +28,7 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="md:col-span-2">
               <label for="email" class="block font-sora font-semibold text-sm text-midnight mb-2">
-                Email
+                {{ $t('compte.profil.email') }}
               </label>
               <input
                 id="email"
@@ -39,13 +39,13 @@
                 class="btn-beveled w-full bg-concrete/20 border-2 border-concrete text-midnight/50 px-4 py-3 cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-amber"
               />
               <p class="text-xs text-midnight/50 mt-1">
-                L'email ne peut pas être modifié
+                {{ $t('compte.profil.email_readonly') }}
               </p>
             </div>
 
             <div class="md:col-span-2">
               <label for="password" class="block font-sora font-semibold text-sm text-midnight mb-2">
-                Mot de passe
+                {{ $t('compte.profil.password') }}
               </label>
               <div class="relative">
                 <input
@@ -60,14 +60,14 @@
                   type="button"
                   @click="showPassword = !showPassword"
                   class="absolute right-3 top-1/2 -translate-y-1/2 text-midnight/50 hover:text-midnight transition-colors focus-visible:ring-2 focus-visible:ring-amber rounded"
-                  aria-label="Afficher ou masquer le mot de passe"
+                  :aria-label="$t('compte.profil.password_aria')"
                 >
                   <Eye v-if="!showPassword" class="w-5 h-5" />
                   <EyeOff v-else class="w-5 h-5" />
                 </button>
               </div>
               <p class="text-xs text-midnight/50 mt-1">
-                Le mot de passe ne peut pas être modifié ici
+                {{ $t('compte.profil.password_readonly') }}
               </p>
             </div>
           </div>
@@ -76,7 +76,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label for="firstName" class="block font-sora font-semibold text-sm text-midnight mb-2">
-                  Prénom <span class="text-alert">*</span>
+                  {{ $t('compte.profil.first_name') }} <span class="text-alert">*</span>
                 </label>
                 <input
                   id="firstName"
@@ -90,13 +90,13 @@
                       ? 'bg-white text-midnight focus:ring-2 focus:ring-amber focus-visible:ring-2 focus-visible:ring-amber'
                       : 'bg-concrete/20 text-midnight/50 cursor-not-allowed'
                   ]"
-                  placeholder="Jean"
+                  :placeholder="$t('compte.profil.first_name_placeholder')"
                 />
               </div>
 
               <div>
                 <label for="lastName" class="block font-sora font-semibold text-sm text-midnight mb-2">
-                  Nom <span class="text-alert">*</span>
+                  {{ $t('compte.profil.last_name') }} <span class="text-alert">*</span>
                 </label>
                 <input
                   id="lastName"
@@ -110,13 +110,13 @@
                       ? 'bg-white text-midnight focus:ring-2 focus:ring-amber focus-visible:ring-2 focus-visible:ring-amber'
                       : 'bg-concrete/20 text-midnight/50 cursor-not-allowed'
                   ]"
-                  placeholder="Dupont"
+                  :placeholder="$t('compte.profil.last_name_placeholder')"
                 />
               </div>
 
               <div class="md:col-span-2">
                 <label for="birthDate" class="block font-sora font-semibold text-sm text-midnight mb-2">
-                  Date de naissance
+                  {{ $t('compte.profil.birth_date') }}
                 </label>
                 <input
                   id="birthDate"
@@ -134,7 +134,7 @@
 
               <div class="md:col-span-2">
                 <label for="phone" class="block font-sora font-semibold text-sm text-midnight mb-2">
-                  Téléphone
+                  {{ $t('compte.profil.phone') }}
                 </label>
                 <PhoneInput
                   v-model="formData.phone"
@@ -151,7 +151,7 @@
             @click="enterEditMode"
             class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-copper px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 focus-visible:ring-2 focus-visible:ring-amber"
           >
-            Modifier
+            {{ $t('compte.profil.edit_button') }}
           </button>
         </div>
 
@@ -161,7 +161,7 @@
             :disabled="saving"
             class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-copper px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-amber"
           >
-            {{ saving ? "Enregistrement..." : "Enregistrer" }}
+            {{ saving ? $t('compte.profil.saving_button') : $t('compte.profil.save_button') }}
           </button>
           <button
             type="button"
@@ -169,7 +169,7 @@
             :disabled="saving"
             class="btn-beveled border-2 border-concrete bg-white text-midnight hover:bg-concrete/20 px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-amber"
           >
-            Annuler
+            {{ $t('compte.profil.cancel_button') }}
           </button>
         </div>
       </form>
@@ -181,26 +181,26 @@
         @click="showDeleteModal = true"
         class="text-xs text-red-600 hover:text-red-700 underline font-manrope transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-amber rounded"
       >
-        Supprimer mon compte
+        {{ $t('compte.profil.delete_account') }}
       </button>
     </div>
 
     <SuccessModal
       v-model="showSuccessModal"
-      title="Profil mis à jour"
-      message="Vos informations ont été enregistrées avec succès"
+      :title="$t('compte.profil.success_title')"
+      :message="$t('compte.profil.success_message')"
     />
 
     <SuccessModal
       v-model="showDeleteSuccessModal"
-      title="Compte supprimé"
-      message="Votre compte a été supprimé avec succès"
+      :title="$t('compte.profil.delete_success_title')"
+      :message="$t('compte.profil.delete_success_message')"
     />
 
     <ConfirmModal
       v-model="showDeleteModal"
-      title="Supprimer votre compte"
-      message="Êtes-vous sûr de vouloir supprimer définitivement votre compte ? Cette action est irréversible."
+      :title="$t('compte.profil.delete_confirm_title')"
+      :message="$t('compte.profil.delete_confirm_message')"
       @confirm="handleDeleteAccount"
     />
   </div>

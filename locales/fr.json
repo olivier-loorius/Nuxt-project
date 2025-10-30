@@ -239,7 +239,25 @@
     "login_button": "Se connecter",
     "register_button": "S'inscrire",
     "no_account": "Pas encore de compte ?",
-    "have_account": "Vous avez déjà un compte ?"
+    "have_account": "Vous avez déjà un compte ?",
+    "errors": {
+      "required_fields": "Veuillez remplir tous les champs requis",
+      "password_mismatch_error": "Les mots de passe ne correspondent pas",
+      "age_confirm_required": "Vous devez confirmer avoir 18 ans ou plus",
+      "unknown": "Une erreur est survenue"
+    }
+  },
+  "modals": {
+    "success": {
+      "close": "Fermer"
+    },
+    "confirm": {
+      "password_label": "Mot de passe",
+      "password_placeholder": "Entrez votre mot de passe",
+      "password_aria": "Afficher ou masquer le mot de passe",
+      "cancel": "Annuler",
+      "delete": "Supprimer"
+    }
   },
   "compte": {
     "menu": {
@@ -260,11 +278,27 @@
       "subtitle": "Gérez vos informations personnelles",
       "personal_info": "Informations personnelles",
       "email": "Email",
+      "email_readonly": "L'email ne peut pas être modifié",
+      "password": "Mot de passe",
+      "password_readonly": "Le mot de passe ne peut pas être modifié ici",
+      "password_aria": "Afficher ou masquer le mot de passe",
       "first_name": "Prénom",
+      "first_name_placeholder": "Jean",
       "last_name": "Nom",
+      "last_name_placeholder": "Dupont",
+      "birth_date": "Date de naissance",
       "phone": "Téléphone",
-      "save": "Enregistrer",
-      "cancel": "Annuler"
+      "edit_button": "Modifier",
+      "save_button": "Enregistrer",
+      "saving_button": "Enregistrement...",
+      "cancel_button": "Annuler",
+      "delete_account": "Supprimer mon compte",
+      "success_title": "Profil mis à jour",
+      "success_message": "Vos informations ont été enregistrées avec succès",
+      "delete_success_title": "Compte supprimé",
+      "delete_success_message": "Votre compte a été supprimé avec succès",
+      "delete_confirm_title": "Supprimer votre compte",
+      "delete_confirm_message": "Êtes-vous sûr de vouloir supprimer définitivement votre compte ? Cette action est irréversible."
     },
     "commandes": {
       "title": "Mes commandes",

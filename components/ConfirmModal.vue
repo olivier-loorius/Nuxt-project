@@ -17,14 +17,14 @@
 
       <div class="space-y-2 pb-4">
         <label for="password" class="block font-sora font-semibold text-sm text-midnight">
-          Mot de passe <span class="text-red-600">*</span>
+          {{ $t('modals.confirm.password_label') }} <span class="text-red-600">*</span>
         </label>
         <div class="relative">
           <input
             id="password"
             v-model="password"
             :type="showPassword ? 'text' : 'password'"
-            placeholder="Entrez votre mot de passe"
+            :placeholder="$t('modals.confirm.password_placeholder')"
             required
             class="btn-beveled w-full border-2 border-concrete px-4 py-3 pr-12 focus:outline-none bg-white text-midnight focus:ring-2 focus:ring-amber focus-visible:ring-2 focus-visible:ring-amber"
             @keyup.enter="handleConfirm"
@@ -33,7 +33,7 @@
             type="button"
             @click="showPassword = !showPassword"
             class="absolute right-3 top-1/2 -translate-y-1/2 text-midnight/50 hover:text-midnight transition-colors focus-visible:ring-2 focus-visible:ring-amber rounded"
-            aria-label="Afficher ou masquer le mot de passe"
+            :aria-label="$t('modals.confirm.password_aria')"
           >
             <Eye v-if="!showPassword" class="w-5 h-5" />
             <EyeOff v-else class="w-5 h-5" />
@@ -47,7 +47,7 @@
           @click="handleCancel"
           class="flex-1 btn-beveled border-2 border-midnight bg-white text-midnight hover:bg-concrete px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 focus-visible:ring-2 focus-visible:ring-amber"
         >
-          Annuler
+          {{ $t('modals.confirm.cancel') }}
         </button>
         <button
           type="button"
@@ -55,7 +55,7 @@
           :disabled="!password.trim()"
           class="flex-1 btn-beveled border-2 border-red-600 bg-red-600 text-white hover:bg-red-700 hover:border-red-700 px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-amber"
         >
-          Supprimer
+          {{ $t('modals.confirm.delete') }}
         </button>
       </DialogFooter>
     </DialogContent>
