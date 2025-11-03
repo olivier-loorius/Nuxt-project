@@ -191,7 +191,10 @@
       "Bash(tee:*)",
       "Bash(cp:*)",
       "Bash(node scripts/optimize-images.js:*)",
-      "Bash(node scripts/optimize-images.cjs:*)"
+      "Bash(node scripts/optimize-images.cjs:*)",
+      "Bash(node scripts/recompress-heavy.cjs:*)",
+      "Bash(sharp-cli:*)",
+      "Bash(node -e:*)"
     ],
     "deny": [],
     "ask": []
