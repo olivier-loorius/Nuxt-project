@@ -64,13 +64,11 @@
 
 <script setup lang="ts">
 import { AlertCircle, Eye, EyeOff } from 'lucide-vue-next'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogTitle,
-} from '~/components/ui/dialog'
+import Dialog from '~/components/ui/dialog/Dialog.vue'
+import DialogContent from '~/components/ui/dialog/DialogContent.vue'
+import DialogDescription from '~/components/ui/dialog/DialogDescription.vue'
+import DialogFooter from '~/components/ui/dialog/DialogFooter.vue'
+import DialogTitle from '~/components/ui/dialog/DialogTitle.vue'
 
 const props = defineProps<{
   modelValue: boolean
