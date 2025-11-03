@@ -69,7 +69,7 @@ const currentSlide = ref(0)
 const products = [
   {
     name: 'Lingerie',
-    image: '/images/stephen-andrews-Dp9u1FbGgPA-unsplash.jpg',
+    image: '/images/stephen-andrews-Dp9u1FbGgPA-unsplash.webp',
     titleKey: 'hero.slide1.title',
     descKey: 'hero.slide1.description',
     ctaKey: 'hero.slide1.cta',
@@ -78,7 +78,7 @@ const products = [
   },
   {
     name: 'Accessoires',
-    image: '/images/andrey-matveev-SPG0SznDi8c-unsplash.jpg',
+    image: '/images/andrey-matveev-SPG0SznDi8c-unsplash.webp',
     titleKey: 'hero.slide2.title',
     descKey: 'hero.slide2.description',
     ctaKey: 'hero.slide2.cta',
@@ -87,7 +87,7 @@ const products = [
   },
   {
     name: 'Nouveautés',
-    image: '/images/stephen-andrews-Dp9u1FbGgPA-unsplash.jpg',
+    image: '/images/stephen-andrews-Dp9u1FbGgPA-unsplash.webp',
     titleKey: 'hero.slide3.title',
     descKey: 'hero.slide3.description',
     ctaKey: 'hero.slide3.cta',
