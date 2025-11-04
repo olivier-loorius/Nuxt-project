@@ -53,8 +53,8 @@
                 class="icon-btn relative"
                 :aria-label="$t('nav.account')"
               >
-                <!-- Bordure amber coins coupés -->
-                <div class="absolute inset-0 border-2 border-amber/60" style="clip-path: polygon(0 6px, 6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%)"></div>
+                <!-- Bordure copper coins coupés -->
+                <div class="absolute inset-0 border-2 border-[var(--copper)]" style="clip-path: polygon(0 6px, 6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%)"></div>
                 <!-- Icône User -->
                 <User :size="20" class="text-amber" />
                 <!-- Point vert de statut -->
@@ -148,8 +148,8 @@
             <User :size="20" />
           </button>
           <button v-else class="icon-btn relative" :aria-label="$t('nav.account')" @click="navigateTo('/compte')">
-            <!-- Bordure amber coins coupés -->
-            <div class="absolute inset-0 border-2 border-amber/60" style="clip-path: polygon(0 6px, 6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%)"></div>
+            <!-- Bordure copper coins coupés -->
+            <div class="absolute inset-0 border-2 border-[var(--copper)]" style="clip-path: polygon(0 6px, 6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%)"></div>
             <!-- Icône User -->
             <User :size="20" class="text-amber" />
             <!-- Point vert de statut -->
