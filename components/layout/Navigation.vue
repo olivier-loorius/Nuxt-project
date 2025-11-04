@@ -50,18 +50,15 @@
             <div v-else class="hidden lg:block relative">
               <button
                 @click="showUserDropdown = !showUserDropdown"
-                class="relative"
+                class="icon-btn relative"
                 :aria-label="$t('nav.account')"
               >
-                <!-- Wrapper bordure amber avec coins coupés -->
-                <div class="relative inline-block p-0.5 bg-amber/30" style="clip-path: polygon(0 3px, 3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%)">
-                  <!-- Inner transparent avec coins coupés -->
-                  <div class="icon-btn inline-block" style="clip-path: polygon(0 3px, 3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%)">
-                    <User :size="20" class="text-amber" />
-                  </div>
-                </div>
+                <!-- Bordure amber coins coupés -->
+                <div class="absolute inset-0 border border-amber/60" style="clip-path: polygon(0 4px, 4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%)"></div>
+                <!-- Icône User -->
+                <User :size="20" class="text-amber" />
                 <!-- Point vert de statut -->
-                <span class="absolute -top-0.5 -right-0.5 w-2 h-2 bg-green-500 rounded-full shadow-md"></span>
+                <span class="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full shadow-md"></span>
               </button>
 
               <div
@@ -150,16 +147,13 @@
           <button v-if="!user" class="icon-btn" :aria-label="$t('aria.accountButton')" @click="handleAuthClick">
             <User :size="20" />
           </button>
-          <button v-else class="relative" :aria-label="$t('nav.account')" @click="navigateTo('/compte')">
-            <!-- Wrapper bordure amber avec coins coupés -->
-            <div class="relative inline-block p-0.5 bg-amber/30" style="clip-path: polygon(0 3px, 3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%)">
-              <!-- Inner transparent avec coins coupés -->
-              <div class="icon-btn inline-block" style="clip-path: polygon(0 3px, 3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%)">
-                <User :size="20" class="text-amber" />
-              </div>
-            </div>
+          <button v-else class="icon-btn relative" :aria-label="$t('nav.account')" @click="navigateTo('/compte')">
+            <!-- Bordure amber coins coupés -->
+            <div class="absolute inset-0 border border-amber/60" style="clip-path: polygon(0 4px, 4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%)"></div>
+            <!-- Icône User -->
+            <User :size="20" class="text-amber" />
             <!-- Point vert de statut -->
-            <span class="absolute -top-0.5 -right-0.5 w-2 h-2 bg-green-500 rounded-full shadow-md"></span>
+            <span class="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full shadow-md"></span>
           </button>
           <div class="flex-1"></div>
           <button
