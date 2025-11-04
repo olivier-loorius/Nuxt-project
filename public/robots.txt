@@ -1,0 +1,21 @@
+# Robots.txt for Boys & Toys
+# Allow all bots to crawl the site
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: /sitemap.xml
+
+# Specific rules for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 0
