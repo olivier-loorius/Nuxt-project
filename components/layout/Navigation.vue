@@ -50,11 +50,11 @@
             <div v-else class="hidden lg:block relative">
               <button
                 @click="showUserDropdown = !showUserDropdown"
-                class="icon-btn relative"
+                class="icon-btn relative ring-2 ring-amber transition-all"
                 :aria-label="$t('nav.account')"
               >
                 <User :size="20" class="text-amber" />
-                <span class="absolute bottom-0 right-0 w-2 h-2 bg-emerald-500 rounded-full shadow-sm"></span>
+                <span class="absolute top-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-slate-900 shadow-md"></span>
               </button>
 
               <div
@@ -143,9 +143,9 @@
           <button v-if="!user" class="icon-btn" :aria-label="$t('aria.accountButton')" @click="handleAuthClick">
             <User :size="20" />
           </button>
-          <button v-else class="icon-btn relative" :aria-label="$t('nav.account')" @click="navigateTo('/compte')">
+          <button v-else class="icon-btn relative ring-2 ring-amber transition-all" :aria-label="$t('nav.account')" @click="navigateTo('/compte')">
             <User :size="20" class="text-amber" />
-            <span class="absolute bottom-0 right-0 w-2 h-2 bg-emerald-500 rounded-full shadow-sm"></span>
+            <span class="absolute top-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-slate-900 shadow-md"></span>
           </button>
           <div class="flex-1"></div>
           <button
