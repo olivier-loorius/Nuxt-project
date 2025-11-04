@@ -5,7 +5,7 @@
       <div class="col-span-1 lg:col-span-7 relative overflow-hidden h-96 lg:h-auto">
         <!-- Image de fond -->
         <img
-          src="/images/pars-sahin-p4t2qWPQ6VM-unsplash.jpg"
+          src="/images/pars-sahin-p4t2qWPQ6VM-unsplash.webp"
           alt="Innovation scientifique"
           class="absolute inset-0 w-full h-full object-cover"
           loading="lazy"

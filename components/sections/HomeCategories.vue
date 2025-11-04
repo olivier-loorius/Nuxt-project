@@ -149,13 +149,13 @@ const categoriesGrid = ref<HTMLElement | null>(null)
 const isVisible = ref(false)
 
 const categories: Category[] = [
-  { slug: 'stimulateurs', image: '/images/jouet1.jpg', titleKey: 'categories.cat1' },
-  { slug: 'masturbateurs', image: '/images/jouet2.jpg', titleKey: 'categories.cat2' },
-  { slug: 'anneaux', image: '/images/jouet3.jpg', titleKey: 'categories.cat3' },
-  { slug: 'lubrifiants', image: '/images/jouet4.jpg', titleKey: 'categories.cat4' },
-  { slug: 'accessoires', image: '/images/jouet5.jpg', titleKey: 'categories.cat5' },
-  { slug: 'nettoyants', image: '/images/jouet6.jpg', titleKey: 'categories.cat6' },
-  { slug: 'nouveautes', image: '/images/jouet7.jpg', titleKey: 'categories.cat7' }
+  { slug: 'stimulateurs', image: '/images/jouet1.webp', titleKey: 'categories.cat1' },
+  { slug: 'masturbateurs', image: '/images/jouet2.webp', titleKey: 'categories.cat2' },
+  { slug: 'anneaux', image: '/images/jouet3.webp', titleKey: 'categories.cat3' },
+  { slug: 'lubrifiants', image: '/images/jouet4.webp', titleKey: 'categories.cat4' },
+  { slug: 'accessoires', image: '/images/jouet5.webp', titleKey: 'categories.cat5' },
+  { slug: 'nettoyants', image: '/images/jouet6.webp', titleKey: 'categories.cat6' },
+  { slug: 'nouveautes', image: '/images/jouet7.webp', titleKey: 'categories.cat7' }
 ]
 
 useIntersectionObserver(

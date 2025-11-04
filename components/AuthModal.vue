@@ -221,7 +221,8 @@
 
 <script setup lang="ts">
 import { Mail, Lock, Eye, EyeOff, Check, X, ShieldCheck, Loader2, ArrowRight } from 'lucide-vue-next'
-import { useAuth, validateEmail, validatePassword, getStrengthLabel } from '~/composables/useAuth'
+import { useAuth } from '~/composables/useAuth'
+import { validateEmail, validatePassword, getStrengthLabel } from '~/composables/useFormValidation'
 
 const { t } = useI18n()
 const modelValue = defineModel<boolean>({ default: false })

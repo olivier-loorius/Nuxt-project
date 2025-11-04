@@ -14,9 +14,6 @@ export interface UserMetadata {
   [key: string]: any
 }
 
-export type { EmailValidation, PasswordValidation, PhoneValidation }
-export { validateEmail, validatePassword, validatePhone, getStrengthLabel }
-
 import { toast } from 'vue-sonner'
 
 export const useAuth = () => {
