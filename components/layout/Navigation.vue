@@ -50,20 +50,13 @@
             <div v-else class="hidden lg:block relative">
               <button
                 @click="showUserDropdown = !showUserDropdown"
-                class="relative inline-block transition-all"
+                class="icon-btn relative"
                 :aria-label="$t('nav.account')"
+                style="box-shadow: 0 0 0 1px rgb(251 191 36 / 0.5); clip-path: polygon(0 3px, 3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%)"
               >
-                <!-- Wrapper gradient avec coins coupés -->
-                <div class="relative inline-block p-0.5 bg-gradient-to-br from-amber/20 to-amber/40" style="clip-path: polygon(0 3px, 3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%)">
-                  <!-- Inner wrapper dark avec coins coupés -->
-                  <div class="bg-slate-900 inline-block" style="clip-path: polygon(0 3px, 3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%)">
-                    <div class="p-2 flex items-center justify-center">
-                      <User :size="20" class="text-amber" />
-                    </div>
-                  </div>
-                </div>
+                <User :size="20" class="text-amber" />
                 <!-- Point vert de statut -->
-                <span class="absolute -top-0.5 -right-0.5 w-2 h-2 bg-green-500 rounded-full shadow-lg"></span>
+                <span class="absolute -top-0.5 -right-0.5 w-2 h-2 bg-green-500 rounded-full shadow-md"></span>
               </button>
 
               <div
@@ -152,18 +145,10 @@
           <button v-if="!user" class="icon-btn" :aria-label="$t('aria.accountButton')" @click="handleAuthClick">
             <User :size="20" />
           </button>
-          <button v-else class="relative inline-block transition-all" :aria-label="$t('nav.account')" @click="navigateTo('/compte')">
-            <!-- Wrapper gradient avec coins coupés -->
-            <div class="relative inline-block p-0.5 bg-gradient-to-br from-amber/20 to-amber/40" style="clip-path: polygon(0 3px, 3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%)">
-              <!-- Inner wrapper dark avec coins coupés -->
-              <div class="bg-slate-900 inline-block" style="clip-path: polygon(0 3px, 3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%)">
-                <div class="p-2 flex items-center justify-center">
-                  <User :size="20" class="text-amber" />
-                </div>
-              </div>
-            </div>
+          <button v-else class="icon-btn relative" :aria-label="$t('nav.account')" @click="navigateTo('/compte')" style="box-shadow: 0 0 0 1px rgb(251 191 36 / 0.5); clip-path: polygon(0 3px, 3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%)">
+            <User :size="20" class="text-amber" />
             <!-- Point vert de statut -->
-            <span class="absolute -top-0.5 -right-0.5 w-2 h-2 bg-green-500 rounded-full shadow-lg"></span>
+            <span class="absolute -top-0.5 -right-0.5 w-2 h-2 bg-green-500 rounded-full shadow-md"></span>
           </button>
           <div class="flex-1"></div>
           <button
