@@ -15,11 +15,15 @@
           class="w-full h-full object-cover"
         />
       </div>
-      <div class="absolute inset-0 bg-gradient-to-t from-midnight/80 via-midnight/40 to-transparent z-10"></div>
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-midnight/80 via-midnight/40 to-transparent z-10"
+      ></div>
 
       <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-12 z-20">
         <div class="max-w-7xl mx-auto">
-          <h2 class="text-3xl lg:text-5xl font-display font-bold text-white mb-4">
+          <h2
+            class="text-3xl lg:text-5xl font-display font-bold text-white mb-4"
+          >
             {{ t(slide.titleKey) }}
           </h2>
 
@@ -43,12 +47,18 @@
             </NuxtLink>
           </div>
 
-          <div class="flex gap-3 lg:gap-6 justify-center mt-8 lg:mt-12 text-xs lg:text-sm">
+          <div
+            class="flex gap-3 lg:gap-6 justify-center mt-8 lg:mt-12 text-xs lg:text-sm"
+          >
             <button
               v-for="(product, idx) in products"
               :key="idx"
               @click="currentSlide = idx"
-              :class="currentSlide === idx ? 'font-bold text-white' : 'font-normal text-white/50'"
+              :class="
+                currentSlide === idx
+                  ? 'font-bold text-white'
+                  : 'font-normal text-white/50'
+              "
               class="transition-all duration-300"
             >
               {{ product.name }}
@@ -61,52 +71,51 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n();
 
-const { t } = useI18n()
-
-const currentSlide = ref(0)
+const currentSlide = ref(0);
 
 const products = [
   {
-    name: 'Lingerie',
-    image: '/images/stephen-andrews-Dp9u1FbGgPA-unsplash.webp',
-    titleKey: 'hero.slide1.title',
-    descKey: 'hero.slide1.description',
-    ctaKey: 'hero.slide1.cta',
-    buyKey: 'hero.buy',
-    linkTo: '/lingerie'
+    name: "Lingerie",
+    image: "/images/stephen-andrews-Dp9u1FbGgPA-unsplash.webp",
+    titleKey: "hero.slide1.title",
+    descKey: "hero.slide1.description",
+    ctaKey: "hero.slide1.cta",
+    buyKey: "hero.buy",
+    linkTo: "/lingerie",
   },
   {
-    name: 'Accessoires',
-    image: '/images/andrey-matveev-SPG0SznDi8c-unsplash.webp',
-    titleKey: 'hero.slide2.title',
-    descKey: 'hero.slide2.description',
-    ctaKey: 'hero.slide2.cta',
-    buyKey: 'hero.buy',
-    linkTo: '/accessoires'
+    name: "Accessoires",
+    image: "/images/andrey-matveev-SPG0SznDi8c-unsplash.webp",
+    titleKey: "hero.slide2.title",
+    descKey: "hero.slide2.description",
+    ctaKey: "hero.slide2.cta",
+    buyKey: "hero.buy",
+    linkTo: "/accessoires",
   },
   {
-    name: 'Nouveautés',
-    image: '/images/stephen-andrews-Dp9u1FbGgPA-unsplash.webp',
-    titleKey: 'hero.slide3.title',
-    descKey: 'hero.slide3.description',
-    ctaKey: 'hero.slide3.cta',
-    buyKey: 'hero.buy',
-    linkTo: '/nouveautes'
-  }
-]
+    name: "Nouveautés",
+    image: "/images/nataliya-smirnova-YxfIkjkk-WU-unsplash.webp",
+    titleKey: "hero.slide3.title",
+    descKey: "hero.slide3.description",
+    ctaKey: "hero.slide3.cta",
+    buyKey: "hero.buy",
+    linkTo: "/nouveautes",
+  },
+];
 
-let intervalId: NodeJS.Timeout | null = null
+let intervalId: NodeJS.Timeout | null = null;
 
 onMounted(() => {
   intervalId = setInterval(() => {
-    currentSlide.value = (currentSlide.value + 1) % 3
-  }, 7000)
-})
+    currentSlide.value = (currentSlide.value + 1) % 3;
+  }, 7000);
+});
 
 onUnmounted(() => {
   if (intervalId) {
-    clearInterval(intervalId)
+    clearInterval(intervalId);
   }
-})
+});
 </script>

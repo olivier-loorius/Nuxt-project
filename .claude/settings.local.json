@@ -194,7 +194,19 @@
       "Bash(node scripts/optimize-images.cjs:*)",
       "Bash(node scripts/recompress-heavy.cjs:*)",
       "Bash(sharp-cli:*)",
-      "Bash(node -e:*)"
+      "Bash(node -e:*)",
+      "Bash(cat:*)",
+      "Bash(paste:*)",
+      "Bash(curl:*)",
+      "Bash(node parse-lighthouse.mjs:*)",
+      "Bash(git push:*)",
+      "Bash(git log:*)",
+      "Bash(if [ -f lighthouse-report.json ])",
+      "Bash(then rm lighthouse-report.json)",
+      "Bash(else echo \"✗ lighthouse-report.json n''existe pas\")",
+      "Bash(if [ -f lighthouse-report.html ])",
+      "Bash(then rm lighthouse-report.html)",
+      "Bash(else echo \"✗ lighthouse-report.html n''existe pas\")"
     ],
     "deny": [],
     "ask": []
