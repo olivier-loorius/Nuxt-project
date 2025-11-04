@@ -66,6 +66,22 @@ export default defineNuxtConfig({
       title: 'Boys & Toys',
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+      ],
+      link: [
+        {
+          rel: 'preload',
+          as: 'font',
+          href: 'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap',
+          type: 'font/woff2',
+          crossorigin: 'anonymous'
+        },
+        {
+          rel: 'preload',
+          as: 'font',
+          href: 'https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap',
+          type: 'font/woff2',
+          crossorigin: 'anonymous'
+        }
       ]
     }
   },
