@@ -50,11 +50,16 @@
             <div v-else class="hidden lg:block relative">
               <button
                 @click="showUserDropdown = !showUserDropdown"
-                class="icon-btn relative"
+                class="relative"
                 :aria-label="$t('nav.account')"
-                style="box-shadow: 0 0 0 1px rgb(251 191 36 / 0.5); clip-path: polygon(0 3px, 3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%)"
               >
-                <User :size="20" class="text-amber" />
+                <!-- Wrapper bordure amber avec coins coupés -->
+                <div class="relative inline-block p-0.5 bg-amber/30" style="clip-path: polygon(0 3px, 3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%)">
+                  <!-- Inner transparent avec coins coupés -->
+                  <div class="icon-btn inline-block" style="clip-path: polygon(0 3px, 3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%)">
+                    <User :size="20" class="text-amber" />
+                  </div>
+                </div>
                 <!-- Point vert de statut -->
                 <span class="absolute -top-0.5 -right-0.5 w-2 h-2 bg-green-500 rounded-full shadow-md"></span>
               </button>
@@ -145,8 +150,14 @@
           <button v-if="!user" class="icon-btn" :aria-label="$t('aria.accountButton')" @click="handleAuthClick">
             <User :size="20" />
           </button>
-          <button v-else class="icon-btn relative" :aria-label="$t('nav.account')" @click="navigateTo('/compte')" style="box-shadow: 0 0 0 1px rgb(251 191 36 / 0.5); clip-path: polygon(0 3px, 3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%)">
-            <User :size="20" class="text-amber" />
+          <button v-else class="relative" :aria-label="$t('nav.account')" @click="navigateTo('/compte')">
+            <!-- Wrapper bordure amber avec coins coupés -->
+            <div class="relative inline-block p-0.5 bg-amber/30" style="clip-path: polygon(0 3px, 3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%)">
+              <!-- Inner transparent avec coins coupés -->
+              <div class="icon-btn inline-block" style="clip-path: polygon(0 3px, 3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%)">
+                <User :size="20" class="text-amber" />
+              </div>
+            </div>
             <!-- Point vert de statut -->
             <span class="absolute -top-0.5 -right-0.5 w-2 h-2 bg-green-500 rounded-full shadow-md"></span>
           </button>
