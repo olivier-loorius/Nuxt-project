@@ -40,7 +40,7 @@
                 type="email"
                 readonly
                 disabled
-                class="btn-beveled w-full bg-concrete/20 border-2 border-concrete text-midnight/50 px-4 py-3 cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-amber"
+                class="btn-beveled w-full bg-concrete/20 border-2 border-concrete text-midnight/50 px-4 py-3 cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber focus-visible:ring-2 focus-visible:ring-amber focus-visible:border-amber"
               />
               <p class="text-xs text-midnight/50 mt-1">
                 {{ $t('compte.profil.email_readonly') }}
@@ -58,7 +58,7 @@
                   :type="showPassword ? 'text' : 'password'"
                   readonly
                   disabled
-                  class="btn-beveled w-full bg-concrete/20 border-2 border-concrete text-midnight/50 px-4 py-3 pr-12 cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-amber"
+                  class="btn-beveled w-full bg-concrete/20 border-2 border-concrete text-midnight/50 px-4 py-3 pr-12 cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber focus-visible:ring-2 focus-visible:ring-amber focus-visible:border-amber"
                 />
                 <button
                   type="button"
@@ -88,11 +88,12 @@
                   :disabled="!isEditing"
                   @focus="focusedField = 'firstName'"
                   @blur="focusedField = null"
+                  :placeholder="$t('compte.profil.first_name_placeholder')"
                   :class="[
-                    'btn-beveled w-full border-2 border-concrete px-4 py-3 pt-6 pb-2 focus:outline-none transition-all duration-200 peer',
+                    'btn-beveled w-full border-2 px-4 py-3 pt-6 pb-2 focus:outline-none transition-all duration-200 peer',
                     isEditing
-                      ? 'bg-white text-midnight focus:ring-2 focus:ring-amber focus-visible:ring-2 focus-visible:ring-amber'
-                      : 'bg-concrete/20 text-midnight/50 cursor-not-allowed'
+                      ? 'bg-white text-midnight border-concrete focus:ring-2 focus:ring-amber focus:border-amber focus-visible:ring-2 focus-visible:ring-amber'
+                      : 'bg-concrete/20 text-midnight/50 border-concrete cursor-not-allowed'
                   ]"
                 />
                 <label
@@ -118,11 +119,12 @@
                   :disabled="!isEditing"
                   @focus="focusedField = 'lastName'"
                   @blur="focusedField = null"
+                  :placeholder="$t('compte.profil.last_name_placeholder')"
                   :class="[
-                    'btn-beveled w-full border-2 border-concrete px-4 py-3 pt-6 pb-2 focus:outline-none transition-all duration-200 peer',
+                    'btn-beveled w-full border-2 px-4 py-3 pt-6 pb-2 focus:outline-none transition-all duration-200 peer',
                     isEditing
-                      ? 'bg-white text-midnight focus:ring-2 focus:ring-amber focus-visible:ring-2 focus-visible:ring-amber'
-                      : 'bg-concrete/20 text-midnight/50 cursor-not-allowed'
+                      ? 'bg-white text-midnight border-concrete focus:ring-2 focus:ring-amber focus:border-amber focus-visible:ring-2 focus-visible:ring-amber'
+                      : 'bg-concrete/20 text-midnight/50 border-concrete cursor-not-allowed'
                   ]"
                 />
                 <label
@@ -148,10 +150,10 @@
                   @focus="focusedField = 'birthDate'"
                   @blur="focusedField = null"
                   :class="[
-                    'btn-beveled w-full border-2 border-concrete px-4 py-3 pt-6 pb-2 focus:outline-none transition-all duration-200 peer',
+                    'btn-beveled w-full border-2 px-4 py-3 pt-6 pb-2 focus:outline-none transition-all duration-200 peer',
                     isEditing
-                      ? 'bg-white text-midnight focus:ring-2 focus:ring-amber focus-visible:ring-2 focus-visible:ring-amber'
-                      : 'bg-concrete/20 text-midnight/50 cursor-not-allowed'
+                      ? 'bg-white text-midnight border-concrete focus:ring-2 focus:ring-amber focus:border-amber focus-visible:ring-2 focus-visible:ring-amber'
+                      : 'bg-concrete/20 text-midnight/50 border-concrete cursor-not-allowed'
                   ]"
                 />
                 <label
