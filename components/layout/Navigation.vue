@@ -50,11 +50,12 @@
             <div v-else class="hidden lg:block relative">
               <button
                 @click="showUserDropdown = !showUserDropdown"
-                class="icon-btn relative ring-2 ring-amber transition-all"
+                class="icon-btn relative ring-1 ring-amber transition-all"
+                style="clip-path: polygon(0 4px, 4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%)"
                 :aria-label="$t('nav.account')"
               >
                 <User :size="20" class="text-amber" />
-                <span class="absolute top-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-slate-900 shadow-md"></span>
+                <span class="absolute w-2.5 h-2.5 bg-green-500 rounded-full shadow-md" style="top: 0.125rem; right: 0.125rem;"></span>
               </button>
 
               <div
@@ -143,9 +144,9 @@
           <button v-if="!user" class="icon-btn" :aria-label="$t('aria.accountButton')" @click="handleAuthClick">
             <User :size="20" />
           </button>
-          <button v-else class="icon-btn relative ring-2 ring-amber transition-all" :aria-label="$t('nav.account')" @click="navigateTo('/compte')">
+          <button v-else class="icon-btn relative ring-1 ring-amber transition-all" style="clip-path: polygon(0 4px, 4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%)" :aria-label="$t('nav.account')" @click="navigateTo('/compte')">
             <User :size="20" class="text-amber" />
-            <span class="absolute top-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-slate-900 shadow-md"></span>
+            <span class="absolute w-2.5 h-2.5 bg-green-500 rounded-full shadow-md" style="top: 0.125rem; right: 0.125rem;"></span>
           </button>
           <div class="flex-1"></div>
           <button
