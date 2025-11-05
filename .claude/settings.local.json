@@ -207,7 +207,8 @@
       "Bash(if [ -f lighthouse-report.html ])",
       "Bash(then rm lighthouse-report.html)",
       "Bash(else echo \"✗ lighthouse-report.html n''existe pas\")",
-      "Bash(git restore:*)"
+      "Bash(git restore:*)",
+      "Bash(timeout 90 npm run build:*)"
     ],
     "deny": [],
     "ask": []

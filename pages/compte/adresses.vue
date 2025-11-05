@@ -126,6 +126,10 @@
           {{ $t('compte.adresses.add_address') }}
         </h2>
 
+        <p class="text-xs text-midnight/60 mb-4">
+          {{ $t('compte.adresses.required_fields') }}
+        </p>
+
         <form @submit.prevent="handleSubmitAddress" class="space-y-6">
           <!-- Nom de l'adresse -->
           <div>
@@ -156,7 +160,7 @@
             </div>
             <div>
               <label class="block font-sora font-semibold text-sm text-midnight mb-2">
-                {{ $t('compte.profil.last_name') }}
+                {{ $t('compte.profil.last_name') }} <span class="text-alert">*</span>
               </label>
               <input
                 v-model="formData.lastName"
@@ -196,7 +200,7 @@
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label class="block font-sora font-semibold text-sm text-midnight mb-2">Code postal</label>
+              <label class="block font-sora font-semibold text-sm text-midnight mb-2">Code postal <span class="text-alert">*</span></label>
               <input
                 v-model="formData.zipCode"
                 type="text"
@@ -205,7 +209,7 @@
               />
             </div>
             <div>
-              <label class="block font-sora font-semibold text-sm text-midnight mb-2">Ville</label>
+              <label class="block font-sora font-semibold text-sm text-midnight mb-2">Ville <span class="text-alert">*</span></label>
               <input
                 v-model="formData.city"
                 type="text"
@@ -216,7 +220,7 @@
           </div>
 
           <div>
-            <label class="block font-sora font-semibold text-sm text-midnight mb-2">Pays</label>
+            <label class="block font-sora font-semibold text-sm text-midnight mb-2">Pays <span class="text-alert">*</span></label>
             <input
               v-model="formData.country"
               type="text"
