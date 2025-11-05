@@ -1,11 +1,11 @@
 <template>
-  <div class="flex gap-2">
+  <div class="flex gap-2 w-full min-w-0">
     <select
       v-model="selectedCountry"
       @change="updateFullNumber"
       :disabled="disabled"
       :class="[
-        'btn-beveled w-32 border-2 border-concrete px-3 py-3 focus:outline-none',
+        'btn-beveled flex-shrink-0 border-2 border-concrete px-3 py-3 focus:outline-none',
         disabled
           ? 'bg-concrete/20 text-midnight/50 cursor-not-allowed'
           : 'bg-white text-midnight focus:ring-2 focus:ring-amber',
@@ -28,7 +28,7 @@
       maxlength="14"
       :disabled="disabled"
       :class="[
-        'btn-beveled flex-1 border-2 border-concrete placeholder:text-midnight/40 px-4 py-3 focus:outline-none',
+        'btn-beveled flex-1 min-w-0 border-2 border-concrete placeholder:text-midnight/40 px-4 py-3 focus:outline-none',
         disabled
           ? 'bg-concrete/20 text-midnight/50 cursor-not-allowed'
           : 'bg-white text-midnight focus:ring-2 focus:ring-amber',

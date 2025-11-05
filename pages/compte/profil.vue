@@ -174,7 +174,8 @@
           </div>
         </div>
 
-        <div v-if="!isEditing" class="mt-6">
+        <!-- MODE LECTURE : Bouton Modifier + Supprimer mon compte -->
+        <div v-if="!isEditing" class="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <button
             type="button"
             @click="enterEditMode"
@@ -182,36 +183,45 @@
           >
             {{ $t('compte.profil.edit_button') }}
           </button>
-        </div>
-
-        <div v-else class="flex flex-col sm:flex-row gap-4 mt-6">
-          <button
-            type="submit"
-            :disabled="saving"
-            class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-copper px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-amber"
-          >
-            {{ saving ? $t('compte.profil.saving_button') : $t('compte.profil.save_button') }}
-          </button>
           <button
             type="button"
-            @click="cancelEdit"
-            :disabled="saving"
-            class="btn-beveled border-2 border-concrete bg-white text-midnight hover:bg-concrete/20 px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-amber"
+            @click="showDeleteModal = true"
+            class="inline-flex items-center gap-1.5 text-sm text-red-600 hover:text-red-700 hover:underline font-manrope transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-amber rounded"
           >
-            {{ $t('compte.profil.cancel_button') }}
+            <Trash2 class="h-4 w-4" />
+            {{ $t('compte.profil.delete_account') }}
+          </button>
+        </div>
+
+        <!-- MODE ÉDITION : Enregistrer + Annuler + Supprimer mon compte -->
+        <div v-else class="mt-6">
+          <div class="flex flex-col sm:flex-row gap-4 mb-4">
+            <button
+              type="submit"
+              :disabled="saving"
+              class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-copper px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-amber"
+            >
+              {{ saving ? $t('compte.profil.saving_button') : $t('compte.profil.save_button') }}
+            </button>
+            <button
+              type="button"
+              @click="cancelEdit"
+              :disabled="saving"
+              class="btn-beveled border-2 border-concrete bg-white text-midnight hover:bg-concrete/20 px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-amber"
+            >
+              {{ $t('compte.profil.cancel_button') }}
+            </button>
+          </div>
+          <button
+            type="button"
+            @click="showDeleteModal = true"
+            class="inline-flex items-center gap-1.5 text-sm text-red-600 hover:text-red-700 hover:underline font-manrope transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-amber rounded"
+          >
+            <Trash2 class="h-4 w-4" />
+            {{ $t('compte.profil.delete_account') }}
           </button>
         </div>
       </form>
-    </div>
-
-    <div v-if="!loading" class="mt-12 pt-8 border-t-2 border-concrete">
-      <button
-        type="button"
-        @click="showDeleteModal = true"
-        class="text-xs text-red-600 hover:text-red-700 underline font-manrope transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-amber rounded"
-      >
-        {{ $t('compte.profil.delete_account') }}
-      </button>
     </div>
 
     <SuccessModal
@@ -237,7 +247,7 @@
 
 <script setup lang="ts">
 import type { Tables } from '~/types/database.types'
-import { Eye, EyeOff } from 'lucide-vue-next'
+import { Eye, EyeOff, Trash2 } from 'lucide-vue-next'
 
 definePageMeta({
   layout: "compte",
