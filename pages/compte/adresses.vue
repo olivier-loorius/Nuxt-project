@@ -94,7 +94,7 @@
         {{ $t('compte.adresses.no_addresses') }}
       </h3>
       <p class="text-midnight/60 mb-6">
-        Ajoutez une adresse pour faciliter vos futures commandes
+        {{ $t('compte.adresses.empty_hint') }}
       </p>
       <button
         @click="showAddForm = true"
@@ -250,14 +250,14 @@
               type="submit"
               class="btn-beveled flex-1 border-2 border-amber bg-amber text-midnight hover:bg-copper px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 focus-visible:ring-2 focus-visible:ring-amber"
             >
-              {{ $t('compte.profil.save') }}
+              {{ $t('compte.adresses.save') }}
             </button>
             <button
               type="button"
               @click="showAddForm = false"
               class="btn-beveled border-2 border-concrete bg-white text-midnight hover:bg-concrete/20 px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 focus-visible:ring-2 focus-visible:ring-amber"
             >
-              {{ $t('compte.profil.cancel') }}
+              {{ $t('compte.adresses.cancel') }}
             </button>
           </div>
         </form>

@@ -321,10 +321,13 @@
       "title": "Mes adresses",
       "subtitle": "Gérez vos adresses de livraison",
       "no_addresses": "Vous n'avez pas encore d'adresse enregistrée",
+      "empty_hint": "Ajoutez une adresse pour faciliter vos futures commandes",
       "add_address": "Ajouter une adresse",
       "edit": "Modifier",
       "delete": "Supprimer",
       "default": "Par défaut",
+      "save": "Enregistrer",
+      "cancel": "Annuler",
       "required_fields": "* Champs obligatoires"
     }
   }

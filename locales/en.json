@@ -321,10 +321,13 @@
       "title": "My addresses",
       "subtitle": "Manage your shipping addresses",
       "no_addresses": "You don't have any saved addresses yet",
+      "empty_hint": "Add an address to make your future orders easier",
       "add_address": "Add an address",
       "edit": "Edit",
       "delete": "Delete",
       "default": "Default",
+      "save": "Save",
+      "cancel": "Cancel",
       "required_fields": "* Required fields"
     }
   }
