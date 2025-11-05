@@ -79,7 +79,13 @@
           <div class="border-t-2 border-concrete pt-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <!-- FirstName avec Label Flottant -->
-              <div class="relative">
+              <div>
+                <label
+                  for="firstName"
+                  class="block font-sora font-semibold text-sm text-midnight mb-2"
+                >
+                  {{ $t('compte.profil.first_name') }} <span class="text-alert">*</span>
+                </label>
                 <input
                   id="firstName"
                   v-model="formData.first_name"
@@ -90,27 +96,22 @@
                   @blur="focusedField = null"
                   :placeholder="$t('compte.profil.first_name_placeholder')"
                   :class="[
-                    'btn-beveled w-full border-2 px-4 py-3 pt-6 pb-2 focus:outline-none transition-all duration-200 peer',
+                    'btn-beveled w-full border-2 px-4 py-3 focus:outline-none transition-all duration-200',
                     isEditing
                       ? 'bg-white text-midnight border-concrete focus:ring-2 focus:ring-amber focus:border-amber focus-visible:ring-2 focus-visible:ring-amber'
                       : 'bg-concrete/20 text-midnight/50 border-concrete cursor-not-allowed'
                   ]"
                 />
-                <label
-                  for="firstName"
-                  :class="[
-                    'absolute left-4 transition-all duration-200 pointer-events-none font-sora',
-                    formData.first_name || focusedField === 'firstName'
-                      ? 'top-2 text-xs font-semibold text-amber scale-90'
-                      : 'top-4 text-sm text-midnight/70'
-                  ]"
-                >
-                  {{ $t('compte.profil.first_name') }} <span class="text-alert">*</span>
-                </label>
               </div>
 
               <!-- LastName avec Label Flottant -->
-              <div class="relative">
+              <div>
+                <label
+                  for="lastName"
+                  class="block font-sora font-semibold text-sm text-midnight mb-2"
+                >
+                  {{ $t('compte.profil.last_name') }} <span class="text-alert">*</span>
+                </label>
                 <input
                   id="lastName"
                   v-model="formData.last_name"
@@ -121,27 +122,22 @@
                   @blur="focusedField = null"
                   :placeholder="$t('compte.profil.last_name_placeholder')"
                   :class="[
-                    'btn-beveled w-full border-2 px-4 py-3 pt-6 pb-2 focus:outline-none transition-all duration-200 peer',
+                    'btn-beveled w-full border-2 px-4 py-3 focus:outline-none transition-all duration-200',
                     isEditing
                       ? 'bg-white text-midnight border-concrete focus:ring-2 focus:ring-amber focus:border-amber focus-visible:ring-2 focus-visible:ring-amber'
                       : 'bg-concrete/20 text-midnight/50 border-concrete cursor-not-allowed'
                   ]"
                 />
-                <label
-                  for="lastName"
-                  :class="[
-                    'absolute left-4 transition-all duration-200 pointer-events-none font-sora',
-                    formData.last_name || focusedField === 'lastName'
-                      ? 'top-2 text-xs font-semibold text-amber scale-90'
-                      : 'top-4 text-sm text-midnight/70'
-                  ]"
-                >
-                  {{ $t('compte.profil.last_name') }} <span class="text-alert">*</span>
-                </label>
               </div>
 
               <!-- BirthDate avec Label Flottant -->
-              <div class="md:col-span-2 relative">
+              <div class="md:col-span-2">
+                <label
+                  for="birthDate"
+                  class="block font-sora font-semibold text-sm text-midnight mb-2"
+                >
+                  {{ $t('compte.profil.birth_date') }}
+                </label>
                 <input
                   id="birthDate"
                   v-model="formData.birth_date"
@@ -150,47 +146,29 @@
                   @focus="focusedField = 'birthDate'"
                   @blur="focusedField = null"
                   :class="[
-                    'btn-beveled w-full border-2 px-4 py-3 pt-6 pb-2 focus:outline-none transition-all duration-200 peer',
+                    'btn-beveled w-full border-2 px-4 py-3 focus:outline-none transition-all duration-200',
                     isEditing
                       ? 'bg-white text-midnight border-concrete focus:ring-2 focus:ring-amber focus:border-amber focus-visible:ring-2 focus-visible:ring-amber'
                       : 'bg-concrete/20 text-midnight/50 border-concrete cursor-not-allowed'
                   ]"
                 />
-                <label
-                  for="birthDate"
-                  :class="[
-                    'absolute left-4 transition-all duration-200 pointer-events-none font-sora',
-                    formData.birth_date || focusedField === 'birthDate'
-                      ? 'top-2 text-xs font-semibold text-amber scale-90'
-                      : 'top-4 text-sm text-midnight/70'
-                  ]"
-                >
-                  {{ $t('compte.profil.birth_date') }}
-                </label>
               </div>
 
               <!-- Phone avec Label Flottant (custom component) -->
               <div class="md:col-span-2">
-                <div class="relative">
-                  <label
-                    for="phone"
-                    :class="[
-                      'absolute left-4 top-3.5 text-sm text-midnight/70 transition-all duration-200 pointer-events-none font-sora',
-                      formData.phone || focusedField === 'phone'
-                        ? 'top-2 text-xs font-semibold text-amber scale-90'
-                        : 'top-3.5 text-sm text-midnight/70'
-                    ]"
-                  >
-                    {{ $t('compte.profil.phone') }}
-                  </label>
-                  <PhoneInput
-                    id="phone"
-                    v-model="formData.phone"
-                    :disabled="!isEditing"
-                    @focus="focusedField = 'phone'"
-                    @blur="focusedField = null"
-                  />
-                </div>
+                <label
+                  for="phone"
+                  class="block font-sora font-semibold text-sm text-midnight mb-2"
+                >
+                  {{ $t('compte.profil.phone') }}
+                </label>
+                <PhoneInput
+                  id="phone"
+                  v-model="formData.phone"
+                  :disabled="!isEditing"
+                  @focus="focusedField = 'phone'"
+                  @blur="focusedField = null"
+                />
               </div>
             </div>
           </div>
