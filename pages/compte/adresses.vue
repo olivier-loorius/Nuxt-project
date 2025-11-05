@@ -1,21 +1,23 @@
 <template>
-  <div class="bg-white rounded-lg shadow-sm p-6 md:p-8">
+  <div class="bg-white border-2 border-concrete p-8 md:p-10">
     <!-- Header -->
-    <div class="mb-8 flex items-center justify-between">
-      <div>
-        <h1 class="text-3xl font-bold text-midnight mb-2">
-          {{ $t('compte.adresses.title') }}
-        </h1>
-        <p class="text-midnight/60">
-          {{ $t('compte.adresses.subtitle') }}
-        </p>
+    <div class="mb-10 border-l-4 border-amber pl-6">
+      <div class="flex items-center justify-between gap-6">
+        <div>
+          <h1 class="text-3xl font-bold text-midnight tracking-tight mb-2 uppercase">
+            {{ $t('compte.adresses.title') }}
+          </h1>
+          <p class="text-midnight/60">
+            {{ $t('compte.adresses.subtitle') }}
+          </p>
+        </div>
+        <button
+          @click="showAddForm = true"
+          class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-copper px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 focus-visible:ring-2 focus-visible:ring-amber flex-shrink-0"
+        >
+          {{ $t('compte.adresses.add_address') }}
+        </button>
       </div>
-      <button
-        @click="showAddForm = true"
-        class="px-4 py-2 bg-amber text-white rounded-lg font-medium hover:bg-amber/90 transition-colors"
-      >
-        {{ $t('compte.adresses.add_address') }}
-      </button>
     </div>
 
     <!-- Addresses List -->
@@ -23,7 +25,7 @@
       <div
         v-for="address in addresses"
         :key="address.id"
-        class="border border-concrete rounded-lg p-6 hover:border-amber transition-colors relative"
+        class="btn-beveled border-2 border-concrete p-6 hover:border-amber transition-colors relative"
       >
         <!-- Default Badge -->
         <div
@@ -52,14 +54,14 @@
         <div class="flex gap-3">
           <button
             @click="editAddress(address.id)"
-            class="flex-1 px-4 py-2 border border-amber text-amber rounded-lg font-medium hover:bg-amber hover:text-white transition-all"
+            class="btn-beveled flex-1 border-2 border-amber text-amber hover:bg-amber hover:text-midnight px-4 py-2 font-medium transition-all focus-visible:ring-2 focus-visible:ring-amber"
           >
             {{ $t('compte.adresses.edit') }}
           </button>
           <button
             v-if="!address.isDefault"
             @click="deleteAddress(address.id)"
-            class="px-4 py-2 border border-red-500 text-red-500 rounded-lg font-medium hover:bg-red-500 hover:text-white transition-all"
+            class="btn-beveled border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-4 py-2 font-medium transition-all focus-visible:ring-2 focus-visible:ring-red-500"
           >
             {{ $t('compte.adresses.delete') }}
           </button>
@@ -96,7 +98,7 @@
       </p>
       <button
         @click="showAddForm = true"
-        class="inline-block px-6 py-3 bg-amber text-white rounded-lg font-medium hover:bg-amber/90 transition-colors"
+        class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-copper px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 focus-visible:ring-2 focus-visible:ring-amber"
       >
         {{ $t('compte.adresses.add_address') }}
       </button>
@@ -108,100 +110,100 @@
       class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
       @click.self="showAddForm = false"
     >
-      <div class="bg-white rounded-lg p-6 md:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        <h2 class="text-2xl font-bold text-midnight mb-6">
+      <div class="bg-white border-2 border-concrete p-8 md:p-10 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <h2 class="text-2xl font-bold text-midnight mb-6 font-sora">
           {{ $t('compte.adresses.add_address') }}
         </h2>
 
-        <form @submit.prevent="handleSubmitAddress" class="space-y-4">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <form @submit.prevent="handleSubmitAddress" class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label class="block text-sm font-medium text-midnight mb-2">
+              <label class="block font-sora font-semibold text-sm text-midnight mb-2">
                 {{ $t('compte.profil.first_name') }}
               </label>
               <input
                 v-model="formData.firstName"
                 type="text"
                 required
-                class="w-full px-4 py-3 border border-concrete rounded-lg focus:outline-none focus:ring-2 focus:ring-amber"
+                class="btn-beveled w-full px-4 py-3 border-2 border-concrete focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber"
               />
             </div>
             <div>
-              <label class="block text-sm font-medium text-midnight mb-2">
+              <label class="block font-sora font-semibold text-sm text-midnight mb-2">
                 {{ $t('compte.profil.last_name') }}
               </label>
               <input
                 v-model="formData.lastName"
                 type="text"
                 required
-                class="w-full px-4 py-3 border border-concrete rounded-lg focus:outline-none focus:ring-2 focus:ring-amber"
+                class="btn-beveled w-full px-4 py-3 border-2 border-concrete focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber"
               />
             </div>
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-midnight mb-2">Rue</label>
+            <label class="block font-sora font-semibold text-sm text-midnight mb-2">Rue</label>
             <input
               v-model="formData.street"
               type="text"
               required
-              class="w-full px-4 py-3 border border-concrete rounded-lg focus:outline-none focus:ring-2 focus:ring-amber"
+              class="btn-beveled w-full px-4 py-3 border-2 border-concrete focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber"
             />
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label class="block text-sm font-medium text-midnight mb-2">Code postal</label>
+              <label class="block font-sora font-semibold text-sm text-midnight mb-2">Code postal</label>
               <input
                 v-model="formData.zipCode"
                 type="text"
                 required
-                class="w-full px-4 py-3 border border-concrete rounded-lg focus:outline-none focus:ring-2 focus:ring-amber"
+                class="btn-beveled w-full px-4 py-3 border-2 border-concrete focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber"
               />
             </div>
             <div>
-              <label class="block text-sm font-medium text-midnight mb-2">Ville</label>
+              <label class="block font-sora font-semibold text-sm text-midnight mb-2">Ville</label>
               <input
                 v-model="formData.city"
                 type="text"
                 required
-                class="w-full px-4 py-3 border border-concrete rounded-lg focus:outline-none focus:ring-2 focus:ring-amber"
+                class="btn-beveled w-full px-4 py-3 border-2 border-concrete focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber"
               />
             </div>
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-midnight mb-2">Pays</label>
+            <label class="block font-sora font-semibold text-sm text-midnight mb-2">Pays</label>
             <input
               v-model="formData.country"
               type="text"
               required
-              class="w-full px-4 py-3 border border-concrete rounded-lg focus:outline-none focus:ring-2 focus:ring-amber"
+              class="btn-beveled w-full px-4 py-3 border-2 border-concrete focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber"
             />
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-midnight mb-2">
+            <label class="block font-sora font-semibold text-sm text-midnight mb-2">
               {{ $t('compte.profil.phone') }}
             </label>
             <input
               v-model="formData.phone"
               type="tel"
-              class="w-full px-4 py-3 border border-concrete rounded-lg focus:outline-none focus:ring-2 focus:ring-amber"
+              class="btn-beveled w-full px-4 py-3 border-2 border-concrete focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber"
             />
           </div>
 
-          <div class="flex gap-4 pt-4">
+          <div class="flex flex-col sm:flex-row gap-4 pt-4">
             <button
               type="submit"
-              class="flex-1 px-6 py-3 bg-amber text-white rounded-lg font-medium hover:bg-amber/90 transition-colors"
+              class="btn-beveled flex-1 border-2 border-amber bg-amber text-midnight hover:bg-copper px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 focus-visible:ring-2 focus-visible:ring-amber"
             >
               {{ $t('compte.profil.save') }}
             </button>
             <button
               type="button"
               @click="showAddForm = false"
-              class="px-6 py-3 border border-concrete text-midnight rounded-lg font-medium hover:bg-concrete/30 transition-colors"
+              class="btn-beveled border-2 border-concrete bg-white text-midnight hover:bg-concrete/20 px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 focus-visible:ring-2 focus-visible:ring-amber"
             >
               {{ $t('compte.profil.cancel') }}
             </button>
