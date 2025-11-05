@@ -328,7 +328,15 @@
       "default": "Par défaut",
       "save": "Enregistrer",
       "cancel": "Annuler",
-      "required_fields": "* Champs obligatoires"
+      "required_fields": "* Champs obligatoires",
+      "address_name": "Nom de l'adresse",
+      "street": "Adresse",
+      "complement": "Complément d'adresse",
+      "zip": "Code postal",
+      "city": "Ville",
+      "country": "Pays",
+      "alt_phone": "Téléphone alternatif",
+      "phone_help": "Si vide, celui du profil sera utilisé"
     }
   }
 }

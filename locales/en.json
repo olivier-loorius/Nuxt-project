@@ -328,7 +328,15 @@
       "default": "Default",
       "save": "Save",
       "cancel": "Cancel",
-      "required_fields": "* Required fields"
+      "required_fields": "* Required fields",
+      "address_name": "Address name",
+      "street": "Street address",
+      "complement": "Address complement",
+      "zip": "Postal code",
+      "city": "City",
+      "country": "Country",
+      "alt_phone": "Alternative phone",
+      "phone_help": "If empty, the profile phone will be used"
     }
   }
 }

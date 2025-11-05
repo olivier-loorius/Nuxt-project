@@ -134,7 +134,7 @@
           <!-- Nom de l'adresse -->
           <div>
             <label class="block font-sora font-semibold text-sm text-midnight mb-2">
-              Nom de l'adresse <span class="text-alert">*</span>
+              {{ $t('compte.adresses.address_name') }} <span class="text-alert">*</span>
             </label>
             <input
               v-model="formData.addressName"
@@ -175,7 +175,7 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="md:col-span-1">
               <label class="block font-sora font-semibold text-sm text-midnight mb-2">
-                Adresse <span class="text-alert">*</span>
+                {{ $t('compte.adresses.street') }} <span class="text-alert">*</span>
               </label>
               <input
                 v-model="formData.street"
@@ -187,7 +187,7 @@
             </div>
             <div class="md:col-span-1">
               <label class="block font-sora font-semibold text-sm text-midnight mb-2">
-                Complément d'adresse
+                {{ $t('compte.adresses.complement') }}
               </label>
               <input
                 v-model="formData.complement"
@@ -200,7 +200,7 @@
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label class="block font-sora font-semibold text-sm text-midnight mb-2">Code postal <span class="text-alert">*</span></label>
+              <label class="block font-sora font-semibold text-sm text-midnight mb-2">{{ $t('compte.adresses.zip') }} <span class="text-alert">*</span></label>
               <input
                 v-model="formData.zipCode"
                 type="text"
@@ -209,7 +209,7 @@
               />
             </div>
             <div>
-              <label class="block font-sora font-semibold text-sm text-midnight mb-2">Ville <span class="text-alert">*</span></label>
+              <label class="block font-sora font-semibold text-sm text-midnight mb-2">{{ $t('compte.adresses.city') }} <span class="text-alert">*</span></label>
               <input
                 v-model="formData.city"
                 type="text"
@@ -220,7 +220,7 @@
           </div>
 
           <div>
-            <label class="block font-sora font-semibold text-sm text-midnight mb-2">Pays <span class="text-alert">*</span></label>
+            <label class="block font-sora font-semibold text-sm text-midnight mb-2">{{ $t('compte.adresses.country') }} <span class="text-alert">*</span></label>
             <input
               v-model="formData.country"
               type="text"
@@ -232,7 +232,7 @@
           <!-- Téléphone alternatif -->
           <div>
             <label class="block font-sora font-semibold text-sm text-midnight mb-2">
-              Téléphone alternatif
+              {{ $t('compte.adresses.alt_phone') }}
             </label>
             <input
               v-model="formData.phone"
@@ -241,7 +241,7 @@
               class="btn-beveled w-full px-4 py-3 border-2 border-concrete focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber"
             />
             <p class="text-xs text-midnight/50 mt-1">
-              Si vide, celui du profil sera utilisé
+              {{ $t('compte.adresses.phone_help') }}
             </p>
           </div>
 
