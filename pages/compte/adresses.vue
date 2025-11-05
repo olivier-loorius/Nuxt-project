@@ -110,16 +110,42 @@
       class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
       @click.self="showAddForm = false"
     >
-      <div class="bg-white border-2 border-concrete p-8 md:p-10 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        <h2 class="text-2xl font-bold text-midnight mb-6 font-sora">
+      <div class="bg-white border-2 border-concrete p-8 md:p-10 max-w-2xl w-full max-h-[90vh] overflow-y-auto relative">
+        <button
+          type="button"
+          @click="showAddForm = false"
+          class="absolute top-4 right-4 text-midnight/50 hover:text-midnight transition-colors focus-visible:ring-2 focus-visible:ring-amber rounded p-1"
+          aria-label="Fermer"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <h2 class="text-2xl font-bold text-midnight mb-6 font-sora pr-8">
           {{ $t('compte.adresses.add_address') }}
         </h2>
 
         <form @submit.prevent="handleSubmitAddress" class="space-y-6">
+          <!-- Nom de l'adresse -->
+          <div>
+            <label class="block font-sora font-semibold text-sm text-midnight mb-2">
+              Nom de l'adresse <span class="text-alert">*</span>
+            </label>
+            <input
+              v-model="formData.addressName"
+              type="text"
+              required
+              placeholder="ex: Maison, Bureau, Appartement"
+              class="btn-beveled w-full px-4 py-3 border-2 border-concrete focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber"
+            />
+          </div>
+
+          <!-- Prénom et Nom -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label class="block font-sora font-semibold text-sm text-midnight mb-2">
-                {{ $t('compte.profil.first_name') }}
+                {{ $t('compte.profil.first_name') }} <span class="text-alert">*</span>
               </label>
               <input
                 v-model="formData.firstName"
@@ -141,14 +167,31 @@
             </div>
           </div>
 
-          <div>
-            <label class="block font-sora font-semibold text-sm text-midnight mb-2">Rue</label>
-            <input
-              v-model="formData.street"
-              type="text"
-              required
-              class="btn-beveled w-full px-4 py-3 border-2 border-concrete focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber"
-            />
+          <!-- Adresse et Complément -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="md:col-span-1">
+              <label class="block font-sora font-semibold text-sm text-midnight mb-2">
+                Adresse <span class="text-alert">*</span>
+              </label>
+              <input
+                v-model="formData.street"
+                type="text"
+                required
+                placeholder="ex: 123 Rue de la Paix"
+                class="btn-beveled w-full px-4 py-3 border-2 border-concrete focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber"
+              />
+            </div>
+            <div class="md:col-span-1">
+              <label class="block font-sora font-semibold text-sm text-midnight mb-2">
+                Complément d'adresse
+              </label>
+              <input
+                v-model="formData.complement"
+                type="text"
+                placeholder="Bât, Étage, Apt, Boîte postale..."
+                class="btn-beveled w-full px-4 py-3 border-2 border-concrete focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber"
+              />
+            </div>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -182,15 +225,20 @@
             />
           </div>
 
+          <!-- Téléphone alternatif -->
           <div>
             <label class="block font-sora font-semibold text-sm text-midnight mb-2">
-              {{ $t('compte.profil.phone') }}
+              Téléphone alternatif
             </label>
             <input
               v-model="formData.phone"
               type="tel"
+              placeholder="Optionnel"
               class="btn-beveled w-full px-4 py-3 border-2 border-concrete focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber"
             />
+            <p class="text-xs text-midnight/50 mt-1">
+              Si vide, celui du profil sera utilisé
+            </p>
           </div>
 
           <div class="flex flex-col sm:flex-row gap-4 pt-4">
@@ -222,9 +270,11 @@ definePageMeta({
 
 interface Address {
   id: string
+  addressName: string
   firstName: string
   lastName: string
   street: string
+  complement?: string
   zipCode: string
   city: string
   country: string
@@ -236,9 +286,11 @@ const addresses = ref<Address[]>([])
 
 const showAddForm = ref(false)
 const formData = ref({
+  addressName: '',
   firstName: '',
   lastName: '',
   street: '',
+  complement: '',
   zipCode: '',
   city: '',
   country: 'France',
@@ -256,9 +308,11 @@ const handleSubmitAddress = () => {
   showAddForm.value = false
 
   formData.value = {
+    addressName: '',
     firstName: '',
     lastName: '',
     street: '',
+    complement: '',
     zipCode: '',
     city: '',
     country: 'France',

@@ -206,7 +206,8 @@
       "Bash(else echo \"✗ lighthouse-report.json n''existe pas\")",
       "Bash(if [ -f lighthouse-report.html ])",
       "Bash(then rm lighthouse-report.html)",
-      "Bash(else echo \"✗ lighthouse-report.html n''existe pas\")"
+      "Bash(else echo \"✗ lighthouse-report.html n''existe pas\")",
+      "Bash(git restore:*)"
     ],
     "deny": [],
     "ask": []
