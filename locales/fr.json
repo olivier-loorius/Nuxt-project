@@ -251,6 +251,9 @@
     "success": {
       "close": "Fermer"
     },
+    "alert": {
+      "close": "Fermer"
+    },
     "confirm": {
       "password_label": "Mot de passe",
       "password_placeholder": "Entrez votre mot de passe",
@@ -336,7 +339,18 @@
       "city": "Ville",
       "country": "Pays",
       "alt_phone": "Téléphone alternatif",
-      "phone_help": "Si vide, celui du profil sera utilisé"
+      "phone_help": "Si vide, celui du profil sera utilisé",
+      "placeholder_name": "ex: Maison, Bureau, Appartement",
+      "placeholder_street": "ex: 123 Rue de la Paix",
+      "placeholder_complement": "Bât, Étage, Apt, Boîte postale...",
+      "success_create_title": "Adresse ajoutée",
+      "success_create_message": "Votre adresse a été enregistrée avec succès",
+      "success_update_title": "Adresse modifiée",
+      "success_update_message": "Vos modifications ont été enregistrées avec succès",
+      "success_delete_title": "Adresse supprimée",
+      "success_delete_message": "L'adresse a été supprimée avec succès",
+      "error_title": "Erreur",
+      "error_message": "Une erreur s'est produite lors de l'opération"
     }
   }
 }

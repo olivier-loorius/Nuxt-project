@@ -251,6 +251,9 @@
     "success": {
       "close": "Close"
     },
+    "alert": {
+      "close": "Close"
+    },
     "confirm": {
       "password_label": "Password",
       "password_placeholder": "Enter your password",
@@ -336,7 +339,18 @@
       "city": "City",
       "country": "Country",
       "alt_phone": "Alternative phone",
-      "phone_help": "If empty, the profile phone will be used"
+      "phone_help": "If empty, the profile phone will be used",
+      "placeholder_name": "e.g. Home, Office, Apartment",
+      "placeholder_street": "e.g. 123 Peace Street",
+      "placeholder_complement": "Building, Floor, Apt, PO Box...",
+      "success_create_title": "Address added",
+      "success_create_message": "Your address has been saved successfully",
+      "success_update_title": "Address updated",
+      "success_update_message": "Your changes have been saved successfully",
+      "success_delete_title": "Address deleted",
+      "success_delete_message": "The address has been deleted successfully",
+      "error_title": "Error",
+      "error_message": "An error occurred during the operation"
     }
   }
 }
