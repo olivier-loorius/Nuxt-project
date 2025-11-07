@@ -96,24 +96,16 @@
           >
             {{ $t('compte.adresses.edit') }}
           </button>
-          <div class="flex gap-2">
-            <button
-              v-if="!address.is_default"
-              @click="deleteAddress(address.id)"
-              :disabled="loading"
-              class="btn-beveled flex-1 border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-3 py-2 font-medium transition-all focus-visible:ring-2 focus-visible:ring-red-500 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {{ $t('compte.adresses.delete') }}
-            </button>
-            <button
-              v-if="!address.is_default"
-              @click="setDefault(address.id)"
-              :disabled="loading"
-              class="btn-beveled flex-1 border-2 border-amber/50 text-amber/70 hover:border-amber hover:text-amber px-3 py-2 font-medium transition-all focus-visible:ring-2 focus-visible:ring-amber disabled:opacity-50 disabled:cursor-not-allowed text-xs"
-            >
-              Par défaut
-            </button>
-          </div>
+          <button
+            v-if="!address.is_default"
+            type="button"
+            @click="deleteAddress(address.id)"
+            :disabled="loading"
+            class="inline-flex items-center gap-1.5 text-sm text-red-600 hover:text-red-700 hover:underline font-manrope transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-amber rounded disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <Trash2 class="h-4 w-4" />
+            {{ $t('compte.adresses.delete') }}
+          </button>
         </div>
       </div>
     </div>
@@ -320,6 +312,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { Trash2 } from 'lucide-vue-next'
 import { useAddresses } from '~/composables/useAddresses'
 import SuccessModal from '~/components/SuccessModal.vue'
 import AlertModal from '~/components/AlertModal.vue'
@@ -328,6 +321,8 @@ definePageMeta({
   layout: 'compte',
   middleware: 'auth'
 })
+
+const { t } = useI18n()
 
 interface Address {
   id: string
@@ -346,7 +341,7 @@ interface Address {
   updated_at: string
 }
 
-const { fetchAddresses, createAddress, updateAddress, deleteAddress: deleteAddressApi, setDefaultAddress } = useAddresses()
+const { fetchAddresses, createAddress, updateAddress, deleteAddress: deleteAddressApi } = useAddresses()
 
 // États
 const addresses = ref<Address[]>([])
@@ -398,8 +393,8 @@ const resetForm = () => {
  */
 const showSuccess = (titleKey: string, messageKey: string) => {
   successModal.value = {
-    title: useI18n().t(titleKey),
-    message: useI18n().t(messageKey)
+    title: t(titleKey),
+    message: t(messageKey)
   }
   showSuccessModal.value = true
 }
@@ -408,7 +403,7 @@ const showSuccess = (titleKey: string, messageKey: string) => {
  * Affiche la modale d'erreur
  */
 const showErrorAlert = (message: string) => {
-  errorModalMessage.value = message || useI18n().t('compte.adresses.error_message')
+  errorModalMessage.value = message || t('compte.adresses.error_message')
   showErrorModal.value = true
 }
 
@@ -550,21 +545,4 @@ const deleteAddress = async (addressId: string) => {
   loading.value = false
 }
 
-/**
- * Définit une adresse comme adresse par défaut
- */
-const setDefault = async (addressId: string) => {
-  loading.value = true
-
-  const { error: setDefaultError } = await setDefaultAddress(addressId)
-
-  if (setDefaultError) {
-    showErrorAlert(setDefaultError)
-    console.error('Erreur lors de la définition de l\'adresse par défaut:', setDefaultError)
-  } else {
-    await loadAddresses()
-  }
-
-  loading.value = false
-}
 </script>
