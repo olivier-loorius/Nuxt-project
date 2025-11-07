@@ -80,9 +80,14 @@ const formatNumber = (value: string): string => {
 const handleInput = () => {
   isUserTyping.value = true;
   const rawValue = displayNumber.value;
+  console.log('[PhoneInput.handleInput] rawValue before:', rawValue);
+
   const digits = rawValue.replace(/\D/g, "").slice(0, 10);
+  console.log('[PhoneInput.handleInput] digits extracted:', digits);
 
   displayNumber.value = formatNumber(digits);
+  console.log('[PhoneInput.handleInput] displayNumber after format:', displayNumber.value);
+
   updateFullNumber();
 
   nextTick(() => {
@@ -93,6 +98,7 @@ const handleInput = () => {
 const updateFullNumber = () => {
   const digits = displayNumber.value.replace(/\D/g, "");
   const fullNumber = digits ? `${selectedCountry.value}${digits}` : "";
+  console.log('[PhoneInput.updateFullNumber] digits:', digits, 'selectedCountry:', selectedCountry.value, 'fullNumber emitted:', fullNumber);
   emit("update:modelValue", fullNumber);
 };
 
@@ -101,26 +107,37 @@ watch(
   (newValue) => {
     if (isUserTyping.value) return;
 
+    console.log('[PhoneInput.watch] newValue:', newValue);
+
     if (!newValue) {
       displayNumber.value = "";
       selectedCountry.value = "+33";
+      console.log('[PhoneInput.watch] Empty value');
       return;
     }
 
     // Parse le numéro avec ou sans 0 après l'indicateur
     // Accepte: "+33612..." et "+330612..."
     let match = newValue.match(/^(\+\d{2,3})(\d+)$/);
+    console.log('[PhoneInput.watch] match:', match);
+
     if (match) {
       let indicator = match[1];
       let digits = match[2];
 
+      console.log('[PhoneInput.watch] indicator:', indicator, 'digits:', digits);
+
       // Si c'est un numéro français sans 0 après indicateur, l'ajouter
       if (indicator === "+33" && !digits.startsWith("0")) {
         digits = "0" + digits;
+        console.log('[PhoneInput.watch] Added 0, new digits:', digits);
       }
 
       selectedCountry.value = indicator;
       displayNumber.value = formatNumber(digits);
+      console.log('[PhoneInput.watch] displayNumber after format:', displayNumber.value);
+    } else {
+      console.log('[PhoneInput.watch] Regex did not match');
     }
   },
   { immediate: true }

@@ -299,6 +299,9 @@ const loadProfile = async () => {
     formData.birth_date = profile.birth_date || ''
     formData.phone = profile.phone || ''
 
+    console.log('[profil.loadProfile] profile.phone from Supabase:', profile.phone);
+    console.log('[profil.loadProfile] formData.phone set to:', formData.phone);
+
     originalData.value = {
       first_name: profile.first_name || '',
       last_name: profile.last_name || '',
