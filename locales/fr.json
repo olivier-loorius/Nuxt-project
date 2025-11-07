@@ -350,7 +350,13 @@
       "success_delete_title": "Adresse supprimée",
       "success_delete_message": "L'adresse a été supprimée avec succès",
       "error_title": "Erreur",
-      "error_message": "Une erreur s'est produite lors de l'opération"
+      "error_message": "Une erreur s'est produite lors de l'opération",
+      "modals": {
+        "delete": {
+          "title": "Supprimer cette adresse ?",
+          "message": "Êtes-vous sûr de vouloir supprimer cette adresse ? Cette action ne peut pas être annulée."
+        }
+      }
     }
   }
 }

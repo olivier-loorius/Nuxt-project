@@ -14,6 +14,14 @@
       :message="errorModalMessage"
     />
 
+    <!-- Delete Confirm Modal -->
+    <DeleteConfirmModal
+      v-model="showDeleteModal"
+      :title="t('compte.adresses.modals.delete.title')"
+      :message="t('compte.adresses.modals.delete.message')"
+      @confirm="confirmDelete"
+    />
+
     <!-- Header -->
     <div class="mb-10 border-l-4 border-amber pl-6">
       <div class="flex items-center justify-between gap-6">
@@ -316,6 +324,7 @@ import { Trash2 } from 'lucide-vue-next'
 import { useAddresses } from '~/composables/useAddresses'
 import SuccessModal from '~/components/SuccessModal.vue'
 import AlertModal from '~/components/AlertModal.vue'
+import DeleteConfirmModal from '~/components/DeleteConfirmModal.vue'
 
 definePageMeta({
   layout: 'compte',
@@ -359,6 +368,8 @@ const successModal = ref({
 })
 const showErrorModal = ref(false)
 const errorModalMessage = ref('')
+const showDeleteModal = ref(false)
+const addressToDelete = ref<string | null>(null)
 
 const formData = ref({
   type: '',
@@ -523,25 +534,32 @@ const editAddress = (addressId: string) => {
 }
 
 /**
- * Supprime une adresse
+ * Ouvre la modale de confirmation de suppression
  */
-const deleteAddress = async (addressId: string) => {
-  if (!confirm('Êtes-vous sûr de vouloir supprimer cette adresse ?')) {
-    return
-  }
+const deleteAddress = (addressId: string) => {
+  addressToDelete.value = addressId
+  showDeleteModal.value = true
+}
+
+/**
+ * Confirme et exécute la suppression de l'adresse
+ */
+const confirmDelete = async () => {
+  if (!addressToDelete.value) return
 
   loading.value = true
 
-  const { error: deleteError } = await deleteAddressApi(addressId)
+  const { error: deleteError } = await deleteAddressApi(addressToDelete.value)
 
   if (deleteError) {
     showErrorAlert(deleteError)
     console.error('Erreur lors de la suppression:', deleteError)
   } else {
-    addresses.value = addresses.value.filter(a => a.id !== addressId)
+    addresses.value = addresses.value.filter(a => a.id !== addressToDelete.value)
     showSuccess('compte.adresses.success_delete_title', 'compte.adresses.success_delete_message')
   }
 
+  addressToDelete.value = null
   loading.value = false
 }
 
