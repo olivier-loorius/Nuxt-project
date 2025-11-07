@@ -33,7 +33,7 @@
           ? 'bg-concrete/20 text-midnight/50 cursor-not-allowed'
           : 'bg-white text-midnight focus:ring-2 focus:ring-amber',
       ]"
-      placeholder="6 12 34 56 78"
+      placeholder="0 6 12 34 56 78"
     />
   </div>
 </template>
@@ -64,14 +64,15 @@ const formatNumber = (value: string): string => {
   const digits = value.replace(/\D/g, "");
   if (!digits) return "";
 
-  const match = digits.match(/(\d{1})(\d{0,2})(\d{0,2})(\d{0,2})(\d{0,2})/);
+  // Format pour 10 chiffres: 0X XX XX XX XX
+  const match = digits.match(/(\d{1})(\d{1})(\d{0,2})(\d{0,2})(\d{0,2})(\d{0,2})/);
   if (!match) return digits;
 
-  let formatted = match[1];
-  if (match[2]) formatted += " " + match[2];
+  let formatted = match[1] + match[2];
   if (match[3]) formatted += " " + match[3];
   if (match[4]) formatted += " " + match[4];
   if (match[5]) formatted += " " + match[5];
+  if (match[6]) formatted += " " + match[6];
 
   return formatted;
 };
@@ -106,10 +107,20 @@ watch(
       return;
     }
 
-    const match = newValue.match(/^(\+\d{2,3})(\d+)$/);
+    // Parse le numéro avec ou sans 0 après l'indicateur
+    // Accepte: "+33612..." et "+330612..."
+    let match = newValue.match(/^(\+\d{2,3})(\d+)$/);
     if (match) {
-      selectedCountry.value = match[1];
-      displayNumber.value = formatNumber(match[2]);
+      let indicator = match[1];
+      let digits = match[2];
+
+      // Si c'est un numéro français sans 0 après indicateur, l'ajouter
+      if (indicator === "+33" && !digits.startsWith("0")) {
+        digits = "0" + digits;
+      }
+
+      selectedCountry.value = indicator;
+      displayNumber.value = formatNumber(digits);
     }
   },
   { immediate: true }
