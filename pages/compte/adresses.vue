@@ -253,8 +253,15 @@
                 v-model="formData.postal_code"
                 type="text"
                 required
-                class="btn-beveled w-full px-4 py-3 border-2 border-concrete focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber"
+                @input="validateForm"
+                :class="[
+                  'btn-beveled w-full px-4 py-3 border-2 focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber',
+                  formErrors.postal_code ? 'border-red-500' : 'border-concrete'
+                ]"
               />
+              <p v-if="formErrors.postal_code" class="text-red-600 text-xs mt-1">
+                {{ formErrors.postal_code }}
+              </p>
             </div>
             <div>
               <label class="block font-sora font-semibold text-sm text-midnight mb-2">{{ $t('compte.adresses.city') }} <span class="text-alert">*</span></label>
@@ -262,8 +269,15 @@
                 v-model="formData.city"
                 type="text"
                 required
-                class="btn-beveled w-full px-4 py-3 border-2 border-concrete focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber"
+                @input="validateForm"
+                :class="[
+                  'btn-beveled w-full px-4 py-3 border-2 focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber',
+                  formErrors.city ? 'border-red-500' : 'border-concrete'
+                ]"
               />
+              <p v-if="formErrors.city" class="text-red-600 text-xs mt-1">
+                {{ formErrors.city }}
+              </p>
             </div>
           </div>
 
@@ -286,9 +300,16 @@
               v-model="formData.phone"
               type="tel"
               placeholder="Optionnel"
-              class="btn-beveled w-full px-4 py-3 border-2 border-concrete focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber"
+              @input="validateForm"
+              :class="[
+                'btn-beveled w-full px-4 py-3 border-2 focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber',
+                formErrors.phone ? 'border-red-500' : 'border-concrete'
+              ]"
             />
-            <p class="text-xs text-midnight/50 mt-1">
+            <p v-if="formErrors.phone" class="text-red-600 text-xs mt-1">
+              {{ formErrors.phone }}
+            </p>
+            <p v-else class="text-xs text-midnight/50 mt-1">
               {{ $t('compte.adresses.phone_help') }}
             </p>
           </div>
@@ -309,7 +330,7 @@
           <div class="flex flex-col sm:flex-row gap-4 pt-4">
             <button
               type="submit"
-              :disabled="loading"
+              :disabled="loading || !isFormValid()"
               class="btn-beveled flex-1 border-2 border-amber bg-amber text-midnight hover:bg-copper px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 focus-visible:ring-2 focus-visible:ring-amber disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {{ loading ? (isEditing ? 'Mise à jour...' : 'Création...') : $t('compte.adresses.save') }}
@@ -394,6 +415,70 @@ const formData = ref({
   is_default: false
 })
 
+const formErrors = ref({
+  postal_code: '',
+  phone: '',
+  city: ''
+})
+
+const validatePostalCode = (value: string): boolean => {
+  if (!value) return false
+  return /^\d{5}$/.test(value)
+}
+
+const validatePhone = (value: string): boolean => {
+  if (!value) return true
+  return /^0[1-9]\d{8}$/.test(value)
+}
+
+const validateCity = (value: string): boolean => {
+  if (!value) return false
+  return /^[a-zA-ZÀ-ÿ\s\-]+$/.test(value)
+}
+
+const isFormValid = (): boolean => {
+  const required = [
+    formData.value.type,
+    formData.value.first_name,
+    formData.value.last_name,
+    formData.value.street,
+    formData.value.postal_code,
+    formData.value.city,
+    formData.value.country
+  ]
+
+  if (required.some(field => !field)) return false
+  if (!validatePostalCode(formData.value.postal_code)) return false
+  if (!validateCity(formData.value.city)) return false
+  if (formData.value.phone && !validatePhone(formData.value.phone)) return false
+
+  return true
+}
+
+const clearFormErrors = () => {
+  formErrors.value = {
+    postal_code: '',
+    phone: '',
+    city: ''
+  }
+}
+
+const validateForm = () => {
+  clearFormErrors()
+
+  if (formData.value.postal_code && !validatePostalCode(formData.value.postal_code)) {
+    formErrors.value.postal_code = t('compte.adresses.error_postal_code')
+  }
+
+  if (formData.value.phone && !validatePhone(formData.value.phone)) {
+    formErrors.value.phone = t('compte.adresses.error_phone')
+  }
+
+  if (formData.value.city && !validateCity(formData.value.city)) {
+    formErrors.value.city = t('compte.adresses.error_city')
+  }
+}
+
 const resetForm = () => {
   const hasOtherAddresses = addresses.value.length > 0
   formData.value = {
@@ -444,9 +529,10 @@ onMounted(() => {
 })
 
 const handleSubmitAddress = async () => {
-  // Validation basique
-  if (!formData.value.type || !formData.value.first_name || !formData.value.last_name || !formData.value.street || !formData.value.postal_code || !formData.value.city || !formData.value.country) {
-    showErrorAlert('Veuillez remplir tous les champs obligatoires')
+  validateForm()
+
+  if (!isFormValid()) {
+    showErrorAlert(t('compte.adresses.form_invalid'))
     return
   }
 

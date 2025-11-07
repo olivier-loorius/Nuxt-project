@@ -352,6 +352,10 @@
       "success_delete_message": "The address has been deleted successfully",
       "error_title": "Error",
       "error_message": "An error occurred during the operation",
+      "form_invalid": "Please correct the errors in the form",
+      "error_postal_code": "Postal code must contain 5 digits (e.g. 75001)",
+      "error_phone": "Phone must be in French format (e.g. 0123456789)",
+      "error_city": "City must contain only letters, spaces and hyphens",
       "modals": {
         "delete": {
           "title": "Delete this address?",

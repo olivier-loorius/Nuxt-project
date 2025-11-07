@@ -352,6 +352,10 @@
       "success_delete_message": "L'adresse a été supprimée avec succès",
       "error_title": "Erreur",
       "error_message": "Une erreur s'est produite lors de l'opération",
+      "form_invalid": "Veuillez corriger les erreurs dans le formulaire",
+      "error_postal_code": "Le code postal doit contenir 5 chiffres (ex: 75001)",
+      "error_phone": "Le téléphone doit être au format français (ex: 0123456789)",
+      "error_city": "La ville ne doit contenir que des lettres, espaces et tirets",
       "modals": {
         "delete": {
           "title": "Supprimer cette adresse ?",

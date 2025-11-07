@@ -25,8 +25,10 @@ CREATE TABLE IF NOT EXISTS public.addresses (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
 
-  -- Constraints (matching profiles phone constraint)
-  CONSTRAINT phone_format CHECK (phone IS NULL OR phone ~* '^\+?[0-9\s]{6,20}$')
+  -- Constraints
+  CONSTRAINT phone_format CHECK (phone IS NULL OR phone ~* '^0[1-9]\d{8}$'),
+  CONSTRAINT postal_code_format CHECK (postal_code ~ '^\d{5}$'),
+  CONSTRAINT city_format CHECK (city ~ '^[a-zA-ZÀ-ÿ\s\-]+$')
 );
 
 -- Step 3: CREATE INDEXES (matching profiles performance)
