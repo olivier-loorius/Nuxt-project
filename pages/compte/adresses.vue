@@ -24,7 +24,7 @@
 
     <!-- Header -->
     <div class="mb-10 border-l-4 border-amber pl-6">
-      <div class="flex items-center justify-between gap-6">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div>
           <h1 class="text-3xl font-bold text-midnight tracking-tight mb-2 uppercase">
             {{ $t('compte.adresses.title') }}
@@ -36,7 +36,7 @@
         <button
           @click="showAddForm = true"
           :disabled="loading"
-          class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-copper px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 focus-visible:ring-2 focus-visible:ring-amber flex-shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
+          class="btn-beveled w-full md:w-auto border-2 border-amber bg-amber text-midnight hover:bg-copper px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 focus-visible:ring-2 focus-visible:ring-amber disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {{ $t('compte.adresses.add_address') }}
         </button>
@@ -105,7 +105,6 @@
             {{ $t('compte.adresses.edit') }}
           </button>
           <button
-            v-if="!address.is_default"
             type="button"
             @click="deleteAddress(address.id)"
             :disabled="loading"
@@ -294,6 +293,19 @@
             </p>
           </div>
 
+          <!-- Définir comme adresse par défaut -->
+          <div class="flex items-center gap-3 p-4 bg-amber/5 border border-amber/20 rounded">
+            <input
+              v-model="formData.is_default"
+              type="checkbox"
+              id="is_default"
+              class="w-4 h-4 cursor-pointer"
+            />
+            <label for="is_default" class="text-sm text-midnight font-manrope cursor-pointer flex-1">
+              {{ $t('compte.adresses.set_default') }}
+            </label>
+          </div>
+
           <div class="flex flex-col sm:flex-row gap-4 pt-4">
             <button
               type="submit"
@@ -337,8 +349,8 @@ interface Address {
   id: string
   user_id: string
   type: string
-  first_name?: string // From form, not stored in DB
-  last_name?: string // From form, not stored in DB
+  first_name?: string
+  last_name?: string
   street: string
   street_complement?: string
   postal_code: string
@@ -350,9 +362,8 @@ interface Address {
   updated_at: string
 }
 
-const { fetchAddresses, createAddress, updateAddress, deleteAddress: deleteAddressApi } = useAddresses()
+const { fetchAddresses, createAddress, updateAddress, deleteAddress: deleteAddressApi, setDefaultAddress } = useAddresses()
 
-// États
 const addresses = ref<Address[]>([])
 const loading = ref(false)
 const error = ref<string | null>(null)
@@ -360,7 +371,6 @@ const showAddForm = ref(false)
 const isEditing = ref(false)
 const editingAddressId = ref<string | null>(null)
 
-// États des modales
 const showSuccessModal = ref(false)
 const successModal = ref({
   title: '',
@@ -380,10 +390,12 @@ const formData = ref({
   postal_code: '',
   city: '',
   country: 'France',
-  phone: ''
+  phone: '',
+  is_default: false
 })
 
 const resetForm = () => {
+  const hasOtherAddresses = addresses.value.length > 0
   formData.value = {
     type: '',
     first_name: '',
@@ -393,15 +405,13 @@ const resetForm = () => {
     postal_code: '',
     city: '',
     country: 'France',
-    phone: ''
+    phone: '',
+    is_default: !hasOtherAddresses // Coché seulement si c'est la première adresse
   }
   isEditing.value = false
   editingAddressId.value = null
 }
 
-/**
- * Affiche la modale de succès
- */
 const showSuccess = (titleKey: string, messageKey: string) => {
   successModal.value = {
     title: t(titleKey),
@@ -410,17 +420,11 @@ const showSuccess = (titleKey: string, messageKey: string) => {
   showSuccessModal.value = true
 }
 
-/**
- * Affiche la modale d'erreur
- */
 const showErrorAlert = (message: string) => {
   errorModalMessage.value = message || t('compte.adresses.error_message')
   showErrorModal.value = true
 }
 
-/**
- * Charge les adresses depuis Supabase au montage
- */
 const loadAddresses = async () => {
   loading.value = true
   error.value = null
@@ -428,7 +432,6 @@ const loadAddresses = async () => {
 
   if (fetchError) {
     error.value = fetchError
-    console.error('Erreur lors du chargement des adresses:', fetchError)
   } else if (data) {
     addresses.value = data
   }
@@ -440,9 +443,6 @@ onMounted(() => {
   loadAddresses()
 })
 
-/**
- * Crée ou met à jour une adresse
- */
 const handleSubmitAddress = async () => {
   // Validation basique
   if (!formData.value.type || !formData.value.first_name || !formData.value.last_name || !formData.value.street || !formData.value.postal_code || !formData.value.city || !formData.value.country) {
@@ -454,7 +454,6 @@ const handleSubmitAddress = async () => {
 
   try {
     if (isEditing.value && editingAddressId.value) {
-      // Mise à jour
       const { data, error: updateError } = await updateAddress(editingAddressId.value, {
         type: formData.value.type,
         first_name: formData.value.first_name,
@@ -469,19 +468,21 @@ const handleSubmitAddress = async () => {
 
       if (updateError) {
         showErrorAlert(updateError)
-        console.error('Erreur lors de la mise à jour:', updateError)
       } else if (data) {
-        // Remplace l'adresse mise à jour dans la liste
-        const index = addresses.value.findIndex(a => a.id === editingAddressId.value)
-        if (index !== -1) {
-          addresses.value[index] = data
+        if (formData.value.is_default) {
+          await setDefaultAddress(editingAddressId.value)
+          await loadAddresses()
+        } else {
+          const index = addresses.value.findIndex(a => a.id === editingAddressId.value)
+          if (index !== -1) {
+            addresses.value[index] = data
+          }
         }
         showAddForm.value = false
         resetForm()
         showSuccess('compte.adresses.success_update_title', 'compte.adresses.success_update_message')
       }
     } else {
-      // Création
       const { data, error: createError } = await createAddress({
         type: formData.value.type,
         first_name: formData.value.first_name,
@@ -496,9 +497,13 @@ const handleSubmitAddress = async () => {
 
       if (createError) {
         showErrorAlert(createError)
-        console.error('Erreur lors de la création:', createError)
       } else if (data) {
-        addresses.value.push(data)
+        if (formData.value.is_default && data.id) {
+          await setDefaultAddress(data.id)
+          await loadAddresses()
+        } else {
+          addresses.value.push(data)
+        }
         showAddForm.value = false
         resetForm()
         showSuccess('compte.adresses.success_create_title', 'compte.adresses.success_create_message')
@@ -509,9 +514,6 @@ const handleSubmitAddress = async () => {
   }
 }
 
-/**
- * Ouvre le formulaire pour éditer une adresse
- */
 const editAddress = (addressId: string) => {
   const address = addresses.value.find(a => a.id === addressId)
   if (!address) return
@@ -525,7 +527,8 @@ const editAddress = (addressId: string) => {
     postal_code: address.postal_code,
     city: address.city,
     country: address.country,
-    phone: address.phone || ''
+    phone: address.phone || '',
+    is_default: address.is_default
   }
 
   isEditing.value = true
@@ -533,17 +536,11 @@ const editAddress = (addressId: string) => {
   showAddForm.value = true
 }
 
-/**
- * Ouvre la modale de confirmation de suppression
- */
 const deleteAddress = (addressId: string) => {
   addressToDelete.value = addressId
   showDeleteModal.value = true
 }
 
-/**
- * Confirme et exécute la suppression de l'adresse
- */
 const confirmDelete = async () => {
   if (!addressToDelete.value) return
 
@@ -553,7 +550,6 @@ const confirmDelete = async () => {
 
   if (deleteError) {
     showErrorAlert(deleteError)
-    console.error('Erreur lors de la suppression:', deleteError)
   } else {
     addresses.value = addresses.value.filter(a => a.id !== addressToDelete.value)
     showSuccess('compte.adresses.success_delete_title', 'compte.adresses.success_delete_message')

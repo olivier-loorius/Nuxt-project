@@ -329,6 +329,7 @@
       "edit": "Modifier",
       "delete": "Supprimer",
       "default": "Par défaut",
+      "set_default": "Définir comme adresse par défaut",
       "save": "Enregistrer",
       "cancel": "Annuler",
       "required_fields": "* Champs obligatoires",

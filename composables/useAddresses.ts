@@ -30,14 +30,9 @@ interface AddressInput {
 export const useAddresses = () => {
   const client = useSupabaseClient()
 
-  /**
-   * Récupère toutes les adresses de l'utilisateur
-   */
   const fetchAddresses = async () => {
     try {
       const user = useSupabaseUser()
-      console.log('[fetchAddresses] user.value:', user.value)
-      console.log('[fetchAddresses] user.value?.sub:', user.value?.sub)
 
       const userId = user.value?.sub
       if (!userId) {
@@ -53,12 +48,11 @@ export const useAddresses = () => {
 
       if (error) throw error
 
-      // Map database columns to Vue property names
       const mappedData = data?.map((addr: any) => ({
         id: addr.id,
         user_id: addr.user_id,
         type: addr.type,
-        first_name: '', // Database doesn't store first_name/last_name, but Vue expects them
+        first_name: '',
         last_name: '',
         street: addr.address_line1,
         street_complement: addr.address_line2,
@@ -74,21 +68,13 @@ export const useAddresses = () => {
       return { data: mappedData as Address[], error: null }
     } catch (err) {
       const error = err as Error
-      console.error('Erreur lors de la récupération des adresses:', error.message)
       return { data: null, error: error.message }
     }
   }
 
-  /**
-   * Crée une nouvelle adresse
-   * La première adresse créée est automatiquement définie comme adresse par défaut (is_default = true)
-   * Les adresses suivantes ont is_default = false par défaut
-   */
   const createAddress = async (addressData: AddressInput) => {
     try {
       const user = useSupabaseUser()
-      console.log('[createAddress] user.value:', user.value)
-      console.log('[createAddress] user.value?.sub:', user.value?.sub)
 
       const userId = user.value?.sub
       if (!userId) {
@@ -117,8 +103,6 @@ export const useAddresses = () => {
         updated_at: new Date().toISOString()
       }
 
-      console.log('[createAddress] Payload envoyé à Supabase:', addressPayload)
-
       const { data, error } = await client
         .from('addresses')
         .insert([addressPayload])
@@ -126,9 +110,6 @@ export const useAddresses = () => {
 
       if (error) throw error
 
-      console.log('[createAddress] Réponse Supabase:', data)
-
-      // Map database columns back to Vue property names
       if (data && data.length > 0) {
         const addr = data[0]
         const mappedResult: Address = {
@@ -153,26 +134,19 @@ export const useAddresses = () => {
       return { data: null, error: null }
     } catch (err) {
       const error = err as Error
-      console.error('Erreur lors de la création de l\'adresse:', error.message)
       return { data: null, error: error.message }
     }
   }
 
-  /**
-   * Met à jour une adresse existante
-   */
   const updateAddress = async (addressId: string, addressData: Partial<AddressInput>) => {
     try {
       const user = useSupabaseUser()
-      console.log('[updateAddress] user.value:', user.value)
-      console.log('[updateAddress] user.value?.sub:', user.value?.sub)
 
       const userId = user.value?.sub
       if (!userId) {
         return { data: null, error: 'Utilisateur non authentifié' }
       }
 
-      // Map Vue field names to database columns
       const updatePayload: any = {
         updated_at: new Date().toISOString()
       }
@@ -198,7 +172,6 @@ export const useAddresses = () => {
         return { data: null, error: 'Adresse non trouvée' }
       }
 
-      // Map database columns back to Vue property names
       const addr = data[0]
       const mappedResult: Address = {
         id: addr.id,
@@ -220,26 +193,19 @@ export const useAddresses = () => {
       return { data: mappedResult, error: null }
     } catch (err) {
       const error = err as Error
-      console.error('Erreur lors de la mise à jour de l\'adresse:', error.message)
       return { data: null, error: error.message }
     }
   }
 
-  /**
-   * Supprime une adresse
-   */
   const deleteAddress = async (addressId: string) => {
     try {
       const user = useSupabaseUser()
-      console.log('[deleteAddress] user.value:', user.value)
-      console.log('[deleteAddress] user.value?.sub:', user.value?.sub)
 
       const userId = user.value?.sub
       if (!userId) {
         return { error: 'Utilisateur non authentifié' }
       }
 
-      // Récupère l'adresse avant suppression pour vérifier si c'est la défaut
       const { data: addressToDelete } = await client
         .from('addresses')
         .select('is_default')
@@ -255,7 +221,6 @@ export const useAddresses = () => {
 
       if (deleteError) throw deleteError
 
-      // Si c'était l'adresse par défaut, définit la première existante comme défaut
       if (addressToDelete?.is_default) {
         const { data: nextAddress } = await client
           .from('addresses')
@@ -273,26 +238,19 @@ export const useAddresses = () => {
       return { error: null }
     } catch (err) {
       const error = err as Error
-      console.error('Erreur lors de la suppression de l\'adresse:', error.message)
       return { error: error.message }
     }
   }
 
-  /**
-   * Définit une adresse comme adresse par défaut
-   */
   const setDefaultAddress = async (addressId: string) => {
     try {
       const user = useSupabaseUser()
-      console.log('[setDefaultAddress] user.value:', user.value)
-      console.log('[setDefaultAddress] user.value?.sub:', user.value?.sub)
 
       const userId = user.value?.sub
       if (!userId) {
         return { data: null, error: 'Utilisateur non authentifié' }
       }
 
-      // Récupère toutes les adresses de l'utilisateur
       const { data: allAddresses } = await client
         .from('addresses')
         .select('id')
@@ -302,7 +260,6 @@ export const useAddresses = () => {
         return { data: null, error: 'Aucune adresse trouvée' }
       }
 
-      // Mets à jour toutes les adresses à is_default = false
       const { error: updateAllError } = await client
         .from('addresses')
         .update({ is_default: false, updated_at: new Date().toISOString() })
@@ -310,7 +267,6 @@ export const useAddresses = () => {
 
       if (updateAllError) throw updateAllError
 
-      // Mets à jour l'adresse sélectionnée à is_default = true
       const { data, error: updateOneError } = await client
         .from('addresses')
         .update({ is_default: true, updated_at: new Date().toISOString() })
@@ -327,7 +283,6 @@ export const useAddresses = () => {
       return { data: data[0] as Address, error: null }
     } catch (err) {
       const error = err as Error
-      console.error('Erreur lors de la définition de l\'adresse par défaut:', error.message)
       return { data: null, error: error.message }
     }
   }

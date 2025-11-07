@@ -94,3 +94,4 @@ export default defineNuxtConfig({
     payloadExtraction: true,
   },
 });
+
