@@ -2,7 +2,7 @@
   <Dialog :open="modelValue" @update:open="handleOpenChange">
     <DialogContent class="sm:max-w-sm !rounded-none border border-midnight/10">
       <div class="flex flex-col items-center text-center space-y-4 py-4">
-        <div class="w-12 h-12 bg-green-500 flex items-center justify-center">
+        <div class="w-12 h-12 bg-red-500 flex items-center justify-center">
           <svg
             class="w-7 h-7 text-white"
             fill="none"
@@ -13,7 +13,7 @@
             <path
               stroke-linecap="square"
               stroke-linejoin="miter"
-              d="M5 13l4 4L19 7"
+              d="M6 18L18 6M6 6l12 12"
             />
           </svg>
         </div>
@@ -30,9 +30,9 @@
       <DialogFooter>
         <button
           @click="close"
-          class="w-full btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-copper px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300"
+          class="w-full btn-beveled border-2 border-red-500 bg-red-500 text-white hover:bg-red-600 px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300"
         >
-          {{ $t('modals.success.close') }}
+          {{ $t('modals.alert.close') }}
         </button>
       </DialogFooter>
     </DialogContent>
@@ -40,7 +40,6 @@
 </template>
 
 <script setup lang="ts">
-import { watch, onUnmounted } from 'vue'
 import Dialog from '~/components/ui/dialog/Dialog.vue'
 import DialogContent from '~/components/ui/dialog/DialogContent.vue'
 import DialogDescription from '~/components/ui/dialog/DialogDescription.vue'
@@ -57,38 +56,11 @@ const emit = defineEmits<{
   'update:modelValue': [value: boolean]
 }>()
 
-let autoCloseTimer: NodeJS.Timeout | null = null
-
 const handleOpenChange = (open: boolean) => {
   emit('update:modelValue', open)
-  if (!open && autoCloseTimer) {
-    clearTimeout(autoCloseTimer)
-    autoCloseTimer = null
-  }
 }
 
 const close = () => {
   emit('update:modelValue', false)
-  if (autoCloseTimer) {
-    clearTimeout(autoCloseTimer)
-    autoCloseTimer = null
-  }
 }
-
-watch(() => props.modelValue, (isOpen) => {
-  if (isOpen) {
-    if (autoCloseTimer) {
-      clearTimeout(autoCloseTimer)
-    }
-    autoCloseTimer = setTimeout(() => {
-      close()
-    }, 3000)
-  }
-})
-
-onUnmounted(() => {
-  if (autoCloseTimer) {
-    clearTimeout(autoCloseTimer)
-  }
-})
 </script>

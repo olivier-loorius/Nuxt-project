@@ -1,33 +1,79 @@
 <template>
-  <div class="bg-white rounded-lg shadow-sm p-6 md:p-8">
+  <div class="bg-white border-2 border-concrete p-8 md:p-10">
+    <!-- Success Modal -->
+    <SuccessModal
+      v-model="showSuccessModal"
+      :title="successModal.title"
+      :message="successModal.message"
+    />
+
+    <!-- Error Modal -->
+    <AlertModal
+      v-model="showErrorModal"
+      :title="$t('compte.adresses.error_title')"
+      :message="errorModalMessage"
+    />
+
+    <!-- Delete Confirm Modal -->
+    <DeleteConfirmModal
+      v-model="showDeleteModal"
+      :title="t('compte.adresses.modals.delete.title')"
+      :message="t('compte.adresses.modals.delete.message')"
+      @confirm="confirmDelete"
+    />
+
     <!-- Header -->
-    <div class="mb-8 flex items-center justify-between">
-      <div>
-        <h1 class="text-3xl font-bold text-midnight mb-2">
-          {{ $t('compte.adresses.title') }}
-        </h1>
-        <p class="text-midnight/60">
-          {{ $t('compte.adresses.subtitle') }}
-        </p>
+    <div class="mb-10 border-l-4 border-amber pl-6">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div>
+          <h1 class="text-3xl font-bold text-midnight tracking-tight mb-2 uppercase">
+            {{ $t('compte.adresses.title') }}
+          </h1>
+          <p class="text-midnight/60">
+            {{ $t('compte.adresses.subtitle') }}
+          </p>
+        </div>
+        <button
+          @click="showAddForm = true"
+          :disabled="loading"
+          class="btn-beveled w-full md:w-auto border-2 border-amber bg-amber text-midnight hover:bg-copper px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 focus-visible:ring-2 focus-visible:ring-amber disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {{ $t('compte.adresses.add_address') }}
+        </button>
       </div>
-      <button
-        @click="showAddForm = true"
-        class="px-4 py-2 bg-amber text-white rounded-lg font-medium hover:bg-amber/90 transition-colors"
+    </div>
+
+    <!-- Loading Skeleton -->
+    <div v-if="loading && addresses.length === 0" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div
+        v-for="i in 2"
+        :key="i"
+        class="btn-beveled border-2 border-concrete p-6 animate-pulse"
       >
-        {{ $t('compte.adresses.add_address') }}
-      </button>
+        <div class="mb-4">
+          <div class="h-4 bg-concrete/30 rounded w-32 mb-3"></div>
+          <div class="space-y-2">
+            <div class="h-3 bg-concrete/30 rounded w-full"></div>
+            <div class="h-3 bg-concrete/30 rounded w-3/4"></div>
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <div class="h-10 bg-concrete/30 rounded flex-1"></div>
+          <div class="h-10 bg-concrete/30 rounded flex-1"></div>
+        </div>
+      </div>
     </div>
 
     <!-- Addresses List -->
-    <div v-if="addresses.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div v-else-if="addresses.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div
         v-for="address in addresses"
         :key="address.id"
-        class="border border-concrete rounded-lg p-6 hover:border-amber transition-colors relative"
+        class="btn-beveled border-2 border-concrete p-6 hover:border-amber transition-colors relative"
       >
         <!-- Default Badge -->
         <div
-          v-if="address.isDefault"
+          v-if="address.is_default"
           class="absolute top-4 right-4 px-3 py-1 bg-amber/20 text-amber text-xs font-medium rounded-full"
         >
           {{ $t('compte.adresses.default') }}
@@ -35,12 +81,13 @@
 
         <!-- Address Info -->
         <div class="mb-4 pr-20">
-          <h3 class="font-bold text-midnight mb-2">
-            {{ address.firstName }} {{ address.lastName }}
+          <h3 class="font-bold text-midnight mb-3">
+            {{ address.type }}
           </h3>
           <p class="text-midnight/80 text-sm leading-relaxed">
             {{ address.street }}<br>
-            {{ address.zipCode }} {{ address.city }}<br>
+            <span v-if="address.street_complement">{{ address.street_complement }}<br></span>
+            {{ address.postal_code }} {{ address.city }}<br>
             {{ address.country }}
           </p>
           <p v-if="address.phone" class="text-midnight/60 text-sm mt-2">
@@ -49,18 +96,21 @@
         </div>
 
         <!-- Actions -->
-        <div class="flex gap-3">
+        <div class="flex flex-col gap-2">
           <button
             @click="editAddress(address.id)"
-            class="flex-1 px-4 py-2 border border-amber text-amber rounded-lg font-medium hover:bg-amber hover:text-white transition-all"
+            :disabled="loading"
+            class="btn-beveled border-2 border-amber text-amber hover:bg-amber hover:text-midnight px-4 py-2 font-medium transition-all focus-visible:ring-2 focus-visible:ring-amber disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {{ $t('compte.adresses.edit') }}
           </button>
           <button
-            v-if="!address.isDefault"
+            type="button"
             @click="deleteAddress(address.id)"
-            class="px-4 py-2 border border-red-500 text-red-500 rounded-lg font-medium hover:bg-red-500 hover:text-white transition-all"
+            :disabled="loading"
+            class="inline-flex items-center gap-1.5 text-sm text-red-600 hover:text-red-700 hover:underline font-manrope transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-amber rounded disabled:opacity-50 disabled:cursor-not-allowed"
           >
+            <Trash2 class="h-4 w-4" />
             {{ $t('compte.adresses.delete') }}
           </button>
         </div>
@@ -68,7 +118,7 @@
     </div>
 
     <!-- Empty State -->
-    <div v-else-if="!showAddForm" class="text-center py-12">
+    <div v-else-if="!showAddForm && !loading" class="text-center py-12">
       <svg
         class="w-24 h-24 mx-auto text-midnight/20 mb-4"
         fill="none"
@@ -92,11 +142,11 @@
         {{ $t('compte.adresses.no_addresses') }}
       </h3>
       <p class="text-midnight/60 mb-6">
-        Ajoutez une adresse pour faciliter vos futures commandes
+        {{ $t('compte.adresses.empty_hint') }}
       </p>
       <button
         @click="showAddForm = true"
-        class="inline-block px-6 py-3 bg-amber text-white rounded-lg font-medium hover:bg-amber/90 transition-colors"
+        class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-copper px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 focus-visible:ring-2 focus-visible:ring-amber"
       >
         {{ $t('compte.adresses.add_address') }}
       </button>
@@ -108,102 +158,190 @@
       class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
       @click.self="showAddForm = false"
     >
-      <div class="bg-white rounded-lg p-6 md:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        <h2 class="text-2xl font-bold text-midnight mb-6">
-          {{ $t('compte.adresses.add_address') }}
+      <div class="bg-white border-2 border-concrete p-8 md:p-10 max-w-2xl w-full max-h-[90vh] overflow-y-auto relative">
+        <button
+          type="button"
+          @click="showAddForm = false"
+          class="absolute top-4 right-4 text-midnight/50 hover:text-midnight transition-colors focus-visible:ring-2 focus-visible:ring-amber rounded p-1"
+          aria-label="Fermer"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <h2 class="text-2xl font-bold text-midnight mb-6 font-sora pr-8">
+          {{ isEditing ? 'Modifier l\'adresse' : $t('compte.adresses.add_address') }}
         </h2>
 
-        <form @submit.prevent="handleSubmitAddress" class="space-y-4">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-sm font-medium text-midnight mb-2">
-                {{ $t('compte.profil.first_name') }}
-              </label>
-              <input
-                v-model="formData.firstName"
-                type="text"
-                required
-                class="w-full px-4 py-3 border border-concrete rounded-lg focus:outline-none focus:ring-2 focus:ring-amber"
-              />
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-midnight mb-2">
-                {{ $t('compte.profil.last_name') }}
-              </label>
-              <input
-                v-model="formData.lastName"
-                type="text"
-                required
-                class="w-full px-4 py-3 border border-concrete rounded-lg focus:outline-none focus:ring-2 focus:ring-amber"
-              />
-            </div>
-          </div>
+        <p class="text-xs text-midnight/60 mb-4">
+          {{ $t('compte.adresses.required_fields') }}
+        </p>
 
+        <form @submit.prevent="handleSubmitAddress" class="space-y-6">
+          <!-- Type d'adresse (Nom de l'adresse) -->
           <div>
-            <label class="block text-sm font-medium text-midnight mb-2">Rue</label>
+            <label class="block font-sora font-semibold text-sm text-midnight mb-2">
+              {{ $t('compte.adresses.address_name') }} <span class="text-alert">*</span>
+            </label>
             <input
-              v-model="formData.street"
+              v-model="formData.type"
               type="text"
               required
-              class="w-full px-4 py-3 border border-concrete rounded-lg focus:outline-none focus:ring-2 focus:ring-amber"
+              :placeholder="$t('compte.adresses.placeholder_name')"
+              class="btn-beveled w-full px-4 py-3 border-2 border-concrete focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber"
             />
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Prénom et Nom -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label class="block text-sm font-medium text-midnight mb-2">Code postal</label>
+              <label class="block font-sora font-semibold text-sm text-midnight mb-2">
+                {{ $t('compte.profil.first_name') }} <span class="text-alert">*</span>
+              </label>
               <input
-                v-model="formData.zipCode"
+                v-model="formData.first_name"
                 type="text"
                 required
-                class="w-full px-4 py-3 border border-concrete rounded-lg focus:outline-none focus:ring-2 focus:ring-amber"
+                class="btn-beveled w-full px-4 py-3 border-2 border-concrete focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber"
               />
             </div>
             <div>
-              <label class="block text-sm font-medium text-midnight mb-2">Ville</label>
+              <label class="block font-sora font-semibold text-sm text-midnight mb-2">
+                {{ $t('compte.profil.last_name') }} <span class="text-alert">*</span>
+              </label>
+              <input
+                v-model="formData.last_name"
+                type="text"
+                required
+                class="btn-beveled w-full px-4 py-3 border-2 border-concrete focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber"
+              />
+            </div>
+          </div>
+
+          <!-- Adresse et Complément -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="md:col-span-1">
+              <label class="block font-sora font-semibold text-sm text-midnight mb-2">
+                {{ $t('compte.adresses.street') }} <span class="text-alert">*</span>
+              </label>
+              <input
+                v-model="formData.street"
+                type="text"
+                required
+                :placeholder="$t('compte.adresses.placeholder_street')"
+                class="btn-beveled w-full px-4 py-3 border-2 border-concrete focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber"
+              />
+            </div>
+            <div class="md:col-span-1">
+              <label class="block font-sora font-semibold text-sm text-midnight mb-2">
+                {{ $t('compte.adresses.complement') }}
+              </label>
+              <input
+                v-model="formData.street_complement"
+                type="text"
+                :placeholder="$t('compte.adresses.placeholder_complement')"
+                class="btn-beveled w-full px-4 py-3 border-2 border-concrete focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block font-sora font-semibold text-sm text-midnight mb-2">{{ $t('compte.adresses.zip') }} <span class="text-alert">*</span></label>
+              <input
+                v-model="formData.postal_code"
+                type="text"
+                required
+                @input="validateForm"
+                :class="[
+                  'btn-beveled w-full px-4 py-3 border-2 focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber',
+                  formErrors.postal_code ? 'border-red-500' : 'border-concrete'
+                ]"
+              />
+              <p v-if="formErrors.postal_code" class="text-red-600 text-xs mt-1">
+                {{ formErrors.postal_code }}
+              </p>
+            </div>
+            <div>
+              <label class="block font-sora font-semibold text-sm text-midnight mb-2">{{ $t('compte.adresses.city') }} <span class="text-alert">*</span></label>
               <input
                 v-model="formData.city"
                 type="text"
                 required
-                class="w-full px-4 py-3 border border-concrete rounded-lg focus:outline-none focus:ring-2 focus:ring-amber"
+                @input="validateForm"
+                :class="[
+                  'btn-beveled w-full px-4 py-3 border-2 focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber',
+                  formErrors.city ? 'border-red-500' : 'border-concrete'
+                ]"
               />
+              <p v-if="formErrors.city" class="text-red-600 text-xs mt-1">
+                {{ formErrors.city }}
+              </p>
             </div>
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-midnight mb-2">Pays</label>
+            <label class="block font-sora font-semibold text-sm text-midnight mb-2">{{ $t('compte.adresses.country') }} <span class="text-alert">*</span></label>
             <input
               v-model="formData.country"
               type="text"
               required
-              class="w-full px-4 py-3 border border-concrete rounded-lg focus:outline-none focus:ring-2 focus:ring-amber"
+              class="btn-beveled w-full px-4 py-3 border-2 border-concrete focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber"
             />
           </div>
 
+          <!-- Téléphone alternatif -->
           <div>
-            <label class="block text-sm font-medium text-midnight mb-2">
-              {{ $t('compte.profil.phone') }}
+            <label class="block font-sora font-semibold text-sm text-midnight mb-2">
+              {{ $t('compte.adresses.alt_phone') }}
             </label>
             <input
               v-model="formData.phone"
               type="tel"
-              class="w-full px-4 py-3 border border-concrete rounded-lg focus:outline-none focus:ring-2 focus:ring-amber"
+              placeholder="Optionnel"
+              @input="validateForm"
+              :class="[
+                'btn-beveled w-full px-4 py-3 border-2 focus:outline-none focus:ring-2 focus:ring-amber focus:border-amber',
+                formErrors.phone ? 'border-red-500' : 'border-concrete'
+              ]"
             />
+            <p v-if="formErrors.phone" class="text-red-600 text-xs mt-1">
+              {{ formErrors.phone }}
+            </p>
+            <p v-else class="text-xs text-midnight/50 mt-1">
+              {{ $t('compte.adresses.phone_help') }}
+            </p>
           </div>
 
-          <div class="flex gap-4 pt-4">
+          <!-- Définir comme adresse par défaut -->
+          <div class="flex items-center gap-3 p-4 bg-amber/5 border border-amber/20 rounded">
+            <input
+              v-model="formData.is_default"
+              type="checkbox"
+              id="is_default"
+              class="w-4 h-4 cursor-pointer"
+            />
+            <label for="is_default" class="text-sm text-midnight font-manrope cursor-pointer flex-1">
+              {{ $t('compte.adresses.set_default') }}
+            </label>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4 pt-4">
             <button
               type="submit"
-              class="flex-1 px-6 py-3 bg-amber text-white rounded-lg font-medium hover:bg-amber/90 transition-colors"
+              :disabled="loading || !isFormValid()"
+              class="btn-beveled flex-1 border-2 border-amber bg-amber text-midnight hover:bg-copper px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 focus-visible:ring-2 focus-visible:ring-amber disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {{ $t('compte.profil.save') }}
+              {{ loading ? (isEditing ? 'Mise à jour...' : 'Création...') : $t('compte.adresses.save') }}
             </button>
             <button
               type="button"
               @click="showAddForm = false"
-              class="px-6 py-3 border border-concrete text-midnight rounded-lg font-medium hover:bg-concrete/30 transition-colors"
+              :disabled="loading"
+              class="btn-beveled border-2 border-concrete bg-white text-midnight hover:bg-concrete/20 px-6 py-3 font-sora font-semibold uppercase tracking-wide text-sm transition-all duration-300 focus-visible:ring-2 focus-visible:ring-amber disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {{ $t('compte.profil.cancel') }}
+              {{ $t('compte.adresses.cancel') }}
             </button>
           </div>
         </form>
@@ -213,61 +351,298 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { Trash2 } from 'lucide-vue-next'
+import { useAddresses } from '~/composables/useAddresses'
+import SuccessModal from '~/components/SuccessModal.vue'
+import AlertModal from '~/components/AlertModal.vue'
+import DeleteConfirmModal from '~/components/DeleteConfirmModal.vue'
+
 definePageMeta({
   layout: 'compte',
   middleware: 'auth'
 })
 
+const { t } = useI18n()
+
 interface Address {
   id: string
-  firstName: string
-  lastName: string
+  user_id: string
+  type: string
+  first_name?: string
+  last_name?: string
   street: string
-  zipCode: string
+  street_complement?: string
+  postal_code: string
   city: string
   country: string
   phone?: string
-  isDefault: boolean
+  is_default: boolean
+  created_at: string
+  updated_at: string
 }
 
-const addresses = ref<Address[]>([])
+const { fetchAddresses, createAddress, updateAddress, deleteAddress: deleteAddressApi, setDefaultAddress } = useAddresses()
 
+const addresses = ref<Address[]>([])
+const loading = ref(false)
+const error = ref<string | null>(null)
 const showAddForm = ref(false)
+const isEditing = ref(false)
+const editingAddressId = ref<string | null>(null)
+
+const showSuccessModal = ref(false)
+const successModal = ref({
+  title: '',
+  message: ''
+})
+const showErrorModal = ref(false)
+const errorModalMessage = ref('')
+const showDeleteModal = ref(false)
+const addressToDelete = ref<string | null>(null)
+
 const formData = ref({
-  firstName: '',
-  lastName: '',
+  type: '',
+  first_name: '',
+  last_name: '',
   street: '',
-  zipCode: '',
+  street_complement: '',
+  postal_code: '',
   city: '',
   country: 'France',
-  phone: ''
+  phone: '',
+  is_default: false
 })
 
-const handleSubmitAddress = () => {
-  const newAddress: Address = {
-    id: Date.now().toString(),
-    ...formData.value,
-    isDefault: addresses.value.length === 0
+const formErrors = ref({
+  postal_code: '',
+  phone: '',
+  city: ''
+})
+
+const validatePostalCode = (value: string): boolean => {
+  if (!value) return false
+  return /^\d{5}$/.test(value)
+}
+
+const validatePhone = (value: string): boolean => {
+  if (!value) return true
+  return /^0[1-9]\d{8}$/.test(value)
+}
+
+const validateCity = (value: string): boolean => {
+  if (!value) return false
+  return /^[a-zA-ZÀ-ÿ\s\-]+$/.test(value)
+}
+
+const isFormValid = (): boolean => {
+  const required = [
+    formData.value.type,
+    formData.value.first_name,
+    formData.value.last_name,
+    formData.value.street,
+    formData.value.postal_code,
+    formData.value.city,
+    formData.value.country
+  ]
+
+  if (required.some(field => !field)) return false
+  if (!validatePostalCode(formData.value.postal_code)) return false
+  if (!validateCity(formData.value.city)) return false
+  if (formData.value.phone && !validatePhone(formData.value.phone)) return false
+
+  return true
+}
+
+const clearFormErrors = () => {
+  formErrors.value = {
+    postal_code: '',
+    phone: '',
+    city: ''
+  }
+}
+
+const validateForm = () => {
+  clearFormErrors()
+
+  if (formData.value.postal_code && !validatePostalCode(formData.value.postal_code)) {
+    formErrors.value.postal_code = t('compte.adresses.error_postal_code')
   }
 
-  addresses.value.push(newAddress)
-  showAddForm.value = false
+  if (formData.value.phone && !validatePhone(formData.value.phone)) {
+    formErrors.value.phone = t('compte.adresses.error_phone')
+  }
 
+  if (formData.value.city && !validateCity(formData.value.city)) {
+    formErrors.value.city = t('compte.adresses.error_city')
+  }
+}
+
+const resetForm = () => {
+  const hasOtherAddresses = addresses.value.length > 0
   formData.value = {
-    firstName: '',
-    lastName: '',
+    type: '',
+    first_name: '',
+    last_name: '',
     street: '',
-    zipCode: '',
+    street_complement: '',
+    postal_code: '',
     city: '',
     country: 'France',
-    phone: ''
+    phone: '',
+    is_default: !hasOtherAddresses // Coché seulement si c'est la première adresse
+  }
+  isEditing.value = false
+  editingAddressId.value = null
+}
+
+const showSuccess = (titleKey: string, messageKey: string) => {
+  successModal.value = {
+    title: t(titleKey),
+    message: t(messageKey)
+  }
+  showSuccessModal.value = true
+}
+
+const showErrorAlert = (message: string) => {
+  errorModalMessage.value = message || t('compte.adresses.error_message')
+  showErrorModal.value = true
+}
+
+const loadAddresses = async () => {
+  loading.value = true
+  error.value = null
+  const { data, error: fetchError } = await fetchAddresses()
+
+  if (fetchError) {
+    error.value = fetchError
+  } else if (data) {
+    addresses.value = data
+  }
+
+  loading.value = false
+}
+
+onMounted(() => {
+  loadAddresses()
+})
+
+const handleSubmitAddress = async () => {
+  validateForm()
+
+  if (!isFormValid()) {
+    showErrorAlert(t('compte.adresses.form_invalid'))
+    return
+  }
+
+  loading.value = true
+
+  try {
+    if (isEditing.value && editingAddressId.value) {
+      const { data, error: updateError } = await updateAddress(editingAddressId.value, {
+        type: formData.value.type,
+        first_name: formData.value.first_name,
+        last_name: formData.value.last_name,
+        street: formData.value.street,
+        street_complement: formData.value.street_complement || undefined,
+        postal_code: formData.value.postal_code,
+        city: formData.value.city,
+        country: formData.value.country,
+        phone: formData.value.phone || undefined
+      })
+
+      if (updateError) {
+        showErrorAlert(updateError)
+      } else if (data) {
+        if (formData.value.is_default) {
+          await setDefaultAddress(editingAddressId.value)
+          await loadAddresses()
+        } else {
+          const index = addresses.value.findIndex(a => a.id === editingAddressId.value)
+          if (index !== -1) {
+            addresses.value[index] = data
+          }
+        }
+        showAddForm.value = false
+        resetForm()
+        showSuccess('compte.adresses.success_update_title', 'compte.adresses.success_update_message')
+      }
+    } else {
+      const { data, error: createError } = await createAddress({
+        type: formData.value.type,
+        first_name: formData.value.first_name,
+        last_name: formData.value.last_name,
+        street: formData.value.street,
+        street_complement: formData.value.street_complement || undefined,
+        postal_code: formData.value.postal_code,
+        city: formData.value.city,
+        country: formData.value.country,
+        phone: formData.value.phone || undefined
+      })
+
+      if (createError) {
+        showErrorAlert(createError)
+      } else if (data) {
+        if (formData.value.is_default && data.id) {
+          await setDefaultAddress(data.id)
+          await loadAddresses()
+        } else {
+          addresses.value.push(data)
+        }
+        showAddForm.value = false
+        resetForm()
+        showSuccess('compte.adresses.success_create_title', 'compte.adresses.success_create_message')
+      }
+    }
+  } finally {
+    loading.value = false
   }
 }
 
 const editAddress = (addressId: string) => {
+  const address = addresses.value.find(a => a.id === addressId)
+  if (!address) return
+
+  formData.value = {
+    type: address.type,
+    first_name: address.first_name,
+    last_name: address.last_name,
+    street: address.street,
+    street_complement: address.street_complement || '',
+    postal_code: address.postal_code,
+    city: address.city,
+    country: address.country,
+    phone: address.phone || '',
+    is_default: address.is_default
+  }
+
+  isEditing.value = true
+  editingAddressId.value = addressId
+  showAddForm.value = true
 }
 
 const deleteAddress = (addressId: string) => {
-  addresses.value = addresses.value.filter(a => a.id !== addressId)
+  addressToDelete.value = addressId
+  showDeleteModal.value = true
 }
+
+const confirmDelete = async () => {
+  if (!addressToDelete.value) return
+
+  loading.value = true
+
+  const { error: deleteError } = await deleteAddressApi(addressToDelete.value)
+
+  if (deleteError) {
+    showErrorAlert(deleteError)
+  } else {
+    addresses.value = addresses.value.filter(a => a.id !== addressToDelete.value)
+    showSuccess('compte.adresses.success_delete_title', 'compte.adresses.success_delete_message')
+  }
+
+  addressToDelete.value = null
+  loading.value = false
+}
+
 </script>
