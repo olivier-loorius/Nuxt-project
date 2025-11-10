@@ -186,11 +186,16 @@
 import { Search, Heart, ShoppingCart, User, Menu, Globe, ChevronDown, LayoutDashboard, UserCircle, LogOut } from 'lucide-vue-next'
 import { useAuth } from '~/composables/useAuth'
 
-const { t, locale, setLocale } = useI18n()
+const { t, locale } = useI18n()
 const route = useRoute()
 
 const user = useSupabaseUser()
 const { signOut } = useAuth()
+
+const setAndSaveLocale = inject<(locale: 'fr' | 'en') => void>('setAndSaveLocale', (newLocale) => {
+  locale.value = newLocale
+  localStorage.setItem('user_locale', newLocale)
+})
 
 const isScrolled = ref(false)
 const showLangDropdown = ref(false)
@@ -229,8 +234,7 @@ const closeMobileMenu = () => {
 }
 
 const switchLocale = (newLocale: 'fr' | 'en') => {
-  setLocale(newLocale)
-  localStorage.setItem('user_locale', newLocale)
+  setAndSaveLocale(newLocale)
   showLangDropdown.value = false
 }
 
