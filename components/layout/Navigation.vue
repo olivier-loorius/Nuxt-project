@@ -230,6 +230,7 @@ const closeMobileMenu = () => {
 
 const switchLocale = (newLocale: 'fr' | 'en') => {
   setLocale(newLocale)
+  localStorage.setItem('user_locale', newLocale)
   showLangDropdown.value = false
 }
 
