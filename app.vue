@@ -6,16 +6,12 @@
 
 <script setup lang="ts">
 const { locale } = useI18n()
+const switchLocalePath = useSwitchLocalePath()
 
 onMounted(() => {
-  const savedLocale = localStorage.getItem('user_locale')
-  if (savedLocale && (savedLocale === 'fr' || savedLocale === 'en')) {
-    locale.value = savedLocale
+  const savedLocale = localStorage.getItem('user_locale') as 'fr' | 'en' | null
+  if (savedLocale && savedLocale !== locale.value) {
+    navigateTo(switchLocalePath(savedLocale))
   }
-})
-
-provide('setAndSaveLocale', (newLocale: 'fr' | 'en') => {
-  locale.value = newLocale
-  localStorage.setItem('user_locale', newLocale)
 })
 </script>

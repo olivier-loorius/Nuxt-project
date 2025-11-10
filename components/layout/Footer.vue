@@ -1,5 +1,5 @@
 <template>
-  <section role="contentinfo" class="bg-midnight text-white/60 pt-16 pb-6 border-t border-white/10">
+  <section :key="locale" role="contentinfo" class="bg-midnight text-white/60 pt-16 pb-6 border-t border-white/10">
     <div class="max-w-7xl mx-auto px-8">
       <!-- Grid principale -->
       <div class="grid grid-cols-10 md:grid-cols-12 gap-6 md:gap-8 mb-12">
@@ -30,27 +30,27 @@
           <nav>
             <ul class="space-y-2">
               <li>
-                <NuxtLink to="/legal/cgv" class="text-sm font-body hover:text-amber transition-colors duration-300">
+                <NuxtLink :to="localePath('/legal/cgv')" class="text-sm font-body hover:text-amber transition-colors duration-300">
                   {{ $t('footer.legal.cgv') }}
                 </NuxtLink>
               </li>
               <li>
-                <NuxtLink to="/legal/cgu" class="text-sm font-body hover:text-amber transition-colors duration-300">
+                <NuxtLink :to="localePath('/legal/cgu')" class="text-sm font-body hover:text-amber transition-colors duration-300">
                   {{ $t('footer.legal.cgu') }}
                 </NuxtLink>
               </li>
               <li>
-                <NuxtLink to="/legal/mentions-legales" class="text-sm font-body hover:text-amber transition-colors duration-300">
+                <NuxtLink :to="localePath('/legal/mentions-legales')" class="text-sm font-body hover:text-amber transition-colors duration-300">
                   {{ $t('footer.legal.mentions') }}
                 </NuxtLink>
               </li>
               <li>
-                <NuxtLink to="/legal/confidentialite" class="text-sm font-body hover:text-amber transition-colors duration-300">
+                <NuxtLink :to="localePath('/legal/confidentialite')" class="text-sm font-body hover:text-amber transition-colors duration-300">
                   {{ $t('footer.legal.privacy') }}
                 </NuxtLink>
               </li>
               <li>
-                <NuxtLink to="/legal/faq" class="text-sm font-body hover:text-amber transition-colors duration-300">
+                <NuxtLink :to="localePath('/legal/faq')" class="text-sm font-body hover:text-amber transition-colors duration-300">
                   {{ $t('footer.legal.faq') }}
                 </NuxtLink>
               </li>
@@ -210,6 +210,9 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { Instagram, Twitter, ShieldCheck, Mail, Phone, Settings, Cookie, ArrowUp } from 'lucide-vue-next'
 
+const { locale } = useI18n()
+const localePath = useLocalePath()
+
 interface FooterLabels {
   tagline: string
   follow: string
@@ -248,11 +251,11 @@ const currentYear = new Date().getFullYear()
 const showScrollTop = ref(false)
 
 const openCookieSettings = () => {
-  console.warn('Cookie settings modal not yet implemented')
+  // Cookie settings modal not yet implemented
 }
 
 const openGeneralSettings = () => {
-  console.warn('General settings modal not yet implemented (V2)')
+  // General settings modal not yet implemented
 }
 
 const handleScroll = () => {
