@@ -158,6 +158,7 @@
           <div class="flex-1"></div>
           <button
             @click="switchLocale(locale === 'fr' ? 'en' : 'fr')"
+            :aria-label="$t('aria.languageSelector')"
             class="px-3 py-1 rounded bg-midnight/5 hover:bg-amber hover:text-white text-sm font-medium transition-colors duration-200"
           >
             {{ locale === 'fr' ? 'EN' : 'FR' }}
@@ -186,7 +187,8 @@
 import { Search, Heart, ShoppingCart, User, Menu, Globe, ChevronDown, LayoutDashboard, UserCircle, LogOut } from 'lucide-vue-next'
 import { useAuth } from '~/composables/useAuth'
 
-const { t, locale, setLocale } = useI18n()
+const { t, locale } = useI18n()
+const switchLocalePath = useSwitchLocalePath()
 const route = useRoute()
 
 const user = useSupabaseUser()
@@ -228,8 +230,9 @@ const closeMobileMenu = () => {
   mobileMenuOpen.value = false
 }
 
-const switchLocale = (newLocale: 'fr' | 'en') => {
-  setLocale(newLocale)
+const switchLocale = async (newLocale: 'fr' | 'en') => {
+  localStorage.setItem('user_locale', newLocale)
+  await navigateTo(switchLocalePath(newLocale))
   showLangDropdown.value = false
 }
 
@@ -238,7 +241,7 @@ const handleLogout = async () => {
     await signOut()
     showUserDropdown.value = false
   } catch (error: any) {
-    console.error('Logout error:', error)
+    // Error handling for logout
   }
 }
 

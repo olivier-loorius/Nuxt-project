@@ -45,13 +45,7 @@ export default defineNuxtConfig({
     langDir: "locales",
     defaultLocale: "fr",
     strategy: "prefix_except_default",
-    detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey: "i18n_redirected",
-      redirectOn: "no prefix",
-      alwaysRedirect: false,
-      fallbackLocale: "fr",
-    },
+    detectBrowserLanguage: false,
   },
 
   colorMode: {
