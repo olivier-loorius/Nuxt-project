@@ -6,13 +6,13 @@
         <!-- Col 1: Branding -->
         <div class="col-span-10 md:col-span-4 text-center md:text-left mb-8 md:mb-0">
           <NuxtLink to="/" class="inline-block mb-3">
-            <NuxtImg
+            <!-- <NuxtImg
               src="/Logo.png"
               alt="Boys & Toys Logo"
               width="32"
               height="32"
               class="mx-auto md:mx-0"
-            />
+            /> -->
           </NuxtLink>
           <h2 class="text-xl font-display font-bold text-white mb-2">
             Boys & Toys

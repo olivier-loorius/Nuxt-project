@@ -1,5 +1,3 @@
 <template>
-  <div class="min-h-screen p-8">
-    <h1>{{ $t('pages.promotions') }}</h1>
-  </div>
+  <ComingSoon page-key="pages.promotions" />
 </template>
