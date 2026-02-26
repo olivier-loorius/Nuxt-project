@@ -1,13 +1,22 @@
 :root {
-  --midnight: #1A1D2E;
-  --chalk: #FAFAFA;
-  --concrete: #E8E8E8;
-  --amber: #D4A574;
-  --copper: #B87333;
-  --ocean: #2A4D69;
-  --moss: #556B2F;
-  --alert: #C1440E;
+  /* Color System - Simplified Palette */
+  --color-dark: #1A1D2E;
+  --color-light: #FAFAFA;
+  --color-border: #E8E8E8;
+  --color-accent: #D4A574;
+  --color-accent-hover: #B8895F;
+  --color-error: #C1440E;
+  --color-success: #4A7C59;
 
+  /* Legacy aliases for backwards compatibility */
+  --midnight: var(--color-dark);
+  --chalk: var(--color-light);
+  --concrete: var(--color-border);
+  --amber: var(--color-accent);
+  --copper: var(--color-accent-hover);
+  --alert: var(--color-error);
+
+  /* Typography Scale */
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-base: 1rem;
@@ -18,16 +27,20 @@
   --text-4xl: 2.25rem;
   --text-5xl: 3rem;
 
+  /* Spacing Scale */
   --space-4: 1rem;
   --space-6: 1.5rem;
   --space-8: 2rem;
   --space-12: 3rem;
 
-  --shadow-md: 0 4px 6px rgba(26,29,46,0.1);
-  --shadow-lg: 0 10px 15px rgba(26,29,46,0.1);
+  /* Shadows */
+  --shadow-md: 0 4px 6px rgba(26, 29, 46, 0.1);
+  --shadow-lg: 0 10px 15px rgba(26, 29, 46, 0.1);
 
+  /* Border Radius */
   --radius-md: 0.5rem;
   --radius-full: 9999px;
 
-  --transition-base: 350ms cubic-bezier(0.4,0,0.2,1);
+  /* Transitions */
+  --transition-base: 350ms cubic-bezier(0.4, 0, 0.2, 1);
 }

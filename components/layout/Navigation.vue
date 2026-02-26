@@ -6,7 +6,7 @@
     <div class="h-[60px] border-b border-concrete">
       <div class="container mx-auto px-6 h-full">
         <div class="flex items-center justify-between h-full">
-          <NuxtLink to="/" class="text-2xl font-bold font-display text-midnight hover:scale-105 transition-transform duration-200 lg:absolute lg:left-1/2 lg:-translate-x-1/2">
+          <NuxtLink :to="localePath('/')" class="text-2xl font-bold font-display text-midnight hover:scale-105 transition-transform duration-200 lg:absolute lg:left-1/2 lg:-translate-x-1/2">
             Boys & Toys
           </NuxtLink>
           <div class="hidden lg:flex items-center gap-2">
@@ -129,8 +129,8 @@
           <NuxtLink
             v-for="link in navLinks"
             :key="link.to"
-            :to="link.to"
-            :class="['nav-link group flex items-center gap-1.5 whitespace-nowrap', { 'text-amber border-b-2 border-amber no-hover-underline': activeRoute === link.to }]"
+            :to="localePath(link.to)"
+            :class="['nav-link group flex items-center gap-1.5 whitespace-nowrap', { 'text-amber border-b-2 border-amber no-hover-underline': activeRoute === localePath(link.to) }]"
           >
             <span>{{ $t(link.label) }}</span>
             <ChevronDown :size="14" class="flex-shrink-0 transition-transform duration-200 group-hover:rotate-180" />
@@ -168,8 +168,8 @@
           <NuxtLink
             v-for="link in navLinks"
             :key="link.to"
-            :to="link.to"
-            :class="['mobile-link', { 'text-amber': activeRoute === link.to }]"
+            :to="localePath(link.to)"
+            :class="['mobile-link', { 'text-amber': activeRoute === localePath(link.to) }]"
             @click="closeMobileMenu"
           >
             {{ $t(link.label) }}
@@ -188,6 +188,7 @@ import { Search, Heart, ShoppingCart, User, Menu, Globe, ChevronDown, LayoutDash
 import { useAuth } from '~/composables/useAuth'
 
 const { t, locale } = useI18n()
+const localePath = useLocalePath()
 const switchLocalePath = useSwitchLocalePath()
 const route = useRoute()
 

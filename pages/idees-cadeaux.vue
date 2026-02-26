@@ -1,5 +1,3 @@
 <template>
-  <div class="min-h-screen p-8">
-    <h1>{{ $t('pages.idees-cadeaux') }}</h1>
-  </div>
+  <ComingSoon page-key="pages.idees-cadeaux" />
 </template>
