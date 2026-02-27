@@ -1,4 +1,8 @@
 {
+  "breadcrumb": {
+    "home": "Home",
+    "back": "Back to new arrivals"
+  },
   "nav": {
     "search": "Search",
     "favorites": "Favorites",
@@ -371,6 +375,48 @@
       }
     }
   },
+  "product": {
+    "in_stock": "In stock",
+    "low_stock": "Only {n} left in stock",
+    "out_of_stock": "Out of stock",
+    "similar": "You may also like",
+    "reviews": {
+      "title": "Customer reviews",
+      "verified": "Verified purchase",
+      "review1": "Perfect packaging, very discreet. Product matches the description, great build quality. Fast delivery.",
+      "review2": "Happy with my purchase. Quality is there and customer service answered my questions quickly.",
+      "review3": "Excellent value for money. Sturdy, well-finished product, intuitive to use. Highly recommended.",
+      "delivery_label": "Discreet delivery",
+      "delivery_text": "Plain packaging, no content indication. Ships within 24 hours.",
+      "warranty_label": "2-year warranty",
+      "warranty_text": "All our products come with a 2-year manufacturer's warranty.",
+      "returns_label": "30-day returns",
+      "returns_text": "Free returns within 30 days, no questions asked."
+    },
+    "payments": {
+      "title": "Accepted payments"
+    },
+    "specs": {
+      "title": "Technical specifications",
+      "material_label": "Material",
+      "material_value": "Certified materials, phthalate- and BPA-free",
+      "dimensions_label": "Dimensions",
+      "dimensions_value": "Varies by model — see product description",
+      "care_label": "Care",
+      "care_value": "See care instructions below",
+      "discretion_label": "Discretion",
+      "discretion_value": "Plain packaging, no content indication"
+    },
+    "care": {
+      "title": "Care & use",
+      "lingerie_label": "Lingerie & textiles",
+      "lingerie_text": "Hand wash or machine wash at 30 °C on a delicate cycle. Do not bleach or use fabric softener. Dry flat, away from direct light.",
+      "accessories_label": "Accessories & toys",
+      "accessories_text": "Clean with mild soap or a dedicated toy cleaner before and after each use. Rinse thoroughly and dry carefully. Compatible only with water-based lubricants, unless otherwise stated.",
+      "lubricants_label": "Lubricants & care products",
+      "lubricants_text": "Store in a cool, dry place away from heat and direct light. Check the expiry date before use. Once opened, use within 12 months."
+    }
+  },
   "catalog": {
     "sidebar_title": "Categories",
     "all_products": "All products",
@@ -424,101 +470,389 @@
     }
   },
   "products": {
-    "manchon_pulse_pro":          { "name": "Pulse Pro Sleeve" },
-    "manchon_compact_noir":        { "name": "Black Compact Sleeve" },
-    "manchon_texture_wave":        { "name": "Wave Texture Sleeve" },
-    "manchon_ribbed_classic":      { "name": "Ribbed Classic Sleeve" },
-    "manchon_ultra_soft":          { "name": "Ultra Soft Sleeve" },
-    "manchon_connect":             { "name": "Connect Interactive Sleeve" },
-    "manchon_vibrant_connect":     { "name": "Vibrant Connect Sleeve" },
-    "manchon_sync_pro":            { "name": "Sync Pro Sleeve" },
-    "manchon_app_elite":           { "name": "App Elite Sleeve" },
-    "torsole_elite":               { "name": "Torsole Elite Texture" },
-    "torsole_helice":              { "name": "Torsole Helix" },
-    "torsole_granules":            { "name": "Torsole Granules" },
-    "torsole_wave_intense":        { "name": "Intense Wave Torsole" },
-    "poupee_poche":                { "name": "Luxe Pocket Companion" },
-    "poupee_silicone_compact":     { "name": "Compact Silicone Companion" },
-    "poupee_tactile_luxe":         { "name": "Luxe Tactile Companion" },
-    "anneau_silicone":             { "name": "Double Silicone Ring" },
-    "anneau_stretch_noir":         { "name": "Black Stretch Ring" },
-    "anneau_double_loop":          { "name": "Double Loop Ring" },
-    "anneau_metal_chrome":         { "name": "Chrome Metal Ring" },
-    "anneau_vibreur":              { "name": "Duo Vibrating Ring" },
-    "anneau_vibreur_bullet":       { "name": "Bullet Vibrating Ring" },
-    "anneau_vibreur_couple":       { "name": "Couples Vibrating Ring" },
-    "anneau_vibreur_rc":           { "name": "Remote Vibrating Ring" },
-    "anneau_vibreur_slim":         { "name": "Slim Vibrating Ring" },
-    "cockring_midnight":           { "name": "Midnight Vibrating Cockring" },
-    "cockring_metal_lisse":        { "name": "Smooth Metal Cockring" },
-    "cockring_ajustable":          { "name": "Adjustable Cockring" },
-    "cockring_textured":           { "name": "Textured Cockring" },
-    "kit_anneaux":                 { "name": "3-Size Ring Kit" },
-    "kit_debutant_3pieces":        { "name": "3-Piece Beginner Kit" },
-    "kit_premium_5pieces":         { "name": "5-Piece Premium Kit" },
-    "vibro_prostatique":           { "name": "Arc Prostate Vibrator" },
-    "vibro_prostatic_slim":        { "name": "Slim Prostate Vibrator" },
-    "vibro_prostatique_luxe":      { "name": "Luxe Prostate Vibrator" },
-    "vibro_double_action":         { "name": "Dual Action Vibrator" },
-    "vibro_prostatique_flex":      { "name": "Flex Prostate Vibrator" },
-    "masseur_pulse":               { "name": "Pulse Prostate Massager" },
-    "masseur_onde_pression":       { "name": "Pressure Wave Massager" },
-    "masseur_classic_pro":         { "name": "Classic Pro Massager" },
-    "masseur_rotatif":             { "name": "Rotating Massager" },
-    "plug_premium":                { "name": "Premium Anal Plug" },
-    "plug_metal_poli":             { "name": "Polished Metal Plug" },
-    "plug_silicone_large":         { "name": "Large Silicone Plug" },
-    "plug_vibrant_mini":           { "name": "Mini Vibrating Plug" },
-    "plug_joyau_noir":             { "name": "Black Jewel Plug" },
-    "stimulateur_perinee":         { "name": "Wave Perineum Stimulator" },
-    "stimulateur_perinee_slim":    { "name": "Slim Perineum Stimulator" },
-    "kit_bdsm":                    { "name": "BDSM Discovery Kit" },
-    "menottes_velours":            { "name": "Black Velvet Handcuffs" },
-    "menottes_metal_chromees":     { "name": "Chrome Metal Handcuffs" },
-    "menottes_cuir_souple":        { "name": "Soft Leather Handcuffs" },
-    "menottes_bondage_tape":       { "name": "Bondage Tape" },
-    "masque_satin":                { "name": "Adjustable Satin Mask" },
-    "masque_cuir_ajustable":       { "name": "Adjustable Leather Mask" },
-    "masque_integral_velours":     { "name": "Full Velvet Hood" },
-    "masque_open_eyes":            { "name": "Open Eyes Mask" },
-    "fouet_initiation":            { "name": "Initiation Flogger" },
-    "fouet_martinet_soft":         { "name": "Soft Flogger" },
-    "paddle_velours_noir":         { "name": "Black Velvet Paddle" },
-    "crop_cuir_souple":            { "name": "Soft Leather Crop" },
-    "kit_decouverte_premium":      { "name": "Premium Discovery Kit" },
-    "kit_sensation_duo":           { "name": "Duo Sensation Kit" },
-    "kit_initiation_complet":      { "name": "Complete Initiation Kit" },
-    "lube_eau_100":                { "name": "Water-Based Lube 100ml" },
-    "lube_eau_50ml":               { "name": "Water-Based Lube 50ml" },
-    "lube_eau_200ml":              { "name": "Water-Based Lube 200ml" },
-    "lube_eau_anal":               { "name": "Anal Water-Based Lube" },
-    "lube_eau_longue_duree":       { "name": "Long-Lasting Water Lube" },
-    "lube_silicone_50":            { "name": "Silicone Lube 50ml" },
-    "lube_silicone_100ml":         { "name": "Silicone Lube 100ml" },
-    "lube_silicone_anal":          { "name": "Anal Silicone Lube" },
-    "lube_silicone_premium":       { "name": "Premium Silicone Lube" },
-    "lube_hybride_80":             { "name": "Hybrid Lube 80ml" },
-    "lube_hybride_50ml":           { "name": "Hybrid Lube 50ml" },
-    "lube_hybride_anal":           { "name": "Anal Hybrid Lube" },
-    "lube_hybride_premium":        { "name": "Premium Hybrid Lube" },
-    "lube_chauffant_75":           { "name": "Warming Lube 75ml" },
-    "lube_chauffant_30ml":         { "name": "Warming Lube 30ml" },
-    "lube_chauffant_menthe":       { "name": "Mint Warming Lube" },
-    "boxer_midnight":              { "name": "Midnight Satin Boxer" },
-    "boxer_coton_stretch":         { "name": "Stretch Cotton Boxer" },
-    "boxer_microfibre_gris":       { "name": "Grey Microfibre Boxer" },
-    "boxer_dentelle_noir":         { "name": "Black Lace Boxer" },
-    "boxer_satin_bordeaux":        { "name": "Bordeaux Satin Boxer" },
-    "string_microfibre":           { "name": "Black Microfibre Thong" },
-    "string_dentelle_blanc":       { "name": "White Lace Thong" },
-    "string_satin_rouge":          { "name": "Red Satin Thong" },
-    "string_microfibre_bleu":      { "name": "Blue Microfibre Thong" },
-    "jockstrap_premium":           { "name": "Premium Elastic Jockstrap" },
-    "jockstrap_coton_blanc":       { "name": "White Cotton Jockstrap" },
-    "jockstrap_dentelle_noir":     { "name": "Black Lace Jockstrap" },
-    "jockstrap_sport_gris":        { "name": "Grey Sport Jockstrap" },
-    "combinaison_resille":         { "name": "Men's Fishnet Bodysuit" },
-    "combinaison_satin_noir":      { "name": "Black Satin Bodysuit" },
-    "combinaison_dentelle_rouge":  { "name": "Red Lace Bodysuit" }
+    "manchon_pulse_pro": {
+      "name": "Pulse Pro Sleeve",
+      "description": "Spiral-texture sleeve with 3 programmable stimulation speeds."
+    },
+    "manchon_compact_noir": {
+      "name": "Black Compact Sleeve",
+      "description": "Discreet compact format, ribbed interior texture, flexible TPE material."
+    },
+    "manchon_texture_wave": {
+      "name": "Wave Texture Sleeve",
+      "description": "Wave canal delivering progressive stimulation from the glans to the base."
+    },
+    "manchon_ribbed_classic": {
+      "name": "Ribbed Classic Sleeve",
+      "description": "Entry-level ribbed model, ideal for a first experience."
+    },
+    "manchon_ultra_soft": {
+      "name": "Ultra Soft Sleeve",
+      "description": "Premium ultra-soft material, exceptional skin-on-skin sensation."
+    },
+    "manchon_connect": {
+      "name": "Connect Interactive Sleeve",
+      "description": "App-connected sleeve, synchronisable with video content."
+    },
+    "manchon_vibrant_connect": {
+      "name": "Vibrant Connect Sleeve",
+      "description": "Bluetooth-synchronised vibrations, compatible with long-distance partner."
+    },
+    "manchon_sync_pro": {
+      "name": "Sync Pro Sleeve",
+      "description": "Bidirectional synchronisation with another compatible device, zero latency."
+    },
+    "manchon_app_elite": {
+      "name": "App Elite Sleeve",
+      "description": "Full control via mobile app, 12 preset modes and free mode."
+    },
+    "torsole_elite": {
+      "name": "Torsole Elite Texture",
+      "description": "Exclusive 3D texture inspired by nature for ultra-realistic sensations."
+    },
+    "torsole_helice": {
+      "name": "Torsole Helix",
+      "description": "Helical canal creating a natural rotation during movement."
+    },
+    "torsole_granules": {
+      "name": "Torsole Granules",
+      "description": "Internal micro-granules for diffuse, enveloping stimulation."
+    },
+    "torsole_wave_intense": {
+      "name": "Intense Wave Torsole",
+      "description": "Deep closely-spaced waves, maximum stimulation along the full length."
+    },
+    "poupee_poche": {
+      "name": "Luxe Pocket Companion",
+      "description": "Premium compact format, soft and silky stimulation pocket."
+    },
+    "poupee_silicone_compact": {
+      "name": "Compact Silicone Companion",
+      "description": "High-end silicone body, natural warmth, easy to clean."
+    },
+    "poupee_tactile_luxe": {
+      "name": "Luxe Tactile Companion",
+      "description": "Unique peach-skin material, articulated internal structure for a realistic feel."
+    },
+    "anneau_silicone": {
+      "name": "Double Silicone Ring",
+      "description": "Stretchable medical silicone ring, compatible with all body types."
+    },
+    "anneau_stretch_noir": {
+      "name": "Black Stretch Ring",
+      "description": "Ultra-stretchable, adjustable diameter from 25 to 55 mm, soft silicone."
+    },
+    "anneau_double_loop": {
+      "name": "Double Loop Ring",
+      "description": "Double loop for gentle, even compression, ergonomic design."
+    },
+    "anneau_metal_chrome": {
+      "name": "Chrome Metal Ring",
+      "description": "Mirror-polished stainless steel, 45 g weight for a distinctive sensation."
+    },
+    "anneau_vibreur": {
+      "name": "Duo Vibrating Ring",
+      "description": "Double ring with integrated micro-vibrator, USB charging included."
+    },
+    "anneau_vibreur_bullet": {
+      "name": "Bullet Vibrating Ring",
+      "description": "Removable rechargeable bullet module, 7 vibration patterns."
+    },
+    "anneau_vibreur_couple": {
+      "name": "Couples Vibrating Ring",
+      "description": "Designed to stimulate both partners simultaneously, medical silicone."
+    },
+    "anneau_vibreur_rc": {
+      "name": "Remote Vibrating Ring",
+      "description": "10 m wireless remote, 10 modes, IPX7 waterproof, magnetic charging."
+    },
+    "anneau_vibreur_slim": {
+      "name": "Slim Vibrating Ring",
+      "description": "Extra-thin profile for discreet wear, class A silent motor."
+    },
+    "cockring_midnight": {
+      "name": "Midnight Vibrating Cockring",
+      "description": "Ergonomic cockring with 10 vibration modes, waterproof IPX7."
+    },
+    "cockring_metal_lisse": {
+      "name": "Smooth Metal Cockring",
+      "description": "316L surgical steel, satin finish, available in 3 diameters."
+    },
+    "cockring_ajustable": {
+      "name": "Adjustable Cockring",
+      "description": "Adjustable lace-up system in synthetic leather, one size fits all."
+    },
+    "cockring_textured": {
+      "name": "Textured Cockring",
+      "description": "External nodular relief for additional partner stimulation."
+    },
+    "kit_anneaux": {
+      "name": "3-Size Ring Kit",
+      "description": "Set of 3 sizes to find the perfect fit, premium silicone."
+    },
+    "kit_debutant_3pieces": {
+      "name": "3-Piece Beginner Kit",
+      "description": "Ideal for beginners: 3 soft silicone rings of increasing firmness."
+    },
+    "kit_premium_5pieces": {
+      "name": "5-Piece Premium Kit",
+      "description": "Complete collection: 3 silicone rings + 1 metal + 1 vibrating bullet."
+    },
+    "vibro_prostatique": {
+      "name": "Arc Prostate Vibrator",
+      "description": "180-degree curved prostate vibrator for precise P-spot stimulation."
+    },
+    "vibro_prostatic_slim": {
+      "name": "Slim Prostate Vibrator",
+      "description": "28 mm slim profile for easy insertion, 8 discreet vibration modes."
+    },
+    "vibro_prostatique_luxe": {
+      "name": "Luxe Prostate Vibrator",
+      "description": "Dual independent prostate and perineum motors, 20 possible combinations."
+    },
+    "vibro_double_action": {
+      "name": "Dual Action Vibrator",
+      "description": "Simultaneous prostate and perineal stimulation, flexible along the full length."
+    },
+    "vibro_prostatique_flex": {
+      "name": "Flex Prostate Vibrator",
+      "description": "270-degree flexible shaft to adapt precisely to your anatomy."
+    },
+    "masseur_pulse": {
+      "name": "Pulse Prostate Massager",
+      "description": "Pressure wave technology without penetration, 6 adjustable intensities."
+    },
+    "masseur_onde_pression": {
+      "name": "Pressure Wave Massager",
+      "description": "Pulsed acoustic waves, external use only, no direct contact."
+    },
+    "masseur_classic_pro": {
+      "name": "Classic Pro Massager",
+      "description": "Classic ergonomic shape, 360-degree rotating head, satin silicone."
+    },
+    "masseur_rotatif": {
+      "name": "Rotating Massager",
+      "description": "Motorised 360-degree rotating head and vibrations, wireless inductive charging."
+    },
+    "plug_premium": {
+      "name": "Premium Anal Plug",
+      "description": "Comfortable collet plug, secure flared base, velvety silicone."
+    },
+    "plug_metal_poli": {
+      "name": "Polished Metal Plug",
+      "description": "Polished stainless steel, natural thermal conduction, decorative jewel included."
+    },
+    "plug_silicone_large": {
+      "name": "Large Silicone Plug",
+      "description": "Size L for experienced users, narrow comfortable neck for extended wear."
+    },
+    "plug_vibrant_mini": {
+      "name": "Mini Vibrating Plug",
+      "description": "Size S plug with silent integrated vibrator, ideal for beginners."
+    },
+    "plug_joyau_noir": {
+      "name": "Black Jewel Plug",
+      "description": "Chrome steel with set black crystal, premium aesthetics, 3 sizes available."
+    },
+    "stimulateur_perinee": {
+      "name": "Wave Perineum Stimulator",
+      "description": "External perineum and prostate stimulator, 8 vibration programmes."
+    },
+    "stimulateur_perinee_slim": {
+      "name": "Slim Perineum Stimulator",
+      "description": "External use only, flat ergonomic head, localised vibrations."
+    },
+    "kit_bdsm": {
+      "name": "BDSM Discovery Kit",
+      "description": "Complete initiation kit: handcuffs, mask and practice guide included."
+    },
+    "menottes_velours": {
+      "name": "Black Velvet Handcuffs",
+      "description": "Padded velvet handcuffs, adjustable velcro closure, very soft."
+    },
+    "menottes_metal_chromees": {
+      "name": "Chrome Metal Handcuffs",
+      "description": "Chrome steel with safety key, soft interior padding."
+    },
+    "menottes_cuir_souple": {
+      "name": "Soft Leather Handcuffs",
+      "description": "Full-grain leather, fleece lining, D-ring buckle for attachment."
+    },
+    "menottes_bondage_tape": {
+      "name": "Bondage Tape",
+      "description": "Self-adhesive PVC tape (bonds to itself only), 18 m, black, reusable."
+    },
+    "masque_satin": {
+      "name": "Adjustable Satin Mask",
+      "description": "Double-layer satin mask, adjustable elastic, total opacity."
+    },
+    "masque_cuir_ajustable": {
+      "name": "Adjustable Leather Mask",
+      "description": "Premium synthetic leather, eye and nose openings, adjustable straps."
+    },
+    "masque_integral_velours": {
+      "name": "Full Velvet Hood",
+      "description": "Full velvet hood, mouth and nose opening, enveloping sensation."
+    },
+    "masque_open_eyes": {
+      "name": "Open Eyes Mask",
+      "description": "Headband with blinders, keeps eyes open, flexible latex."
+    },
+    "fouet_initiation": {
+      "name": "Initiation Flogger",
+      "description": "Thin-stranded flogger, light impact, ideal for exploration."
+    },
+    "fouet_martinet_soft": {
+      "name": "Soft Flogger",
+      "description": "10 synthetic suede strands, lacquered wood handle, diffuse soft impact."
+    },
+    "paddle_velours_noir": {
+      "name": "Black Velvet Paddle",
+      "description": "Double-sided paddle: soft velvet on one side, faux leather on the other."
+    },
+    "crop_cuir_souple": {
+      "name": "Soft Leather Crop",
+      "description": "45 cm crop, braided handle, soft leather paddle at the tip."
+    },
+    "kit_decouverte_premium": {
+      "name": "Premium Discovery Kit",
+      "description": "Premium box: leather cuffs, mask, paddle, lubricant, expert guide."
+    },
+    "kit_sensation_duo": {
+      "name": "Duo Sensation Kit",
+      "description": "Couples kit: velvet cuffs + satin mask + initiation flogger."
+    },
+    "kit_initiation_complet": {
+      "name": "Complete Initiation Kit",
+      "description": "Entry-level set: bondage tape + satin mask + practice guide."
+    },
+    "lube_eau_100": {
+      "name": "Water-Based Lube 100ml",
+      "description": "Long-lasting water-based lubricant, compatible with latex and silicone toys."
+    },
+    "lube_eau_50ml": {
+      "name": "Water-Based Lube 50ml",
+      "description": "Pocket format, same formula as the 100 ml, ideal for travel and trial."
+    },
+    "lube_eau_200ml": {
+      "name": "Water-Based Lube 200ml",
+      "description": "Large economical format, dosing pump included, paraben-free."
+    },
+    "lube_eau_anal": {
+      "name": "Anal Water-Based Lube",
+      "description": "Thicker formula specially for anal use, soothing effect, neutral pH."
+    },
+    "lube_eau_longue_duree": {
+      "name": "Long-Lasting Water Lube",
+      "description": "Natural polymers for prolonged glide without frequent reapplication."
+    },
+    "lube_silicone_50": {
+      "name": "Silicone Lube 50ml",
+      "description": "Ultra-slippery long-lasting formula, waterproof, ideal in the shower."
+    },
+    "lube_silicone_100ml": {
+      "name": "Silicone Lube 100ml",
+      "description": "Large-format version, same premium formula, economical to use."
+    },
+    "lube_silicone_anal": {
+      "name": "Anal Silicone Lube",
+      "description": "High viscosity specially for anal use, exceptional hold, no colouring."
+    },
+    "lube_silicone_premium": {
+      "name": "Premium Silicone Lube",
+      "description": "Cosmetic-grade dimethicone, odourless, hypoallergenic, ISO certified."
+    },
+    "lube_hybride_80": {
+      "name": "Hybrid Lube 80ml",
+      "description": "Water and silicone blend combining silicone durability with water comfort."
+    },
+    "lube_hybride_50ml": {
+      "name": "Hybrid Lube 50ml",
+      "description": "Same hybrid formula in a compact format, ideal for travel."
+    },
+    "lube_hybride_anal": {
+      "name": "Anal Hybrid Lube",
+      "description": "High-viscosity hybrid for anal use, mild relaxing effect."
+    },
+    "lube_hybride_premium": {
+      "name": "Premium Hybrid Lube",
+      "description": "Aloe vera-enriched formula, moisturising, compatible with all toys."
+    },
+    "lube_chauffant_75": {
+      "name": "Warming Lube 75ml",
+      "description": "Progressive warming effect on contact with the body, neutral flavour, edible."
+    },
+    "lube_chauffant_30ml": {
+      "name": "Warming Lube 30ml",
+      "description": "Mini format to discover the warming effect, pleasant glide."
+    },
+    "lube_chauffant_menthe": {
+      "name": "Mint Warming Lube",
+      "description": "Dual hot/cold menthol sensation, edible, water-based."
+    },
+    "boxer_midnight": {
+      "name": "Midnight Satin Boxer",
+      "description": "Low-rise stretch satin boxer, minimalist design, slim elastic waistband."
+    },
+    "boxer_coton_stretch": {
+      "name": "Stretch Cotton Boxer",
+      "description": "OEKO-TEX certified organic cotton, 4-way stretch, all-day comfort."
+    },
+    "boxer_microfibre_gris": {
+      "name": "Grey Microfibre Boxer",
+      "description": "Ultra-light microfibre, second-skin feel, quick-drying."
+    },
+    "boxer_dentelle_noir": {
+      "name": "Black Lace Boxer",
+      "description": "Transparent 4-way lace, cotton front lining, signature elastic."
+    },
+    "boxer_satin_bordeaux": {
+      "name": "Bordeaux Satin Boxer",
+      "description": "Deep bordeaux colour, matte brushed satin, short boxer cut."
+    },
+    "string_microfibre": {
+      "name": "Black Microfibre Thong",
+      "description": "Ultra-soft microfibre thong, one size S/M, intense black."
+    },
+    "string_dentelle_blanc": {
+      "name": "White Lace Thong",
+      "description": "Fine white lace, high-waist cut, structured front pouch."
+    },
+    "string_satin_rouge": {
+      "name": "Red Satin Thong",
+      "description": "Bright red satin, invisible back string, low rise, premium finish."
+    },
+    "string_microfibre_bleu": {
+      "name": "Blue Microfibre Thong",
+      "description": "Midnight blue colourway, same cut as the black, combed microfibre."
+    },
+    "jockstrap_premium": {
+      "name": "Premium Elastic Jockstrap",
+      "description": "Reinforced elastic jockstrap, anatomical cut, structured front pouch."
+    },
+    "jockstrap_coton_blanc": {
+      "name": "White Cotton Jockstrap",
+      "description": "Combed white cotton, wide signature elastic, classic sportswear."
+    },
+    "jockstrap_dentelle_noir": {
+      "name": "Black Lace Jockstrap",
+      "description": "Transparent black lace, elastic side straps, microfibre lining."
+    },
+    "jockstrap_sport_gris": {
+      "name": "Grey Sport Jockstrap",
+      "description": "Heathered grey sport stretch fabric, contrasting elastics, very breathable."
+    },
+    "combinaison_resille": {
+      "name": "Men's Fishnet Bodysuit",
+      "description": "Stretch mesh bodysuit, deep V-neck, satin trim at the ankles."
+    },
+    "combinaison_satin_noir": {
+      "name": "Black Satin Bodysuit",
+      "description": "Full-length fluid satin, fine adjustable straps, press-stud back opening."
+    },
+    "combinaison_dentelle_rouge": {
+      "name": "Red Lace Bodysuit",
+      "description": "Semi-transparent blood-red lace, square neckline, long sleeves."
+    }
   }
 }

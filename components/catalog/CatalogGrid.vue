@@ -15,10 +15,11 @@
     v-else
     class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
   >
-    <article
+    <NuxtLink
       v-for="product in products"
       :key="product.id"
-      class="group border border-transparent hover:border-amber transition-colors duration-300 cursor-pointer"
+      :to="localePath(`/produit/${product.id}`)"
+      class="group block border border-transparent hover:border-amber transition-colors duration-300"
     >
       <!-- Image placeholder -->
       <div class="relative aspect-[3/4] overflow-hidden" :class="placeholderBg(product.id)">
@@ -68,13 +69,13 @@
                    opacity-0 group-hover:opacity-100 transition-all duration-200
                    hover:bg-midnight hover:text-chalk"
             :aria-label="$t('catalog.add_to_cart')"
-            @click.prevent
+            @click.stop.prevent
           >
             <ShoppingCart :size="13" />
           </button>
         </div>
       </div>
-    </article>
+    </NuxtLink>
   </div>
 </template>
 
@@ -87,6 +88,7 @@ const props = defineProps<{ products?: MockProduct[] }>()
 const products = computed(() => props.products ?? MOCK_PRODUCTS)
 
 const { locale, t } = useI18n()
+const localePath = useLocalePath()
 
 function formatPrice(price: number): string {
   return new Intl.NumberFormat(locale.value === 'fr' ? 'fr-FR' : 'en-GB', {

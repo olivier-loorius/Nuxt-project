@@ -1,15 +1,11 @@
 <template>
   <div class="catalog-sidebar">
-
-    <!-- En-tête sidebar -->
     <div class="flex items-center gap-3 mb-6 pb-5 border-b border-concrete">
       <div class="w-0.5 h-4 bg-amber flex-shrink-0"></div>
       <h2 class="text-xs font-display font-bold tracking-[0.25em] uppercase text-midnight">
         {{ $t('catalog.sidebar_title') }}
       </h2>
     </div>
-
-    <!-- Tous les produits -->
     <button
       class="w-full flex items-center justify-between mb-5 py-2 text-left transition-colors duration-200"
       :class="!activeFilter.categoryId
@@ -33,8 +29,6 @@
         {{ totalProducts }}
       </span>
     </button>
-
-    <!-- Accordéon -->
     <AccordionRoot
       type="multiple"
       :default-value="['masturbateurs']"
@@ -45,7 +39,6 @@
         :value="category.id"
         class="border-b border-concrete last:border-b-0"
       >
-        <!-- Trigger -->
         <AccordionHeader class="flex">
           <AccordionTrigger
             class="group flex items-center justify-between w-full py-3.5 text-left focus-visible:outline-none"
@@ -76,8 +69,6 @@
             </span>
           </AccordionTrigger>
         </AccordionHeader>
-
-        <!-- Contenu dépliable -->
         <AccordionContent class="accordion-content overflow-hidden">
           <ul class="pb-4 pt-0.5 space-y-px">
             <li v-for="sub in category.children" :key="sub.id">
@@ -89,14 +80,12 @@
                 @click="handleSubcategoryClick(category.id, sub.id)"
               >
                 <span class="flex items-center gap-2.5 min-w-0">
-                  <!-- Puce -->
                   <span
                     class="w-1 h-1 rounded-full flex-shrink-0 transition-colors duration-200"
                     :class="activeFilter.subcategoryId === sub.id ? 'bg-amber' : 'bg-concrete group-hover/item:bg-midnight/40'"
                   ></span>
                   <span class="truncate">{{ sub.label }}</span>
                 </span>
-                <!-- Compteur -->
                 <span
                   class="text-xs tabular-nums flex-shrink-0 ml-2 transition-colors duration-200"
                   :class="activeFilter.subcategoryId === sub.id ? 'text-amber' : 'text-midnight/25'"
@@ -109,7 +98,6 @@
         </AccordionContent>
       </AccordionItem>
     </AccordionRoot>
-
   </div>
 </template>
 
@@ -141,8 +129,6 @@ const categories = computed(() =>
   }))
 )
 
-// ─── Injection du filtre depuis la page parent ────────────────────────────────
-
 interface CatalogFilterInjection {
   activeFilter: Ref<{ categoryId: string | null; subcategoryId: string | null }>
   setFilter: (categoryId: string | null, subcategoryId?: string | null) => void
@@ -157,7 +143,6 @@ const activeFilter = computed(() =>
 function handleCategoryClick(categoryId: string) {
   if (!catalogFilter) return
   const { categoryId: activeCat, subcategoryId: activeSub } = catalogFilter.activeFilter.value
-  // Toggle : re-clic sur la catégorie active (sans sous-catégorie) → tout afficher
   if (activeCat === categoryId && !activeSub) {
     catalogFilter.setFilter(null, null)
   } else {
@@ -168,7 +153,6 @@ function handleCategoryClick(categoryId: string) {
 function handleSubcategoryClick(categoryId: string, subcategoryId: string) {
   if (!catalogFilter) return
   const { subcategoryId: activeSub } = catalogFilter.activeFilter.value
-  // Toggle : re-clic sur la sous-catégorie active → revenir au niveau catégorie
   if (activeSub === subcategoryId) {
     catalogFilter.setFilter(categoryId, null)
   } else {
