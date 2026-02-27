@@ -1,4 +1,8 @@
 {
+  "breadcrumb": {
+    "home": "Accueil",
+    "back": "Retour aux nouveautés"
+  },
   "nav": {
     "search": "Rechercher",
     "favorites": "Favoris",
@@ -371,6 +375,48 @@
       }
     }
   },
+  "product": {
+    "in_stock": "En stock",
+    "low_stock": "Plus que {n} en stock",
+    "out_of_stock": "Rupture de stock",
+    "similar": "Vous aimerez aussi",
+    "reviews": {
+      "title": "Avis clients",
+      "verified": "Achat vérifié",
+      "review1": "Emballage parfait, très discret. Produit conforme à la description, bonne qualité de fabrication. Livraison rapide.",
+      "review2": "Satisfait de mon achat. La qualité est au rendez-vous et le service client a répondu rapidement à mes questions.",
+      "review3": "Excellent rapport qualité-prix. Produit solide, bien fini et prise en main intuitive. Je recommande sans hésiter.",
+      "delivery_label": "Livraison discrète",
+      "delivery_text": "Emballage neutre, sans indication de contenu. Expédition sous 24 h.",
+      "warranty_label": "Garantie 2 ans",
+      "warranty_text": "Tous nos produits bénéficient d'une garantie fabricant de 2 ans.",
+      "returns_label": "Retours 30 jours",
+      "returns_text": "Retour gratuit sous 30 jours, sans justificatif requis."
+    },
+    "payments": {
+      "title": "Paiements acceptés"
+    },
+    "specs": {
+      "title": "Caractéristiques techniques",
+      "material_label": "Matière",
+      "material_value": "Matériaux certifiés, sans phtalates ni BPA",
+      "dimensions_label": "Dimensions",
+      "dimensions_value": "Variables selon le modèle — voir descriptif",
+      "care_label": "Entretien",
+      "care_value": "Consulter la section entretien ci-dessous",
+      "discretion_label": "Discrétion",
+      "discretion_value": "Emballage neutre, sans indication de contenu"
+    },
+    "care": {
+      "title": "Entretien & utilisation",
+      "lingerie_label": "Lingerie & textiles",
+      "lingerie_text": "Laver à la main ou en machine à 30 °C, cycle délicat. Ne pas utiliser de javel ni d'assouplissant. Sécher à plat, à l'abri de la lumière directe.",
+      "accessories_label": "Accessoires & jouets",
+      "accessories_text": "Nettoyer avec un savon doux ou un nettoyant pour jouets avant et après chaque utilisation. Rincer abondamment et sécher soigneusement. Compatible uniquement avec les lubrifiants à base d'eau, sauf mention contraire.",
+      "lubricants_label": "Lubrifiants & soins",
+      "lubricants_text": "Conserver dans un endroit frais et sec, à l'abri de la chaleur et de la lumière directe. Vérifier la date de péremption avant utilisation. Une fois ouvert, utiliser dans les 12 mois."
+    }
+  },
   "catalog": {
     "sidebar_title": "Catégories",
     "all_products": "Tous les produits",
@@ -424,101 +470,389 @@
     }
   },
   "products": {
-    "manchon_pulse_pro":          { "name": "Manchon Pulse Pro" },
-    "manchon_compact_noir":        { "name": "Manchon Compact Noir" },
-    "manchon_texture_wave":        { "name": "Manchon Texture Wave" },
-    "manchon_ribbed_classic":      { "name": "Manchon Ribbed Classic" },
-    "manchon_ultra_soft":          { "name": "Manchon Ultra Soft" },
-    "manchon_connect":             { "name": "Manchon Interactif Connect" },
-    "manchon_vibrant_connect":     { "name": "Manchon Vibrant Connect" },
-    "manchon_sync_pro":            { "name": "Manchon Sync Pro" },
-    "manchon_app_elite":           { "name": "Manchon App Elite" },
-    "torsole_elite":               { "name": "Torsole Elite Texture" },
-    "torsole_helice":              { "name": "Torsole Hélice" },
-    "torsole_granules":            { "name": "Torsole Granulés" },
-    "torsole_wave_intense":        { "name": "Torsole Wave Intense" },
-    "poupee_poche":                { "name": "Poupée de Poche Luxe" },
-    "poupee_silicone_compact":     { "name": "Poupée Silicone Compact" },
-    "poupee_tactile_luxe":         { "name": "Poupée Tactile Luxe" },
-    "anneau_silicone":             { "name": "Anneau Silicone Double" },
-    "anneau_stretch_noir":         { "name": "Anneau Stretch Noir" },
-    "anneau_double_loop":          { "name": "Anneau Double Loop" },
-    "anneau_metal_chrome":         { "name": "Anneau Métal Chrome" },
-    "anneau_vibreur":              { "name": "Anneau Vibreur Duo" },
-    "anneau_vibreur_bullet":       { "name": "Anneau Vibreur Bullet" },
-    "anneau_vibreur_couple":       { "name": "Anneau Vibreur Couple" },
-    "anneau_vibreur_rc":           { "name": "Anneau Vibreur Télécommandé" },
-    "anneau_vibreur_slim":         { "name": "Anneau Vibreur Slim" },
-    "cockring_midnight":           { "name": "Cockring Vibrant Midnight" },
-    "cockring_metal_lisse":        { "name": "Cockring Métal Lisse" },
-    "cockring_ajustable":          { "name": "Cockring Ajustable" },
-    "cockring_textured":           { "name": "Cockring Texturé" },
-    "kit_anneaux":                 { "name": "Kit Anneaux 3 Tailles" },
-    "kit_debutant_3pieces":        { "name": "Kit Débutant 3 Pièces" },
-    "kit_premium_5pieces":         { "name": "Kit Premium 5 Pièces" },
-    "vibro_prostatique":           { "name": "Vibrateur Prostatique Arc" },
-    "vibro_prostatic_slim":        { "name": "Vibrateur Prostatique Slim" },
-    "vibro_prostatique_luxe":      { "name": "Vibrateur Prostatique Luxe" },
-    "vibro_double_action":         { "name": "Vibrateur Double Action" },
-    "vibro_prostatique_flex":      { "name": "Vibrateur Prostatique Flex" },
-    "masseur_pulse":               { "name": "Masseur Prostatique Pulse" },
-    "masseur_onde_pression":       { "name": "Masseur Onde de Pression" },
-    "masseur_classic_pro":         { "name": "Masseur Classic Pro" },
-    "masseur_rotatif":             { "name": "Masseur Rotatif" },
-    "plug_premium":                { "name": "Plug Anal Premium" },
-    "plug_metal_poli":             { "name": "Plug Métal Poli" },
-    "plug_silicone_large":         { "name": "Plug Silicone Large" },
-    "plug_vibrant_mini":           { "name": "Plug Vibrant Mini" },
-    "plug_joyau_noir":             { "name": "Plug Joyau Noir" },
-    "stimulateur_perinee":         { "name": "Stimulateur Périnée Wave" },
-    "stimulateur_perinee_slim":    { "name": "Stimulateur Périnée Slim" },
-    "kit_bdsm":                    { "name": "Kit Découverte BDSM" },
-    "menottes_velours":            { "name": "Menottes Velours Noir" },
-    "menottes_metal_chromees":     { "name": "Menottes Métal Chromées" },
-    "menottes_cuir_souple":        { "name": "Menottes Cuir Souple" },
-    "menottes_bondage_tape":       { "name": "Bondage Tape" },
-    "masque_satin":                { "name": "Masque Satin Ajustable" },
-    "masque_cuir_ajustable":       { "name": "Masque Cuir Ajustable" },
-    "masque_integral_velours":     { "name": "Masque Intégral Velours" },
-    "masque_open_eyes":            { "name": "Masque Open Eyes" },
-    "fouet_initiation":            { "name": "Fouet Initiation" },
-    "fouet_martinet_soft":         { "name": "Martinet Doux" },
-    "paddle_velours_noir":         { "name": "Paddle Velours Noir" },
-    "crop_cuir_souple":            { "name": "Crop Cuir Souple" },
-    "kit_decouverte_premium":      { "name": "Kit Découverte Premium" },
-    "kit_sensation_duo":           { "name": "Kit Sensation Duo" },
-    "kit_initiation_complet":      { "name": "Kit Initiation Complet" },
-    "lube_eau_100":                { "name": "Lubrifiant Base Eau 100ml" },
-    "lube_eau_50ml":               { "name": "Lubrifiant Base Eau 50ml" },
-    "lube_eau_200ml":              { "name": "Lubrifiant Base Eau 200ml" },
-    "lube_eau_anal":               { "name": "Lubrifiant Anal Base Eau" },
-    "lube_eau_longue_duree":       { "name": "Lubrifiant Eau Longue Durée" },
-    "lube_silicone_50":            { "name": "Lubrifiant Silicone 50ml" },
-    "lube_silicone_100ml":         { "name": "Lubrifiant Silicone 100ml" },
-    "lube_silicone_anal":          { "name": "Lubrifiant Silicone Anal" },
-    "lube_silicone_premium":       { "name": "Lubrifiant Silicone Premium" },
-    "lube_hybride_80":             { "name": "Lubrifiant Hybride 80ml" },
-    "lube_hybride_50ml":           { "name": "Lubrifiant Hybride 50ml" },
-    "lube_hybride_anal":           { "name": "Lubrifiant Hybride Anal" },
-    "lube_hybride_premium":        { "name": "Lubrifiant Hybride Premium" },
-    "lube_chauffant_75":           { "name": "Lubrifiant Chauffant 75ml" },
-    "lube_chauffant_30ml":         { "name": "Lubrifiant Chauffant 30ml" },
-    "lube_chauffant_menthe":       { "name": "Lubrifiant Chauffant Menthe" },
-    "boxer_midnight":              { "name": "Boxer Satin Midnight" },
-    "boxer_coton_stretch":         { "name": "Boxer Coton Stretch" },
-    "boxer_microfibre_gris":       { "name": "Boxer Microfibre Gris" },
-    "boxer_dentelle_noir":         { "name": "Boxer Dentelle Noir" },
-    "boxer_satin_bordeaux":        { "name": "Boxer Satin Bordeaux" },
-    "string_microfibre":           { "name": "String Microfibre Noir" },
-    "string_dentelle_blanc":       { "name": "String Dentelle Blanc" },
-    "string_satin_rouge":          { "name": "String Satin Rouge" },
-    "string_microfibre_bleu":      { "name": "String Microfibre Bleu" },
-    "jockstrap_premium":           { "name": "Jockstrap Élastique Premium" },
-    "jockstrap_coton_blanc":       { "name": "Jockstrap Coton Blanc" },
-    "jockstrap_dentelle_noir":     { "name": "Jockstrap Dentelle Noir" },
-    "jockstrap_sport_gris":        { "name": "Jockstrap Sport Gris" },
-    "combinaison_resille":         { "name": "Combinaison Résille Homme" },
-    "combinaison_satin_noir":      { "name": "Combinaison Satin Noir" },
-    "combinaison_dentelle_rouge":  { "name": "Combinaison Dentelle Rouge" }
+    "manchon_pulse_pro": {
+      "name": "Manchon Pulse Pro",
+      "description": "Manchon à texture spirale intense avec 3 vitesses de stimulation programmables."
+    },
+    "manchon_compact_noir": {
+      "name": "Manchon Compact Noir",
+      "description": "Format compact discret, texture nervurée intérieure, matière TPE souple."
+    },
+    "manchon_texture_wave": {
+      "name": "Manchon Texture Wave",
+      "description": "Canal en vague offrant une stimulation progressive du gland à la base."
+    },
+    "manchon_ribbed_classic": {
+      "name": "Manchon Ribbed Classic",
+      "description": "Modèle d'entrée de gamme nervuré, idéal pour la première expérience."
+    },
+    "manchon_ultra_soft": {
+      "name": "Manchon Ultra Soft",
+      "description": "Matière ultra-douce haut de gamme, sensation peau contre peau exceptionnelle."
+    },
+    "manchon_connect": {
+      "name": "Manchon Interactif Connect",
+      "description": "Manchon connecté compatible application, synchronisable avec du contenu vidéo."
+    },
+    "manchon_vibrant_connect": {
+      "name": "Manchon Vibrant Connect",
+      "description": "Vibrations synchronisées via Bluetooth, compatible avec partenaire à distance."
+    },
+    "manchon_sync_pro": {
+      "name": "Manchon Sync Pro",
+      "description": "Synchronisation bidirectionnelle avec un autre appareil compatible, latence 0."
+    },
+    "manchon_app_elite": {
+      "name": "Manchon App Elite",
+      "description": "Contrôle total via app mobile, 12 modes préprogrammés et mode libre."
+    },
+    "torsole_elite": {
+      "name": "Torsole Elite Texture",
+      "description": "Texture 3D exclusive inspirée de la nature pour des sensations ultra-réalistes."
+    },
+    "torsole_helice": {
+      "name": "Torsole Hélice",
+      "description": "Canal hélicoïdal créant une rotation naturelle lors du mouvement."
+    },
+    "torsole_granules": {
+      "name": "Torsole Granulés",
+      "description": "Micro-granules internes pour une stimulation diffuse et enveloppante."
+    },
+    "torsole_wave_intense": {
+      "name": "Torsole Wave Intense",
+      "description": "Vagues profondes à intervalle rapproché, stimulation maximale sur toute la longueur."
+    },
+    "poupee_poche": {
+      "name": "Poupée de Poche Luxe",
+      "description": "Format compact premium, poche de stimulation douce et soyeuse."
+    },
+    "poupee_silicone_compact": {
+      "name": "Poupée Silicone Compact",
+      "description": "Corps silicone haut de gamme, chaleur naturelle, nettoyage facile."
+    },
+    "poupee_tactile_luxe": {
+      "name": "Poupée Tactile Luxe",
+      "description": "Matière peau de pêche unique, structure interne articulée pour un rendu réaliste."
+    },
+    "anneau_silicone": {
+      "name": "Anneau Silicone Double",
+      "description": "Anneau silicone médical extensible, compatible avec toutes les morphologies."
+    },
+    "anneau_stretch_noir": {
+      "name": "Anneau Stretch Noir",
+      "description": "Ultra-extensible, diamètre ajustable de 25 à 55 mm, silicone soft."
+    },
+    "anneau_double_loop": {
+      "name": "Anneau Double Loop",
+      "description": "Double boucle pour une compression douce et uniforme, design ergonomique."
+    },
+    "anneau_metal_chrome": {
+      "name": "Anneau Métal Chrome",
+      "description": "Acier inoxydable poli miroir, poids 45 g pour une sensation distinctive."
+    },
+    "anneau_vibreur": {
+      "name": "Anneau Vibreur Duo",
+      "description": "Anneau double avec micro-vibreur intégré, recharge USB incluse."
+    },
+    "anneau_vibreur_bullet": {
+      "name": "Anneau Vibreur Bullet",
+      "description": "Module bullet amovible et rechargeable, 7 patterns vibratoires."
+    },
+    "anneau_vibreur_couple": {
+      "name": "Anneau Vibreur Couple",
+      "description": "Conçu pour stimuler les deux partenaires simultanément, silicone médical."
+    },
+    "anneau_vibreur_rc": {
+      "name": "Anneau Vibreur Télécommandé",
+      "description": "Télécommande sans fil 10 m, 10 modes, étanche IPX7, charge magnétique."
+    },
+    "anneau_vibreur_slim": {
+      "name": "Anneau Vibreur Slim",
+      "description": "Profil extra-plat pour un port discret, moteur silencieux classe A."
+    },
+    "cockring_midnight": {
+      "name": "Cockring Vibrant Midnight",
+      "description": "Cockring ergonomique 10 modes de vibration, waterproof IPX7."
+    },
+    "cockring_metal_lisse": {
+      "name": "Cockring Métal Lisse",
+      "description": "Acier chirurgical 316L, surface satinée, disponible en 3 diamètres."
+    },
+    "cockring_ajustable": {
+      "name": "Cockring Ajustable",
+      "description": "Système lace-up ajustable en cuir synthétique, taille unique."
+    },
+    "cockring_textured": {
+      "name": "Cockring Texturé",
+      "description": "Relief externe nodulaire pour une stimulation supplémentaire du partenaire."
+    },
+    "kit_anneaux": {
+      "name": "Kit Anneaux 3 Tailles",
+      "description": "Set de 3 tailles pour trouver l'ajustement parfait, silicone premium."
+    },
+    "kit_debutant_3pieces": {
+      "name": "Kit Débutant 3 Pièces",
+      "description": "Idéal pour débuter : 3 anneaux silicone souple de durométrie croissante."
+    },
+    "kit_premium_5pieces": {
+      "name": "Kit Premium 5 Pièces",
+      "description": "Collection complète : 3 anneaux silicone + 1 métal + 1 vibreur bullet."
+    },
+    "vibro_prostatique": {
+      "name": "Vibrateur Prostatique Arc",
+      "description": "Vibrateur prostatique courbé 180° pour une stimulation précise du point P."
+    },
+    "vibro_prostatic_slim": {
+      "name": "Vibrateur Prostatique Slim",
+      "description": "Profil fin 28 mm pour une insertion facile, 8 modes de vibration discrets."
+    },
+    "vibro_prostatique_luxe": {
+      "name": "Vibrateur Prostatique Luxe",
+      "description": "Double moteur indépendant prostate + périnée, 20 combinaisons possibles."
+    },
+    "vibro_double_action": {
+      "name": "Vibrateur Double Action",
+      "description": "Stimulation simultanée prostate et zone périnéale, flexible sur toute la longueur."
+    },
+    "vibro_prostatique_flex": {
+      "name": "Vibrateur Prostatique Flex",
+      "description": "Tige flexible 270° pour s'adapter précisément à votre anatomie."
+    },
+    "masseur_pulse": {
+      "name": "Masseur Prostatique Pulse",
+      "description": "Technologie onde de pression sans pénétration, 6 intensités réglables."
+    },
+    "masseur_onde_pression": {
+      "name": "Masseur Onde de Pression",
+      "description": "Ondes acoustiques pulsées, usage externe uniquement, sans contact direct."
+    },
+    "masseur_classic_pro": {
+      "name": "Masseur Classic Pro",
+      "description": "Forme ergonomique classique, tête rotative 360°, silicone satiné."
+    },
+    "masseur_rotatif": {
+      "name": "Masseur Rotatif",
+      "description": "Tête rotative motorisée 360° + vibrations, charge inductive sans fil."
+    },
+    "plug_premium": {
+      "name": "Plug Anal Premium",
+      "description": "Plug à collet confortable, base évasée sécurisée, silicone velouté."
+    },
+    "plug_metal_poli": {
+      "name": "Plug Métal Poli",
+      "description": "Acier inoxydable poli, conduction thermique naturelle, joyau décoratif inclus."
+    },
+    "plug_silicone_large": {
+      "name": "Plug Silicone Large",
+      "description": "Taille L pour utilisateurs expérimentés, col étroit confortable pour port prolongé."
+    },
+    "plug_vibrant_mini": {
+      "name": "Plug Vibrant Mini",
+      "description": "Plug taille S avec vibreur intégré silencieux, idéal pour débuter."
+    },
+    "plug_joyau_noir": {
+      "name": "Plug Joyau Noir",
+      "description": "Acier chromé avec cristal noir serti, esthétique premium, 3 tailles disponibles."
+    },
+    "stimulateur_perinee": {
+      "name": "Stimulateur Périnée Wave",
+      "description": "Stimulateur externe périnée et prostate, 8 programmes vibratoires."
+    },
+    "stimulateur_perinee_slim": {
+      "name": "Stimulateur Périnée Slim",
+      "description": "Usage externe uniquement, tête plate ergonomique, vibrations localisées."
+    },
+    "kit_bdsm": {
+      "name": "Kit Découverte BDSM",
+      "description": "Kit initiation complet : menottes, masque et guide des pratiques inclus."
+    },
+    "menottes_velours": {
+      "name": "Menottes Velours Noir",
+      "description": "Menottes rembourrées velours, fermeture velcro ajustable, très douces."
+    },
+    "menottes_metal_chromees": {
+      "name": "Menottes Métal Chromées",
+      "description": "Acier chromé avec clé de sécurité, matelassage intérieur soft."
+    },
+    "menottes_cuir_souple": {
+      "name": "Menottes Cuir Souple",
+      "description": "Cuir pleine fleur, doublure polaire, boucle D-ring pour fixation."
+    },
+    "menottes_bondage_tape": {
+      "name": "Bondage Tape",
+      "description": "Ruban PVC auto-adhérent sur lui-même uniquement, 18 m, noir, réutilisable."
+    },
+    "masque_satin": {
+      "name": "Masque Satin Ajustable",
+      "description": "Masque satin double épaisseur, élastique ajustable, opacité totale."
+    },
+    "masque_cuir_ajustable": {
+      "name": "Masque Cuir Ajustable",
+      "description": "Cuir synthétique premium, ouvertures pour yeux et nez, sangles réglables."
+    },
+    "masque_integral_velours": {
+      "name": "Masque Intégral Velours",
+      "description": "Cagoule velours intégrale, ouverture bouche et nez, sensation enveloppante."
+    },
+    "masque_open_eyes": {
+      "name": "Masque Open Eyes",
+      "description": "Bandeau avec œillères, laisse les yeux ouverts, latex souple."
+    },
+    "fouet_initiation": {
+      "name": "Fouet Initiation",
+      "description": "Fouet à lanières fines, impact léger, idéal pour la découverte."
+    },
+    "fouet_martinet_soft": {
+      "name": "Martinet Doux",
+      "description": "10 lanières daim synthétique, manche bois laqué, impact diffus et doux."
+    },
+    "paddle_velours_noir": {
+      "name": "Paddle Velours Noir",
+      "description": "Palette double face : velours doux d'un côté, similicuir de l'autre."
+    },
+    "crop_cuir_souple": {
+      "name": "Crop Cuir Souple",
+      "description": "Cravache 45 cm, poignée tressée, palette cuir souple à l'extrémité."
+    },
+    "kit_decouverte_premium": {
+      "name": "Kit Découverte Premium",
+      "description": "Box premium : menottes cuir, masque, paddle, lubrifiant, guide expert."
+    },
+    "kit_sensation_duo": {
+      "name": "Kit Sensation Duo",
+      "description": "Kit couples : menottes velours + masque satin + fouet initiation."
+    },
+    "kit_initiation_complet": {
+      "name": "Kit Initiation Complet",
+      "description": "Entrée en matière : bondage tape + masque satin + guide des pratiques."
+    },
+    "lube_eau_100": {
+      "name": "Lubrifiant Base Eau 100ml",
+      "description": "Lubrifiant base eau longue durée, compatible latex et jouets silicone."
+    },
+    "lube_eau_50ml": {
+      "name": "Lubrifiant Base Eau 50ml",
+      "description": "Format pocket, formule identique au 100 ml, idéal voyage et essai."
+    },
+    "lube_eau_200ml": {
+      "name": "Lubrifiant Base Eau 200ml",
+      "description": "Grand format économique, pompe doseuse incluse, sans parabènes."
+    },
+    "lube_eau_anal": {
+      "name": "Lubrifiant Anal Base Eau",
+      "description": "Formule plus épaisse spéciale usage anal, effet apaisant, pH neutre."
+    },
+    "lube_eau_longue_duree": {
+      "name": "Lubrifiant Eau Longue Durée",
+      "description": "Polymères naturels pour une glisse prolongée sans rechargement fréquent."
+    },
+    "lube_silicone_50": {
+      "name": "Lubrifiant Silicone 50ml",
+      "description": "Formule ultra-glissante longue tenue, waterproof, idéal sous la douche."
+    },
+    "lube_silicone_100ml": {
+      "name": "Lubrifiant Silicone 100ml",
+      "description": "Version grand format, même formule premium, économique à l'usage."
+    },
+    "lube_silicone_anal": {
+      "name": "Lubrifiant Silicone Anal",
+      "description": "Viscosité élevée spéciale anal, tenue exceptionnelle, sans colorant."
+    },
+    "lube_silicone_premium": {
+      "name": "Lubrifiant Silicone Premium",
+      "description": "Diméthicone grade cosmétique, inodore, hypoallergénique, certifié ISO."
+    },
+    "lube_hybride_80": {
+      "name": "Lubrifiant Hybride 80ml",
+      "description": "Alliance eau et silicone pour la durée du silicone et le confort de l'eau."
+    },
+    "lube_hybride_50ml": {
+      "name": "Lubrifiant Hybride 50ml",
+      "description": "Même formule hybride en format compact, idéal pour voyager."
+    },
+    "lube_hybride_anal": {
+      "name": "Lubrifiant Hybride Anal",
+      "description": "Hybride haute viscosité pour usage anal, effet relaxant léger."
+    },
+    "lube_hybride_premium": {
+      "name": "Lubrifiant Hybride Premium",
+      "description": "Formule enrichie en aloe vera, hydratante, compatible tous jouets."
+    },
+    "lube_chauffant_75": {
+      "name": "Lubrifiant Chauffant 75ml",
+      "description": "Effet chaleur progressif au contact du corps, saveur neutre, comestible."
+    },
+    "lube_chauffant_30ml": {
+      "name": "Lubrifiant Chauffant 30ml",
+      "description": "Mini format pour découvrir l'effet chauffant, glisse agréable."
+    },
+    "lube_chauffant_menthe": {
+      "name": "Lubrifiant Chauffant Menthe",
+      "description": "Double sensation chaud/froid menthol, comestible, base eau."
+    },
+    "boxer_midnight": {
+      "name": "Boxer Satin Midnight",
+      "description": "Boxer satin stretch taille basse, design minimaliste, ceinture élastique fine."
+    },
+    "boxer_coton_stretch": {
+      "name": "Boxer Coton Stretch",
+      "description": "Coton bio certifié OEKO-TEX, stretch 4 directions, confort toute la journée."
+    },
+    "boxer_microfibre_gris": {
+      "name": "Boxer Microfibre Gris",
+      "description": "Microfibre ultra-légère, effet seconde peau, séchage rapide."
+    },
+    "boxer_dentelle_noir": {
+      "name": "Boxer Dentelle Noir",
+      "description": "Dentelle 4 voies transparente, doublure coton avant, élastique signature."
+    },
+    "boxer_satin_bordeaux": {
+      "name": "Boxer Satin Bordeaux",
+      "description": "Coloris bordeaux profond, satin brossé mat, coupe boxer court."
+    },
+    "string_microfibre": {
+      "name": "String Microfibre Noir",
+      "description": "String microfibre ultra-doux taille unique S/M, couleur noir intense."
+    },
+    "string_dentelle_blanc": {
+      "name": "String Dentelle Blanc",
+      "description": "Dentelle blanche fine coupe taille haute, poche avant structurée."
+    },
+    "string_satin_rouge": {
+      "name": "String Satin Rouge",
+      "description": "Satin rouge vif, fil dorsal invisible, taille basse, finition premium."
+    },
+    "string_microfibre_bleu": {
+      "name": "String Microfibre Bleu",
+      "description": "Coloris bleu nuit, même coupe que le noir, microfibre peignée."
+    },
+    "jockstrap_premium": {
+      "name": "Jockstrap Élastique Premium",
+      "description": "Jockstrap élastique renforcé, coupe anatomique, poche avant structurée."
+    },
+    "jockstrap_coton_blanc": {
+      "name": "Jockstrap Coton Blanc",
+      "description": "Coton peigné blanc, élastique large signature, classique sportswear."
+    },
+    "jockstrap_dentelle_noir": {
+      "name": "Jockstrap Dentelle Noir",
+      "description": "Dentelle noire transparente, brides élastiques latérales, doublure microfibre."
+    },
+    "jockstrap_sport_gris": {
+      "name": "Jockstrap Sport Gris",
+      "description": "Matière sport stretch gris chiné, élastiques contrastants, très respirant."
+    },
+    "combinaison_resille": {
+      "name": "Combinaison Résille Homme",
+      "description": "Combinaison résille extensible, col V profond, finitions satinées aux chevilles."
+    },
+    "combinaison_satin_noir": {
+      "name": "Combinaison Satin Noir",
+      "description": "Satin fluide intégral, bretelles fines réglables, ouverture pression dos."
+    },
+    "combinaison_dentelle_rouge": {
+      "name": "Combinaison Dentelle Rouge",
+      "description": "Dentelle rouge sang semi-transparente, encolure carrée, manches longues."
+    }
   }
 }
