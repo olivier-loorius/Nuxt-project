@@ -16,40 +16,68 @@
           </div>
 
           <div class="flex items-center gap-4 ml-auto">
-            <div class="flex items-center gap-2 lg:hidden">
-              <button class="icon-btn" :aria-label="$t('aria.searchButton')" @click="showSearch = true">
-                <Search :size="20" />
+            <div class="flex items-center gap-1 lg:hidden">
+              <button v-if="showBackToMenu && !mobileMenuOpen" class="icon-btn" @click="mobileMenuOpen = true; showBackToMenu.value = false">
+                <ArrowLeft :size="22" />
               </button>
               <button class="icon-btn relative" :aria-label="$t('aria.cartButton')">
-                <ShoppingCart :size="20" />
-                <span v-if="cartItems > 0" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-copper text-white text-xs flex items-center justify-center">
+                <ShoppingCart :size="20" :class="cartItems > 0 ? 'stroke-amber' : 'stroke-midnight/55'" />
+                <span v-if="cartItems > 0" class="absolute -top-1 -right-1 w-[15px] h-[15px] rounded-full bg-amber text-midnight text-[10px] flex items-center justify-center">
                   {{ cartItems }}
                 </span>
+              </button>
+              <div v-if="!user">
+                <button class="icon-btn" :aria-label="$t('nav.login')" @click="handleAuthClick">
+                  <User :size="20" />
+                </button>
+              </div>
+              <div v-else class="relative">
+                <button class="icon-btn relative" :aria-label="$t('nav.account')" @click="showUserDropdown = !showUserDropdown">
+                  <span class="absolute inset-[3px] border border-amber rounded-full" />
+                  <User :size="20" class="text-amber" />
+                  <span class="absolute top-[2px] right-[2px] w-[9px] h-[9px] bg-green-500 rounded-full" />
+                </button>
+                <div v-if="showUserDropdown" class="absolute right-0 mt-2 w-56 bg-white border-2 border-concrete shadow-lg z-[60] animate-fade-in">
+                  <button @click="handleNavigateToAccount" class="flex items-center gap-3 w-full text-left px-5 py-4 text-xs font-bold tracking-widest uppercase text-midnight hover:bg-amber hover:text-white transition-all duration-200 group border-l-4 border-transparent hover:border-amber">
+                    <LayoutDashboard :size="16" class="text-amber group-hover:text-white transition-colors" />
+                    <span>{{ $t('compte.menu.dashboard') }}</span>
+                  </button>
+                  <button @click="handleNavigateToProfil" class="flex items-center gap-3 w-full text-left px-5 py-4 text-xs font-bold tracking-widest uppercase text-midnight hover:bg-amber hover:text-white transition-all duration-200 group border-l-4 border-transparent hover:border-amber">
+                    <UserCircle :size="16" class="text-amber group-hover:text-white transition-colors" />
+                    <span>{{ $t('compte.menu.profil') }}</span>
+                  </button>
+                  <div class="border-t-2 border-concrete"></div>
+                  <button @click="handleLogout" class="flex items-center gap-3 w-full text-left px-5 py-4 text-xs font-bold tracking-widest uppercase text-red-600 hover:bg-red-50 transition-all duration-200 group border-l-4 border-transparent hover:border-red-500">
+                    <LogOut :size="16" class="text-red-500 group-hover:text-red-600 transition-colors" />
+                    <span>{{ $t('compte.menu.logout') }}</span>
+                  </button>
+                </div>
+              </div>
+              <button class="icon-btn" :aria-label="$t('aria.menuButton')" @click="toggleMobileMenu">
+                <component :is="mobileMenuOpen ? X : Menu" :size="24" class="transition-all duration-200" />
               </button>
             </div>
 
             <button class="hidden lg:inline-flex icon-btn relative" :aria-label="$t('aria.cartButton')">
-              <ShoppingCart :size="20" />
-              <span v-if="cartItems > 0" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-copper text-white text-xs flex items-center justify-center">
+              <ShoppingCart :size="20" :class="cartItems > 0 ? 'stroke-amber' : 'stroke-midnight/55'" />
+              <span v-if="cartItems > 0" class="absolute -top-1 -right-1 w-[15px] h-[15px] rounded-full bg-amber text-midnight text-[10px] flex items-center justify-center">
                 {{ cartItems }}
               </span>
             </button>
 
+            <span class="hidden lg:block w-px h-4 bg-concrete flex-shrink-0" />
+
             <button class="hidden lg:inline-flex icon-btn relative" :aria-label="$t('aria.favoritesButton')" @click="showFavoritesDrawer = true">
-              <Heart :size="20" />
-              <span
-                v-if="favorites.length > 0"
-                class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber text-midnight text-xs flex items-center justify-center font-semibold"
-              >
+              <Heart :size="20" :class="favorites.length > 0 ? 'stroke-amber fill-none' : 'stroke-midnight/55'" />
+              <span v-if="favorites.length > 0" class="absolute -top-1 -right-1 w-[15px] h-[15px] rounded-full bg-amber text-midnight text-[10px] flex items-center justify-center">
                 {{ favorites.length }}
               </span>
             </button>
+
+            <span class="hidden lg:block w-px h-4 bg-concrete flex-shrink-0" />
+
             <div v-if="!user" class="hidden lg:block">
-              <button
-                class="icon-btn"
-                :aria-label="$t('nav.login')"
-                @click="handleAuthClick"
-              >
+              <button class="icon-btn" :aria-label="$t('nav.login')" @click="handleAuthClick">
                 <User :size="20" />
               </button>
             </div>
@@ -59,9 +87,9 @@
                 class="icon-btn relative"
                 :aria-label="$t('nav.account')"
               >
-                <div class="absolute inset-0 border-2 border-[var(--copper)]" style="clip-path: polygon(0 6px, 6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%)"></div>
+                <span class="absolute inset-[3px] border border-amber rounded-full" />
                 <User :size="20" class="text-amber" />
-                <span class="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full shadow-md"></span>
+                <span class="absolute top-[2px] right-[2px] w-[9px] h-[9px] bg-green-500 rounded-full" />
               </button>
 
               <div
@@ -92,6 +120,7 @@
                 </button>
               </div>
             </div>
+            <span class="hidden lg:block w-px h-4 bg-concrete flex-shrink-0" />
             <div class="relative hidden lg:block">
               <button
                 class="icon-btn flex items-center gap-1"
@@ -119,9 +148,6 @@
                 </button>
               </div>
             </div>
-            <button class="lg:hidden icon-btn" :aria-label="$t('aria.menuButton')" @click="toggleMobileMenu">
-              <Menu :size="24" />
-            </button>
           </div>
         </div>
       </div>
@@ -141,33 +167,36 @@
         </div>
       </div>
     </nav>
-    <div v-if="mobileMenuOpen" class="lg:hidden bg-chalk border-b border-concrete animate-slide-down">
+    <div v-if="mobileMenuOpen" class="lg:hidden bg-chalk border-b border-concrete animate-slide-down min-h-[calc(100vh-61px)]">
       <div class="container mx-auto px-4 py-4">
-        <div class="flex items-center gap-4 pb-4 border-b border-concrete mb-4">
-          <button class="icon-btn relative" :aria-label="$t('aria.favoritesButton')" @click="showFavoritesDrawer = true">
-            <Heart :size="20" />
-            <span
-              v-if="favorites.length > 0"
-              class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber text-midnight text-xs flex items-center justify-center font-semibold"
-            >
+        <div class="flex border-b border-concrete mb-4">
+          <button
+            class="flex-1 flex items-center justify-center gap-2 py-4 bg-midnight/5 hover:bg-midnight/10 transition-colors duration-200 text-sm font-medium text-midnight"
+            :aria-label="$t('aria.searchButton')"
+            @click="showSearch = true; closeMobileMenu()"
+          >
+            <Search :size="20" />
+            <span>{{ $t('aria.searchButton') }}</span>
+          </button>
+          <span class="w-px bg-concrete flex-shrink-0" />
+          <button
+            class="w-14 flex items-center justify-center py-4 bg-midnight/5 hover:bg-midnight/10 transition-colors duration-200 relative"
+            :class="favorites.length > 0 ? 'text-amber' : 'text-midnight/55'"
+            :aria-label="$t('aria.favoritesButton')"
+            @click="showFavoritesDrawer = true; closeMobileMenu()"
+          >
+            <Heart :size="20" :class="favorites.length > 0 ? 'stroke-amber fill-none' : 'stroke-midnight/55'" />
+            <span v-if="favorites.length > 0" class="absolute top-1 right-1 w-[15px] h-[15px] rounded-full bg-amber text-midnight text-[10px] flex items-center justify-center">
               {{ favorites.length }}
             </span>
           </button>
-          <button v-if="!user" class="icon-btn" :aria-label="$t('aria.accountButton')" @click="handleAuthClick">
-            <User :size="20" />
-          </button>
-          <button v-else class="icon-btn relative" :aria-label="$t('nav.account')" @click="navigateTo('/compte')">
-            <div class="absolute inset-0 border-2 border-[var(--copper)]" style="clip-path: polygon(0 6px, 6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%)"></div>
-            <User :size="20" class="text-amber" />
-            <span class="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full shadow-md"></span>
-          </button>
-          <div class="flex-1"></div>
+          <span class="w-px bg-concrete flex-shrink-0" />
           <button
-            @click="switchLocale(locale === 'fr' ? 'en' : 'fr')"
+            class="w-14 flex items-center justify-center py-4 bg-midnight/5 hover:bg-midnight/10 transition-colors duration-200 text-sm font-medium text-midnight"
             :aria-label="$t('aria.languageSelector')"
-            class="px-3 py-1 rounded bg-midnight/5 hover:bg-amber hover:text-white text-sm font-medium transition-colors duration-200"
+            @click="switchLocale(locale.value === 'fr' ? 'en' : 'fr' as 'fr' | 'en')"
           >
-            {{ locale === 'fr' ? 'EN' : 'FR' }}
+            {{ locale.toUpperCase() }}
           </button>
         </div>
         <nav class="flex flex-col gap-3">
@@ -175,16 +204,18 @@
             v-for="link in navLinks"
             :key="link.to"
             :to="localePath(link.to)"
-            :class="['mobile-link', { 'text-amber': activeRoute === localePath(link.to) }]"
+            :class="['mobile-link justify-between', { 'text-amber': activeRoute === localePath(link.to) }]"
             @click="closeMobileMenu"
           >
             {{ $t(link.label) }}
+            <ChevronRight :size="16" class="text-midnight/30" />
           </NuxtLink>
         </nav>
       </div>
     </div>
 
     <Teleport to="body">
+      <div v-if="mobileMenuOpen" class="lg:hidden fixed inset-0 bg-midnight/40 z-[45]" @click="toggleMobileMenu" />
       <Transition
         enter-active-class="transition-opacity duration-300"
         enter-from-class="opacity-0"
@@ -297,8 +328,9 @@
 </template>
 
 <script setup lang="ts">
-import { Search, Heart, ShoppingCart, User, Menu, Globe, ChevronDown, LayoutDashboard, UserCircle, LogOut, Trash2, X, ImageIcon } from 'lucide-vue-next'
+import { Search, Heart, ShoppingCart, User, Menu, Globe, ChevronDown, ChevronRight, LayoutDashboard, UserCircle, LogOut, Trash2, X, ImageIcon, ArrowLeft } from 'lucide-vue-next'
 import { useAuth } from '~/composables/useAuth'
+import { useNavHistory } from '~/composables/useNavHistory'
 import { MOCK_PRODUCTS } from '~/data/products'
 
 const { t, locale } = useI18n()
@@ -311,10 +343,8 @@ const favoriteProducts = computed(() =>
   MOCK_PRODUCTS.filter(p => favorites.value.includes(p.id))
 )
 
-const { locale: navLocale } = useI18n()
-
 function formatPrice(price: number): string {
-  return new Intl.NumberFormat(navLocale.value === 'fr' ? 'fr-FR' : 'en-GB', {
+  return new Intl.NumberFormat(locale.value === 'fr' ? 'fr-FR' : 'en-GB', {
     style: 'currency',
     currency: 'EUR',
   }).format(price)
@@ -336,8 +366,9 @@ const isScrolled = ref(false)
 const showLangDropdown = ref(false)
 const mobileMenuOpen = ref(false)
 const { showAuthModal, authModalMessage } = useAuthModal()
+const { showBackToMenu } = useNavHistory()
 const showUserDropdown = ref(false)
-const cartItems = ref(2)
+const cartItems = ref(0)
 const showSearch = ref(false)
 
 const navLinks = [
@@ -362,10 +393,14 @@ const toggleLangDropdown = () => {
 
 const toggleMobileMenu = () => {
   mobileMenuOpen.value = !mobileMenuOpen.value
+  showBackToMenu.value = false
+  document.body.style.overflow = mobileMenuOpen.value ? 'hidden' : ''
 }
 
 const closeMobileMenu = () => {
   mobileMenuOpen.value = false
+  showBackToMenu.value = true
+  document.body.style.overflow = ''
 }
 
 const switchLocale = async (newLocale: 'fr' | 'en') => {
@@ -378,9 +413,7 @@ const handleLogout = async () => {
   try {
     await signOut()
     showUserDropdown.value = false
-  } catch (error: any) {
-    // Error handling for logout
-  }
+  } catch {}
 }
 
 const handleNavigateToAccount = async () => {
@@ -490,11 +523,11 @@ onUnmounted(() => {
 @keyframes slide-down {
   from {
     opacity: 0;
-    transform: translateY(-1rem);
+    transform: translateX(2rem);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 

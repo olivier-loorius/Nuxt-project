@@ -118,7 +118,7 @@ const placeholderBgs = [
 function handleFavorite(productId: string) {
   const user = useSupabaseUser()
   if (!user.value) {
-    authModalMessage.value = 'Connectez-vous pour ajouter des favoris'
+    if (authModalMessage.value !== undefined) authModalMessage.value = 'Connectez-vous pour ajouter des favoris'
     showAuthModal.value = true
     return
   }
@@ -127,7 +127,7 @@ function handleFavorite(productId: string) {
 
 function placeholderBg(id: string): string {
   const index = id.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0)
-  return placeholderBgs[index % placeholderBgs.length]
+  return placeholderBgs[index % placeholderBgs.length] ?? 'bg-concrete'
 }
 </script>
 

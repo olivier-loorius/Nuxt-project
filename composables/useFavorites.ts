@@ -1,7 +1,7 @@
 export const useFavorites = () => {
   const client = useSupabaseClient()
 
-  const favorites = ref<string[]>([])
+  const favorites = useState<string[]>('favorites', () => [])
 
   const fetchFavorites = async () => {
     try {
