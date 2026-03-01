@@ -17,7 +17,7 @@
 
           <div class="flex items-center gap-4 ml-auto">
             <div class="flex items-center gap-1 lg:hidden">
-              <button v-if="showBackToMenu && !mobileMenuOpen" class="icon-btn" @click="mobileMenuOpen = true; showBackToMenu.value = false">
+              <button v-if="showBackToMenu && !mobileMenuOpen" class="icon-btn" @click="mobileMenuOpen = true; clearBackToMenu()">
                 <ArrowLeft :size="22" />
               </button>
               <button class="icon-btn relative" :aria-label="$t('aria.cartButton')">
@@ -194,7 +194,7 @@
           <button
             class="w-14 flex items-center justify-center py-4 bg-midnight/5 hover:bg-midnight/10 transition-colors duration-200 text-sm font-medium text-midnight"
             :aria-label="$t('aria.languageSelector')"
-            @click="switchLocale(locale.value === 'fr' ? 'en' : 'fr' as 'fr' | 'en')"
+            @click="switchLocale((locale === 'fr' ? 'en' : 'fr') as 'fr' | 'en')"
           >
             {{ locale.toUpperCase() }}
           </button>
@@ -353,7 +353,7 @@ function formatPrice(price: number): string {
 const placeholderBgs = ['bg-[#ECEDEF]', 'bg-[#EDE9E4]', 'bg-[#EAECEC]', 'bg-[#EFEcE8]', 'bg-concrete', 'bg-[#EBEBED]']
 function drawerBg(id: string): string {
   const index = id.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0)
-  return placeholderBgs[index % placeholderBgs.length]
+  return placeholderBgs[index % placeholderBgs.length] || 'bg-concrete'
 }
 const localePath = useLocalePath()
 const switchLocalePath = useSwitchLocalePath()
@@ -393,7 +393,7 @@ const toggleLangDropdown = () => {
 
 const toggleMobileMenu = () => {
   mobileMenuOpen.value = !mobileMenuOpen.value
-  showBackToMenu.value = false
+  clearBackToMenu()
   document.body.style.overflow = mobileMenuOpen.value ? 'hidden' : ''
 }
 
@@ -401,6 +401,10 @@ const closeMobileMenu = () => {
   mobileMenuOpen.value = false
   showBackToMenu.value = true
   document.body.style.overflow = ''
+}
+
+const clearBackToMenu = () => {
+  showBackToMenu.value = false
 }
 
 const switchLocale = async (newLocale: 'fr' | 'en') => {

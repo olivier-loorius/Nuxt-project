@@ -224,6 +224,7 @@
 </template>
 
 <script setup lang="ts">
+import { nextTick } from 'vue'
 import { Mail, Lock, Eye, EyeOff, Check, X, ShieldCheck, Loader2, ArrowRight } from 'lucide-vue-next'
 import { useAuth } from '~/composables/useAuth'
 import { validateEmail, validatePassword, getStrengthLabel } from '~/composables/useFormValidation'
@@ -245,6 +246,23 @@ const newsletter = ref(false)
 const loading = ref(false)
 const error = ref('')
 const mode = ref<'login' | 'register'>('login')
+
+watch(modelValue, (val) => {
+  if (val) {
+    nextTick(() => {
+      email.value = ''
+      password.value = ''
+      passwordConfirm.value = ''
+      showPassword.value = false
+      confirm18Plus.value = false
+      newsletter.value = false
+      error.value = ''
+      mode.value = 'login'
+      emailTouched.value = false
+      passwordConfirmTouched.value = false
+    })
+  }
+})
 
 const emailTouched = ref(false)
 const passwordConfirmTouched = ref(false)
