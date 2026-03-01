@@ -1,5 +1,4 @@
 <template>
-  <!-- État vide -->
   <div
     v-if="!products.length"
     class="flex flex-col items-center justify-center gap-4 py-24 text-center"
@@ -10,7 +9,6 @@
     </p>
   </div>
 
-  <!-- Grille -->
   <div
     v-else
     class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
@@ -21,20 +19,25 @@
       :to="localePath(`/produit/${product.id}`)"
       class="group block border border-transparent hover:border-amber transition-colors duration-300"
     >
-      <!-- Image placeholder -->
       <div class="relative aspect-[3/4] overflow-hidden" :class="placeholderBg(product.id)">
-
-        <!-- Motif décoratif -->
         <div class="absolute inset-0 flex items-center justify-center">
           <ImageIcon :size="44" class="text-midnight/10" />
         </div>
-
-        <!-- Overlay hover -->
         <div
           class="absolute inset-0 bg-midnight/0 group-hover:bg-midnight/8 transition-colors duration-300"
         />
-
-        <!-- Badge -->
+        <button
+          class="absolute top-3 right-3 flex items-center justify-center w-9 h-9 bg-chalk/80 hover:bg-chalk transition-colors duration-200"
+          :aria-label="$t('catalog.toggle_favorite')"
+          @click.stop.prevent="handleFavorite(product.id)"
+        >
+          <Heart
+            :size="18"
+            :class="isFavorite(product.id).value
+              ? 'fill-[#EF4444] text-[#EF4444]'
+              : 'fill-none text-midnight/50'"
+          />
+        </button>
         <span
           v-if="product.badge"
           class="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-display font-semibold tracking-[0.18em] uppercase"
@@ -42,8 +45,6 @@
         >
           {{ $t('catalog.badge_' + product.badge) }}
         </span>
-
-        <!-- Indicateur stock faible -->
         <span
           v-if="product.stock <= 3 && product.stock > 0"
           class="absolute bottom-3 left-3 px-2.5 py-1 bg-chalk/90 text-midnight text-[10px] font-display font-medium tracking-wide uppercase"
@@ -51,8 +52,6 @@
           {{ product.stock }} {{ product.stock > 1 ? $t('catalog.stock_other') : $t('catalog.stock_one') }}
         </span>
       </div>
-
-      <!-- Infos -->
       <div class="p-4 bg-white">
         <p class="text-[10px] font-body font-normal tracking-[0.18em] uppercase text-midnight/35 mb-1.5">
           {{ $t('catalog.categories.' + product.categoryId) }}
@@ -80,7 +79,7 @@
 </template>
 
 <script setup lang="ts">
-import { ImageIcon, PackageOpen, ShoppingCart } from 'lucide-vue-next'
+import { Heart, ImageIcon, PackageOpen, ShoppingCart } from 'lucide-vue-next'
 import { MOCK_PRODUCTS, type MockProduct } from '~/data/products'
 
 const props = defineProps<{ products?: MockProduct[] }>()
@@ -89,6 +88,11 @@ const products = computed(() => props.products ?? MOCK_PRODUCTS)
 
 const { locale, t } = useI18n()
 const localePath = useLocalePath()
+
+const { fetchFavorites, toggleFavorite, isFavorite } = useFavorites()
+const { showAuthModal, authModalMessage } = useAuthModal()
+
+onMounted(() => fetchFavorites())
 
 function formatPrice(price: number): string {
   return new Intl.NumberFormat(locale.value === 'fr' ? 'fr-FR' : 'en-GB', {
@@ -102,15 +106,24 @@ function badgeClass(badge: string): string {
   return 'bg-amber text-midnight'
 }
 
-// Variation visuelle subtile du placeholder selon l'id
 const placeholderBgs = [
-  'bg-[#ECEDEF]', // ~midnight/5
-  'bg-[#EDE9E4]', // ~amber/8
+  'bg-[#ECEDEF]', 
+  'bg-[#EDE9E4]', 
   'bg-[#EAECEC]',
   'bg-[#EFEcE8]',
   'bg-concrete',
   'bg-[#EBEBED]',
 ]
+
+function handleFavorite(productId: string) {
+  const user = useSupabaseUser()
+  if (!user.value) {
+    authModalMessage.value = 'Connectez-vous pour ajouter des favoris'
+    showAuthModal.value = true
+    return
+  }
+  toggleFavorite(productId)
+}
 
 function placeholderBg(id: string): string {
   const index = id.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0)

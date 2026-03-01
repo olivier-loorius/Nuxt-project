@@ -1,30 +1,24 @@
 <template>
   <div class="flex flex-col pt-2 lg:pt-4">
 
-    <!-- Catégorie -->
     <p class="text-[10px] font-body tracking-[0.22em] uppercase text-amber mb-3">
       {{ $t('catalog.categories.' + product.categoryId) }}
     </p>
 
-    <!-- Nom -->
     <h1 class="font-display font-bold text-midnight text-2xl sm:text-3xl leading-tight mb-6">
       {{ t(product.nameKey) }}
     </h1>
 
-    <!-- Prix -->
     <p class="font-body font-semibold text-midnight text-3xl tabular-nums mb-8">
       {{ formatPrice(product.price) }}
     </p>
 
-    <!-- Accent ligne -->
     <div class="w-10 h-[1.5px] bg-amber mb-8" />
 
-    <!-- Description -->
     <p class="font-body text-sm text-midnight/65 leading-relaxed mb-10">
       {{ $t(product.descriptionKey) }}
     </p>
 
-    <!-- Stock -->
     <div class="flex items-center gap-2.5 mb-10">
       <span
         class="w-1.5 h-1.5 rounded-full flex-shrink-0"
@@ -41,7 +35,6 @@
       </span>
     </div>
 
-    <!-- Bouton Ajouter au panier -->
     <button
       class="product-cta w-full flex items-center justify-center gap-3 px-8 py-4 font-display font-semibold text-xs tracking-[0.2em] uppercase transition-colors duration-300"
       :class="product.stock > 0
@@ -53,7 +46,20 @@
       {{ product.stock > 0 ? $t('catalog.add_to_cart') : $t('product.out_of_stock') }}
     </button>
 
-    <!-- Caractéristiques techniques -->
+    <button
+      class="product-cta mt-3 w-full flex items-center justify-center py-3 border transition-colors duration-300"
+      :class="isFavorite(product.id).value
+        ? 'border-[#EF4444] text-[#EF4444] hover:bg-[#EF4444]/5'
+        : 'border-midnight/30 text-midnight/50 hover:border-[#EF4444] hover:text-[#EF4444]'"
+      :aria-label="$t('catalog.toggle_favorite')"
+      @click="handleFavorite(product.id)"
+    >
+      <Heart
+        :size="20"
+        :class="isFavorite(product.id).value ? 'fill-[#EF4444]' : 'fill-none'"
+      />
+    </button>
+
     <div class="mt-10 border-t border-midnight/10">
       <p class="text-[10px] font-body tracking-[0.22em] uppercase text-amber mt-8 mb-4">
         {{ $t('product.specs.title') }}
@@ -76,7 +82,6 @@
       </table>
     </div>
 
-    <!-- Accordéon Entretien & utilisation -->
     <div class="mt-6 border-t border-midnight/10">
       <button
         class="w-full flex items-center justify-between py-4 text-left group"
@@ -120,14 +125,28 @@
 </template>
 
 <script setup lang="ts">
-import { ShoppingCart, ChevronDown } from 'lucide-vue-next'
+import { Heart, ShoppingCart, ChevronDown } from 'lucide-vue-next'
 import type { MockProduct } from '~/data/products'
 
 const props = defineProps<{ product: MockProduct }>()
 
 const { t, locale } = useI18n()
-
 const accordionOpen = ref(false)
+
+const { fetchFavorites, toggleFavorite, isFavorite } = useFavorites()
+const { showAuthModal, authModalMessage } = useAuthModal()
+
+onMounted(() => fetchFavorites())
+
+function handleFavorite(productId: string) {
+  const user = useSupabaseUser()
+  if (!user.value) {
+    authModalMessage.value = 'Connectez-vous pour ajouter des favoris'
+    showAuthModal.value = true
+    return
+  }
+  toggleFavorite(productId)
+}
 
 const specs = computed(() => [
   { label: t('product.specs.material_label'),   value: t('product.specs.material_value') },

@@ -27,6 +27,10 @@
           </p>
         </div>
 
+        <p v-if="authModalMessage" class="text-sm text-center text-midnight/70 italic mb-4">
+          {{ authModalMessage }}
+        </p>
+
         <form @submit.prevent="handleSubmit" class="space-y-4">
           <div>
             <label for="auth-email" class="block text-sm font-sora font-semibold mb-2 text-midnight">
@@ -225,6 +229,7 @@ import { useAuth } from '~/composables/useAuth'
 import { validateEmail, validatePassword, getStrengthLabel } from '~/composables/useFormValidation'
 
 const { t } = useI18n()
+const { authModalMessage } = useAuthModal()
 const modelValue = defineModel<boolean>({ default: false })
 
 const closeModal = () => {

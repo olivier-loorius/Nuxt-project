@@ -1,4 +1,16 @@
 {
+  "favorites": {
+    "title": "Mes favoris",
+    "empty": "Aucun favori pour le moment",
+    "browse": "Découvrir les produits",
+    "login_required": "Connectez-vous pour ajouter des favoris",
+    "remove": "Retirer des favoris",
+    "clear_all": "Vider les favoris",
+    "drawer_title": "Mes favoris",
+    "greeting": "Bonjour",
+    "count_one": "produit sauvegardé",
+    "count_other": "produits sauvegardés"
+  },
   "breadcrumb": {
     "home": "Accueil",
     "back": "Retour aux nouveautés"
@@ -26,7 +38,8 @@
     "cartButton": "Panier",
     "accountButton": "Compte",
     "menuButton": "Menu",
-    "languageSelector": "Sélecteur de langue"
+    "languageSelector": "Sélecteur de langue",
+    "close": "Fermer"
   },
   "banner": {
     "adultsOnly": "Site réservé aux adultes (18+)",
@@ -428,6 +441,7 @@
     "sort_popular": "Popularité",
     "empty": "Aucun produit trouvé",
     "add_to_cart": "Ajouter au panier",
+    "toggle_favorite": "Ajouter aux favoris",
     "product_one": "produit",
     "product_other": "produits",
     "stock_one": "restant",
