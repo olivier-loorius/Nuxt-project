@@ -1,4 +1,16 @@
 {
+  "favorites": {
+    "title": "My favourites",
+    "empty": "No favourites yet",
+    "browse": "Browse products",
+    "login_required": "Sign in to save favourites",
+    "remove": "Remove from favourites",
+    "clear_all": "Clear all favourites",
+    "drawer_title": "My favourites",
+    "greeting": "Hello",
+    "count_one": "saved product",
+    "count_other": "saved products"
+  },
   "breadcrumb": {
     "home": "Home",
     "back": "Back to new arrivals"
@@ -26,7 +38,8 @@
     "cartButton": "Cart",
     "accountButton": "Account",
     "menuButton": "Menu",
-    "languageSelector": "Language selector"
+    "languageSelector": "Language selector",
+    "close": "Close"
   },
   "banner": {
     "adultsOnly": "Adults only (18+)",
@@ -428,6 +441,7 @@
     "sort_popular": "Popularity",
     "empty": "No products found",
     "add_to_cart": "Add to cart",
+    "toggle_favorite": "Add to favourites",
     "product_one": "product",
     "product_other": "products",
     "stock_one": "remaining",

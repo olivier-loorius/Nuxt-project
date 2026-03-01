@@ -35,8 +35,14 @@
               </span>
             </button>
 
-            <button class="hidden lg:inline-flex icon-btn" :aria-label="$t('aria.favoritesButton')">
+            <button class="hidden lg:inline-flex icon-btn relative" :aria-label="$t('aria.favoritesButton')" @click="showFavoritesDrawer = true">
               <Heart :size="20" />
+              <span
+                v-if="favorites.length > 0"
+                class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber text-midnight text-xs flex items-center justify-center font-semibold"
+              >
+                {{ favorites.length }}
+              </span>
             </button>
             <div v-if="!user" class="hidden lg:block">
               <button
@@ -53,11 +59,8 @@
                 class="icon-btn relative"
                 :aria-label="$t('nav.account')"
               >
-                <!-- Bordure copper coins coupés -->
                 <div class="absolute inset-0 border-2 border-[var(--copper)]" style="clip-path: polygon(0 6px, 6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%)"></div>
-                <!-- Icône User -->
                 <User :size="20" class="text-amber" />
-                <!-- Point vert de statut -->
                 <span class="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full shadow-md"></span>
               </button>
 
@@ -141,18 +144,21 @@
     <div v-if="mobileMenuOpen" class="lg:hidden bg-chalk border-b border-concrete animate-slide-down">
       <div class="container mx-auto px-4 py-4">
         <div class="flex items-center gap-4 pb-4 border-b border-concrete mb-4">
-          <button class="icon-btn" :aria-label="$t('aria.favoritesButton')">
+          <button class="icon-btn relative" :aria-label="$t('aria.favoritesButton')" @click="showFavoritesDrawer = true">
             <Heart :size="20" />
+            <span
+              v-if="favorites.length > 0"
+              class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber text-midnight text-xs flex items-center justify-center font-semibold"
+            >
+              {{ favorites.length }}
+            </span>
           </button>
           <button v-if="!user" class="icon-btn" :aria-label="$t('aria.accountButton')" @click="handleAuthClick">
             <User :size="20" />
           </button>
           <button v-else class="icon-btn relative" :aria-label="$t('nav.account')" @click="navigateTo('/compte')">
-            <!-- Bordure copper coins coupés -->
             <div class="absolute inset-0 border-2 border-[var(--copper)]" style="clip-path: polygon(0 6px, 6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%)"></div>
-            <!-- Icône User -->
             <User :size="20" class="text-amber" />
-            <!-- Point vert de statut -->
             <span class="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full shadow-md"></span>
           </button>
           <div class="flex-1"></div>
@@ -178,16 +184,147 @@
       </div>
     </div>
 
+    <Teleport to="body">
+      <Transition
+        enter-active-class="transition-opacity duration-300"
+        enter-from-class="opacity-0"
+        enter-to-class="opacity-100"
+        leave-active-class="transition-opacity duration-200"
+        leave-from-class="opacity-100"
+        leave-to-class="opacity-0"
+      >
+        <div
+          v-if="showFavoritesDrawer"
+          class="fixed inset-0 bg-midnight/50 z-[70]"
+          @click="showFavoritesDrawer = false"
+        />
+      </Transition>
+
+      <Transition
+        enter-active-class="transition-transform duration-300 ease-out"
+        enter-from-class="translate-x-full"
+        enter-to-class="translate-x-0"
+        leave-active-class="transition-transform duration-200 ease-in"
+        leave-from-class="translate-x-0"
+        leave-to-class="translate-x-full"
+      >
+        <div
+          v-if="showFavoritesDrawer"
+          class="fixed top-0 right-0 h-full w-full sm:w-80 bg-chalk z-[80] flex flex-col shadow-2xl"
+        >
+          <div class="flex items-center justify-between px-5 py-4 border-b border-concrete flex-shrink-0">
+            <div>
+              <p class="font-display font-bold text-midnight text-sm tracking-tight">
+                {{ user?.user_metadata?.firstName ? $t('favorites.title') + ' · ' + user.user_metadata.firstName : $t('favorites.title') }}
+              </p>
+              <p class="text-[10px] font-body text-midnight/40 mt-0.5 tabular-nums">
+                {{ favorites.length }}
+                {{ favorites.length > 1 ? $t('catalog.product_other') : $t('catalog.product_one') }}
+              </p>
+            </div>
+            <button
+              class="icon-btn"
+              :aria-label="$t('aria.close')"
+              @click="showFavoritesDrawer = false"
+            >
+              <X :size="18" />
+            </button>
+          </div>
+
+          <div class="flex-1 overflow-y-auto py-3">
+            <div
+              v-if="!favoriteProducts.length"
+              class="flex flex-col items-center justify-center gap-3 h-full py-16 text-center px-6"
+            >
+              <Heart :size="32" class="text-concrete" />
+              <p class="text-xs font-display font-medium uppercase tracking-[0.18em] text-midnight/35">
+                {{ $t('favorites.empty') }}
+              </p>
+            </div>
+
+            <ul v-else class="divide-y divide-concrete">
+              <li
+                v-for="product in favoriteProducts"
+                :key="product.id"
+                class="flex items-center gap-3 px-4 py-3 hover:bg-midnight/3 transition-colors duration-150"
+              >
+                <div
+                  class="flex-shrink-0 w-14 h-14 flex items-center justify-center"
+                  :class="drawerBg(product.id)"
+                >
+                  <ImageIcon :size="18" class="text-midnight/15" />
+                </div>
+
+                <div class="flex-1 min-w-0">
+                  <NuxtLink
+                    :to="localePath(`/produit/${product.id}`)"
+                    class="block font-display font-medium text-midnight text-xs leading-snug line-clamp-2 hover:text-amber transition-colors duration-200"
+                    @click="showFavoritesDrawer = false"
+                  >
+                    {{ t(product.nameKey) }}
+                  </NuxtLink>
+                  <p class="font-body text-xs text-midnight/50 mt-1 tabular-nums">
+                    {{ formatPrice(product.price) }}
+                  </p>
+                </div>
+
+                <button
+                  class="flex-shrink-0 p-1.5 text-midnight/30 hover:text-[#EF4444] transition-colors duration-200"
+                  :aria-label="$t('favorites.remove')"
+                  @click="toggleFavorite(product.id)"
+                >
+                  <Trash2 :size="14" />
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <div v-if="favoriteProducts.length" class="flex-shrink-0 px-4 py-4 border-t border-concrete">
+            <button
+              class="w-full py-2.5 text-[10px] font-body tracking-[0.18em] uppercase text-midnight/40 hover:text-[#EF4444] transition-colors duration-200"
+              @click="clearFavorites"
+            >
+              {{ $t('favorites.clear_all') }}
+            </button>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
+
     <FeaturesSearchOverlay v-model="showSearch" />
     <AuthModal v-model="showAuthModal" />
   </header>
 </template>
 
 <script setup lang="ts">
-import { Search, Heart, ShoppingCart, User, Menu, Globe, ChevronDown, LayoutDashboard, UserCircle, LogOut } from 'lucide-vue-next'
+import { Search, Heart, ShoppingCart, User, Menu, Globe, ChevronDown, LayoutDashboard, UserCircle, LogOut, Trash2, X, ImageIcon } from 'lucide-vue-next'
 import { useAuth } from '~/composables/useAuth'
+import { MOCK_PRODUCTS } from '~/data/products'
 
 const { t, locale } = useI18n()
+
+const { favorites, fetchFavorites, toggleFavorite, clearFavorites } = useFavorites()
+
+const showFavoritesDrawer = ref(false)
+
+const favoriteProducts = computed(() =>
+  MOCK_PRODUCTS.filter(p => favorites.value.includes(p.id))
+)
+
+const { locale: navLocale } = useI18n()
+
+function formatPrice(price: number): string {
+  return new Intl.NumberFormat(navLocale.value === 'fr' ? 'fr-FR' : 'en-GB', {
+    style: 'currency',
+    currency: 'EUR',
+  }).format(price)
+}
+
+const placeholderBgs = ['bg-[#ECEDEF]', 'bg-[#EDE9E4]', 'bg-[#EAECEC]', 'bg-[#EFEcE8]', 'bg-concrete', 'bg-[#EBEBED]']
+function drawerBg(id: string): string {
+  const index = id.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0)
+  return placeholderBgs[index % placeholderBgs.length]
+}
 const localePath = useLocalePath()
 const switchLocalePath = useSwitchLocalePath()
 const route = useRoute()
@@ -198,7 +335,7 @@ const { signOut } = useAuth()
 const isScrolled = ref(false)
 const showLangDropdown = ref(false)
 const mobileMenuOpen = ref(false)
-const showAuthModal = ref(false)
+const { showAuthModal, authModalMessage } = useAuthModal()
 const showUserDropdown = ref(false)
 const cartItems = ref(2)
 const showSearch = ref(false)
@@ -257,6 +394,7 @@ const handleNavigateToProfil = async () => {
 }
 
 const handleAuthClick = () => {
+  authModalMessage.value = ''
   showAuthModal.value = true
   if (mobileMenuOpen.value) {
     closeMobileMenu()
@@ -265,6 +403,7 @@ const handleAuthClick = () => {
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
+  fetchFavorites()
 })
 
 onUnmounted(() => {

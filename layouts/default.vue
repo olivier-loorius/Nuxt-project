@@ -6,9 +6,7 @@
       <slot />
     </main>
     <LayoutFooter />
-    <ClientOnly>
-      <Toaster position="top-right" :duration="4000" rich-colors />
-    </ClientOnly>
+    <Toaster position="top-right" :duration="4000" rich-colors />
   </div>
 </template>
 
