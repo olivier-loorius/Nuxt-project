@@ -1,3 +1,4 @@
+npm warn exec The following package was not found and will be installed: supabase@2.76.16
 export type Json =
   | string
   | number
@@ -115,6 +116,7 @@ export type Database = {
           last_name: string | null
           newsletter: boolean
           phone: string | null
+          role: string
           updated_at: string
         }
         Insert: {
@@ -127,6 +129,7 @@ export type Database = {
           last_name?: string | null
           newsletter?: boolean
           phone?: string | null
+          role?: string
           updated_at?: string
         }
         Update: {
@@ -139,6 +142,7 @@ export type Database = {
           last_name?: string | null
           newsletter?: boolean
           phone?: string | null
+          role?: string
           updated_at?: string
         }
         Relationships: []

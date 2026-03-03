@@ -47,6 +47,10 @@
                     <span>{{ $t('compte.menu.profil') }}</span>
                   </button>
                   <div class="border-t-2 border-concrete"></div>
+                  <button v-if="isAdmin" @click="navigateTo('/admin')" class="flex items-center gap-3 w-full text-left px-5 py-4 text-xs font-bold tracking-widest uppercase text-amber hover:bg-amber hover:text-white transition-all duration-200 group border-l-4 border-transparent hover:border-amber">
+                    <LayoutDashboard :size="16" class="text-amber group-hover:text-white transition-colors" />
+                    <span>Administration</span>
+                  </button>
                   <button @click="handleLogout" class="flex items-center gap-3 w-full text-left px-5 py-4 text-xs font-bold tracking-widest uppercase text-red-600 hover:bg-red-50 transition-all duration-200 group border-l-4 border-transparent hover:border-red-500">
                     <LogOut :size="16" class="text-red-500 group-hover:text-red-600 transition-colors" />
                     <span>{{ $t('compte.menu.logout') }}</span>
@@ -111,6 +115,14 @@
                   <span>{{ $t('compte.menu.profil') }}</span>
                 </button>
                 <div class="border-t-2 border-concrete"></div>
+                <button
+                  v-if="isAdmin"
+                  @click="navigateTo('/admin')"
+                  class="flex items-center gap-3 w-full text-left px-5 py-4 text-xs font-bold tracking-widest uppercase text-amber hover:bg-amber hover:text-white transition-all duration-200 group border-l-4 border-transparent hover:border-amber"
+                >
+                  <LayoutDashboard :size="16" class="text-amber group-hover:text-white transition-colors" />
+                  <span>Administration</span>
+                </button>
                 <button
                   @click="handleLogout"
                   class="flex items-center gap-3 w-full text-left px-5 py-4 text-xs font-bold tracking-widest uppercase text-red-600 hover:bg-red-50 transition-all duration-200 group border-l-4 border-transparent hover:border-red-500"
@@ -370,6 +382,7 @@ const { showAuthModal, authModalMessage } = useAuthModal()
 const { showBackToMenu } = useNavHistory()
 const showUserDropdown = ref(false)
 const { cartCount, fetchCart, cart } = useCart()
+const { isAdmin, fetchAdminRole } = useAdmin()
 const showCartDrawer = ref(false)
 const showSearch = ref(false)
 
@@ -444,6 +457,7 @@ watch(user, (newUser) => {
   if (newUser) {
     fetchFavorites()
     fetchCart()
+    fetchAdminRole()
   } else {
     favorites.value = []
     cart.value = []
@@ -454,6 +468,7 @@ onMounted(() => {
   window.addEventListener('scroll', handleScroll)
   fetchFavorites()
   fetchCart()
+  fetchAdminRole()
 })
 
 onUnmounted(() => {
