@@ -35,30 +35,56 @@
       </span>
     </div>
 
-    <button
-      class="product-cta w-full flex items-center justify-center gap-3 px-8 py-4 font-display font-semibold text-xs tracking-[0.2em] uppercase transition-colors duration-300"
-      :class="product.stock > 0
-        ? 'bg-midnight text-chalk hover:bg-amber hover:text-midnight'
-        : 'bg-concrete text-midnight/30 cursor-not-allowed'"
-      :disabled="product.stock === 0"
-    >
-      <ShoppingCart :size="15" />
-      {{ product.stock > 0 ? $t('catalog.add_to_cart') : $t('product.out_of_stock') }}
-    </button>
+    <div class="flex gap-3">
+      <template v-if="isInCart(product.id).value">
+        <div class="product-cta flex items-center border border-amber flex-1 transition-colors duration-300">
+          <button
+            class="flex items-center justify-center w-12 h-12 hover:bg-amber hover:text-chalk transition-colors duration-200 flex-shrink-0"
+            :aria-label="$t('catalog.decrease_quantity')"
+            @click="updateQuantity(product.id, getQuantity(product.id) - 1)"
+          >
+            <Minus :size="14" />
+          </button>
+          <span class="flex-1 text-center font-display font-semibold text-sm tabular-nums select-none">
+            {{ getQuantity(product.id) }}
+          </span>
+          <button
+            class="flex items-center justify-center w-12 h-12 hover:bg-amber hover:text-chalk transition-colors duration-200 flex-shrink-0"
+            :aria-label="$t('catalog.increase_quantity')"
+            @click="updateQuantity(product.id, getQuantity(product.id) + 1)"
+          >
+            <Plus :size="14" />
+          </button>
+        </div>
+      </template>
+      <template v-else>
+        <button
+          class="product-cta flex-1 flex items-center justify-center gap-3 px-8 py-4 font-display font-semibold text-xs tracking-[0.2em] uppercase transition-colors duration-300"
+          :class="product.stock > 0
+            ? 'bg-midnight text-chalk hover:bg-amber hover:text-midnight'
+            : 'bg-concrete text-midnight/30 cursor-not-allowed'"
+          :disabled="product.stock === 0"
+          @click="handleCart(product.id)"
+        >
+          <ShoppingCart :size="15" />
+          {{ product.stock > 0 ? $t('catalog.add_to_cart') : $t('product.out_of_stock') }}
+        </button>
+      </template>
 
-    <button
-      class="product-cta mt-3 w-full flex items-center justify-center py-3 border transition-colors duration-300"
-      :class="isFavorite(product.id).value
-        ? 'border-[#EF4444] text-[#EF4444] hover:bg-[#EF4444]/5'
-        : 'border-midnight/30 text-midnight/50 hover:border-[#EF4444] hover:text-[#EF4444]'"
-      :aria-label="$t('catalog.toggle_favorite')"
-      @click="handleFavorite(product.id)"
-    >
-      <Heart
-        :size="20"
-        :class="isFavorite(product.id).value ? 'fill-[#EF4444]' : 'fill-none'"
-      />
-    </button>
+      <button
+        class="product-cta w-12 h-12 flex items-center justify-center border transition-colors duration-300 flex-shrink-0"
+        :class="isFavorite(product.id).value
+          ? 'border-[#EF4444] text-[#EF4444] hover:bg-[#EF4444]/5'
+          : 'border-midnight/30 text-midnight/50 hover:border-[#EF4444] hover:text-[#EF4444]'"
+        :aria-label="$t('catalog.toggle_favorite')"
+        @click="handleFavorite(product.id)"
+      >
+        <Heart
+          :size="20"
+          :class="isFavorite(product.id).value ? 'fill-[#EF4444]' : 'fill-none'"
+        />
+      </button>
+    </div>
 
     <div class="mt-10 border-t border-midnight/10">
       <p class="text-[10px] font-body tracking-[0.22em] uppercase text-amber mt-8 mb-4">
@@ -125,7 +151,7 @@
 </template>
 
 <script setup lang="ts">
-import { Heart, ShoppingCart, ChevronDown } from 'lucide-vue-next'
+import { Heart, ShoppingCart, ChevronDown, Minus, Plus } from 'lucide-vue-next'
 import type { MockProduct } from '~/data/products'
 
 const props = defineProps<{ product: MockProduct }>()
@@ -134,6 +160,11 @@ const { t, locale } = useI18n()
 const accordionOpen = ref(false)
 
 const { fetchFavorites, toggleFavorite, isFavorite } = useFavorites()
+const { addToCart, updateQuantity, isInCart, cart } = useCart()
+
+function getQuantity(productId: string): number {
+  return cart.value.find(item => item.product_id === productId)?.quantity ?? 0
+}
 const { showAuthModal, authModalMessage } = useAuthModal()
 
 onMounted(() => fetchFavorites())
@@ -141,11 +172,21 @@ onMounted(() => fetchFavorites())
 function handleFavorite(productId: string) {
   const user = useSupabaseUser()
   if (!user.value) {
-    authModalMessage.value = 'Connectez-vous pour ajouter des favoris'
+    authModalMessage.value = 'Connectez-vous pour ajouter aux favoris'
     showAuthModal.value = true
     return
   }
   toggleFavorite(productId)
+}
+
+function handleCart(productId: string) {
+  const user = useSupabaseUser()
+  if (!user.value) {
+    authModalMessage.value = 'Connectez-vous pour ajouter au panier'
+    showAuthModal.value = true
+    return
+  }
+  addToCart(productId)
 }
 
 const specs = computed(() => [

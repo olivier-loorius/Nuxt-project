@@ -20,16 +20,12 @@
 
         <div class="mb-6 text-center">
           <h2 :id="mode === 'login' ? 'modal-title-login' : 'modal-title-register'" class="text-2xl font-sora font-bold text-midnight mb-2">
-            {{ mode === 'login' ? $t('auth.login') : $t('auth.register') }}
+            {{ authModalMessage ? 'Oups !' : (mode === 'login' ? $t('auth.login') : $t('auth.register')) }}
           </h2>
           <p class="text-sm text-midnight/60 font-manrope">
-            {{ mode === 'login' ? $t('auth.login_subtitle') : $t('auth.register_subtitle') }}
+            {{ authModalMessage ? authModalMessage : (mode === 'login' ? $t('auth.login_subtitle') : $t('auth.register_subtitle')) }}
           </p>
         </div>
-
-        <p v-if="authModalMessage" class="text-sm text-center text-midnight/70 italic mb-4">
-          {{ authModalMessage }}
-        </p>
 
         <form @submit.prevent="handleSubmit" class="space-y-4">
           <div>
@@ -311,10 +307,10 @@ const handleSubmit = async () => {
         newsletter: newsletter.value
       }
 
-      const result = await signUp(email.value, password.value, metadata)
+      await signUp(email.value, password.value, metadata)
       closeModal()
     } else {
-      const result = await signIn(email.value, password.value)
+      await signIn(email.value, password.value)
       closeModal()
     }
   } catch (err: any) {

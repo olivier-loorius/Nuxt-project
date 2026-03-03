@@ -20,10 +20,10 @@
               <button v-if="showBackToMenu && !mobileMenuOpen" class="icon-btn" @click="mobileMenuOpen = true; clearBackToMenu()">
                 <ArrowLeft :size="22" />
               </button>
-              <button class="icon-btn relative" :aria-label="$t('aria.cartButton')">
-                <ShoppingCart :size="20" :class="cartItems > 0 ? 'stroke-amber' : 'stroke-midnight/55'" />
-                <span v-if="cartItems > 0" class="absolute -top-1 -right-1 w-[15px] h-[15px] rounded-full bg-amber text-midnight text-[10px] flex items-center justify-center">
-                  {{ cartItems }}
+              <button class="icon-btn relative" :aria-label="$t('aria.cartButton')" @click="showCartDrawer = true">
+                <ShoppingCart :size="20" :class="cartCount > 0 ? 'stroke-amber' : 'stroke-midnight/55'" />
+                <span v-if="cartCount > 0" class="absolute -top-1 -right-1 w-[15px] h-[15px] rounded-full bg-amber text-midnight text-[10px] flex items-center justify-center">
+                  {{ cartCount }}
                 </span>
               </button>
               <div v-if="!user">
@@ -58,10 +58,10 @@
               </button>
             </div>
 
-            <button class="hidden lg:inline-flex icon-btn relative" :aria-label="$t('aria.cartButton')">
-              <ShoppingCart :size="20" :class="cartItems > 0 ? 'stroke-amber' : 'stroke-midnight/55'" />
-              <span v-if="cartItems > 0" class="absolute -top-1 -right-1 w-[15px] h-[15px] rounded-full bg-amber text-midnight text-[10px] flex items-center justify-center">
-                {{ cartItems }}
+            <button class="hidden lg:inline-flex icon-btn relative" :aria-label="$t('aria.cartButton')" @click="showCartDrawer = true">
+              <ShoppingCart :size="20" :class="cartCount > 0 ? 'stroke-amber' : 'stroke-midnight/55'" />
+              <span v-if="cartCount > 0" class="absolute -top-1 -right-1 w-[15px] h-[15px] rounded-full bg-amber text-midnight text-[10px] flex items-center justify-center">
+                {{ cartCount }}
               </span>
             </button>
 
@@ -322,6 +322,7 @@
       </Transition>
     </Teleport>
 
+    <CartDrawer v-model="showCartDrawer" />
     <FeaturesSearchOverlay v-model="showSearch" />
     <AuthModal v-model="showAuthModal" />
   </header>
@@ -368,7 +369,8 @@ const mobileMenuOpen = ref(false)
 const { showAuthModal, authModalMessage } = useAuthModal()
 const { showBackToMenu } = useNavHistory()
 const showUserDropdown = ref(false)
-const cartItems = ref(0)
+const { cartCount, fetchCart } = useCart()
+const showCartDrawer = ref(false)
 const showSearch = ref(false)
 
 const navLinks = [
@@ -441,6 +443,7 @@ const handleAuthClick = () => {
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
   fetchFavorites()
+  fetchCart()
 })
 
 onUnmounted(() => {

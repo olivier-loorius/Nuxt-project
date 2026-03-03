@@ -63,15 +63,39 @@
           <p class="font-body font-medium text-midnight text-base tabular-nums">
             {{ formatPrice(product.price) }}
           </p>
-          <button
-            class="add-to-cart flex-shrink-0 flex items-center justify-center w-8 h-8 border border-midnight text-midnight
-                   opacity-0 group-hover:opacity-100 transition-all duration-200
-                   hover:bg-midnight hover:text-chalk"
-            :aria-label="$t('catalog.add_to_cart')"
-            @click.stop.prevent
-          >
-            <ShoppingCart :size="13" />
-          </button>
+          <template v-if="isInCart(product.id).value">
+            <div class="add-to-cart flex items-center border border-amber text-midnight transition-all duration-200">
+              <button
+                class="flex items-center justify-center w-7 h-8 hover:bg-amber hover:text-chalk transition-colors duration-200"
+                :aria-label="$t('catalog.decrease_quantity')"
+                @click.stop.prevent="updateQuantity(product.id, getQuantity(product.id) - 1)"
+              >
+                <Minus :size="10" />
+              </button>
+              <span class="w-6 text-center text-[11px] font-body tabular-nums select-none">
+                {{ getQuantity(product.id) }}
+              </span>
+              <button
+                class="flex items-center justify-center w-7 h-8 hover:bg-amber hover:text-chalk transition-colors duration-200"
+                :aria-label="$t('catalog.increase_quantity')"
+                @click.stop.prevent="updateQuantity(product.id, getQuantity(product.id) + 1)"
+              >
+                <Plus :size="10" />
+              </button>
+            </div>
+          </template>
+          <template v-else>
+            <button
+              class="add-to-cart flex-shrink-0 flex items-center justify-center gap-1.5 px-2.5 h-8 border border-midnight text-midnight
+                     opacity-0 group-hover:opacity-100 transition-all duration-200
+                     hover:bg-midnight hover:text-white"
+              :aria-label="$t('catalog.add_to_cart')"
+              @click.stop.prevent="handleCart(product.id)"
+            >
+              <ShoppingCart :size="13" />
+              <span class="text-[10px] font-body tracking-wide whitespace-nowrap">Ajouter</span>
+            </button>
+          </template>
         </div>
       </div>
     </NuxtLink>
@@ -79,7 +103,7 @@
 </template>
 
 <script setup lang="ts">
-import { Heart, ImageIcon, PackageOpen, ShoppingCart } from 'lucide-vue-next'
+import { Heart, ImageIcon, PackageOpen, ShoppingCart, Minus, Plus } from 'lucide-vue-next'
 import { MOCK_PRODUCTS, type MockProduct } from '~/data/products'
 
 const props = defineProps<{ products?: MockProduct[] }>()
@@ -91,6 +115,22 @@ const localePath = useLocalePath()
 
 const { fetchFavorites, toggleFavorite, isFavorite } = useFavorites()
 const { showAuthModal, authModalMessage } = useAuthModal()
+
+const { addToCart, updateQuantity, isInCart, cart } = useCart()
+
+function getQuantity(productId: string): number {
+  return cart.value.find(item => item.product_id === productId)?.quantity ?? 0
+}
+
+function handleCart(productId: string) {
+  const user = useSupabaseUser()
+  if (!user.value) {
+    authModalMessage.value = 'Connectez-vous pour ajouter au panier'
+    showAuthModal.value = true
+    return
+  }
+  addToCart(productId)
+}
 
 onMounted(() => fetchFavorites())
 
@@ -118,7 +158,7 @@ const placeholderBgs = [
 function handleFavorite(productId: string) {
   const user = useSupabaseUser()
   if (!user.value) {
-    if (authModalMessage.value !== undefined) authModalMessage.value = 'Connectez-vous pour ajouter des favoris'
+    authModalMessage.value = 'Connectez-vous pour ajouter des favoris'
     showAuthModal.value = true
     return
   }
