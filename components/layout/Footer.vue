@@ -1,9 +1,7 @@
 <template>
   <section :key="locale" role="contentinfo" class="bg-midnight text-white/60 pt-16 pb-6 border-t border-white/10">
     <div class="max-w-7xl mx-auto px-8">
-      <!-- Grid principale -->
       <div class="grid grid-cols-10 md:grid-cols-12 gap-6 md:gap-8 mb-12">
-        <!-- Col 1: Branding -->
         <div class="col-span-10 md:col-span-4 text-center md:text-left mb-8 md:mb-0">
           <NuxtLink to="/" class="inline-block mb-3">
             <!-- <NuxtImg
@@ -22,7 +20,6 @@
           </p>
         </div>
 
-        <!-- Col 2: Légal (40% mobile, 2/12 desktop) -->
         <div class="col-span-4 md:col-span-2">
           <h3 class="text-sm font-display font-bold uppercase text-white/90 tracking-wide mb-4">
             {{ $t('footer.legal.title') }}
@@ -58,7 +55,6 @@
           </nav>
         </div>
 
-        <!-- Col 3: Réseaux (60% mobile stacked with Contact, 3/12 desktop) -->
         <div class="col-span-6 md:col-span-3">
           <h3 class="text-sm font-display font-bold uppercase text-white/90 tracking-wide mb-4">
             {{ $t('footer.follow') }}
@@ -74,7 +70,6 @@
             </a>
           </div>
 
-          <!-- Contact (Mobile only - inside Réseaux column) -->
           <div class="md:hidden mt-6">
             <h3 class="text-sm font-display font-bold uppercase text-white/90 tracking-wide mb-4">
               {{ $t('footer.contact.title') }}
@@ -92,7 +87,6 @@
           </div>
         </div>
 
-        <!-- Col 4: Contact (Desktop only - separate column 3/12) -->
         <div class="hidden md:block md:col-span-3">
           <h3 class="text-sm font-display font-bold uppercase text-white/90 tracking-wide mb-4">
             {{ $t('footer.contact.title') }}
@@ -110,7 +104,6 @@
         </div>
       </div>
 
-      <!-- Trust Badge 18+ -->
       <div class="py-8 border-t border-white/5 text-center">
         <div class="inline-flex items-center gap-2 px-6 py-3 border-2 border-amber bg-transparent btn-beveled">
           <ShieldCheck class="h-5 w-5 text-amber" />
@@ -120,13 +113,11 @@
         </div>
       </div>
 
-      <!-- Paiements acceptés -->
       <div class="py-8 border-t border-white/5">
         <h3 class="text-sm font-display font-bold uppercase text-white/90 text-center mb-6">
           {{ $t('footer.payments.title') }}
         </h3>
         <div class="flex justify-center gap-4 flex-wrap">
-          <!-- Visa -->
           <div class="w-12 h-8 bg-white rounded-md border border-white/10 flex items-center justify-center p-1.5 shadow-sm">
             <NuxtImg
               src="/images/visa.png"
@@ -136,7 +127,6 @@
               class="object-contain"
             />
           </div>
-          <!-- Mastercard -->
           <div class="w-12 h-8 bg-white rounded-md border border-white/10 flex items-center justify-center p-1.5 shadow-sm">
             <NuxtImg
               src="/images/mastercard.png"
@@ -146,7 +136,7 @@
               class="object-contain"
             />
           </div>
-          <!-- Amex -->
+  
           <div class="w-12 h-8 bg-white rounded-md border border-white/10 flex items-center justify-center p-1.5 shadow-sm">
             <NuxtImg
               src="/images/amex.png"
@@ -156,7 +146,6 @@
               class="object-contain"
             />
           </div>
-          <!-- PayPal -->
           <div class="w-12 h-8 bg-white rounded-md border border-white/10 flex items-center justify-center p-1.5 shadow-sm">
             <NuxtImg
               src="/images/paypal.png"
@@ -169,7 +158,6 @@
         </div>
       </div>
 
-      <!-- Copyright -->
       <div class="relative py-3 pb-4 mt-4 border-t border-white/5 flex flex-col md:flex-row items-center md:items-start text-center gap-3">
         <p class="text-xs text-white/30 mb-2 md:mb-0 md:flex-1 md:text-center">
           © {{ currentYear }} Boys & Toys. {{ $t('footer.copyright') }}
@@ -185,7 +173,6 @@
       </div>
     </div>
 
-    <!-- Bouton paramètres fixe -->
     <button
       @click="openGeneralSettings"
       class="fixed bottom-6 left-6 z-50 flex items-center justify-center w-10 h-10 rounded-full bg-white/80 backdrop-blur-lg shadow-lg hover:shadow-xl transition-all duration-300 group"
@@ -194,7 +181,6 @@
       <Settings class="h-4 w-4 text-amber group-hover:rotate-90 transition-transform duration-700" />
     </button>
 
-    <!-- Bouton ScrollToTop fixe -->
     <button
       v-show="showScrollTop"
       @click="scrollToTop"
@@ -251,11 +237,9 @@ const currentYear = new Date().getFullYear()
 const showScrollTop = ref(false)
 
 const openCookieSettings = () => {
-  // Cookie settings modal not yet implemented
 }
 
 const openGeneralSettings = () => {
-  // General settings modal not yet implemented
 }
 
 const handleScroll = () => {

@@ -35,6 +35,10 @@
       </span>
     </div>
 
+    <div v-if="isInCart(product.id).value" class="flex items-center gap-2 text-[11px] font-display font-semibold uppercase tracking-[0.12em] text-amber mb-2">
+      <ShoppingCart :size="13" />{{ $t('catalog.in_cart') }}
+    </div>
+
     <div class="flex gap-3">
       <template v-if="isInCart(product.id).value">
         <div class="product-cta flex items-center border border-amber flex-1 transition-colors duration-300">

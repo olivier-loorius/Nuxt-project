@@ -1,5 +1,4 @@
 <template>
-  <!-- Hero Section avec carrousel -->
   <section class="relative h-[70vh] overflow-hidden">
     <div
       v-for="(slide, index) in products"

@@ -1,7 +1,6 @@
 <template>
   <div class="flex flex-col gap-3">
 
-    <!-- Image principale -->
     <div
       class="relative aspect-[4/3] max-h-[420px] overflow-hidden"
       :class="placeholderBg(product.id, 0)"
@@ -18,7 +17,6 @@
       </span>
     </div>
 
-    <!-- Miniatures -->
     <div class="grid grid-cols-3 gap-3">
       <div
         v-for="n in 3"
@@ -52,6 +50,6 @@ const placeholderBgs = [
 
 function placeholderBg(id: string, offset: number): string {
   const base = id.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0)
-  return placeholderBgs[(base + offset) % placeholderBgs.length]
+  return placeholderBgs[(base + offset) % placeholderBgs.length] ?? placeholderBgs[0]!
 }
 </script>

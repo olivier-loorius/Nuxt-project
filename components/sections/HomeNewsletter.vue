@@ -1,9 +1,7 @@
 <template>
-  <!-- Section Newsletter Inline -->
   <section class="bg-midnight py-12">
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid lg:grid-cols-5 gap-6 lg:gap-8 items-center">
-        <!-- Gauche : Textes -->
         <div class="lg:col-span-2">
           <h2 class="text-2xl font-display font-semibold text-white mb-2">
             {{ t('newsletter.title') }}
@@ -13,7 +11,6 @@
           </p>
         </div>
 
-        <!-- Droite : Form -->
         <div class="lg:col-span-3">
           <form @submit.prevent="handleSubmit">
             <div class="flex flex-col sm:flex-row gap-2 mb-3">
@@ -32,7 +29,6 @@
               </button>
             </div>
 
-            <!-- Checkbox RGPD -->
             <div class="flex gap-2 mb-2">
               <input
                 v-model="acceptNewsletter"
@@ -46,7 +42,6 @@
               </label>
             </div>
 
-            <!-- Texte légal -->
             <p class="text-xs text-white/70 font-body">
               {{ t('newsletter.legalText') }} <NuxtLink to="/confidentialite" class="text-amber underline hover:text-copper transition-colors duration-300">{{ t('newsletter.privacyPolicy') }}</NuxtLink>
             </p>

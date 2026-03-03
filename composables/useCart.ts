@@ -8,6 +8,13 @@ export const useCart = () => {
 
   const cart = useState<CartItem[]>('cart', () => [])
 
+  const user = useSupabaseUser()
+  watch(user, (newUser) => {
+    if (!newUser) {
+      cart.value = []
+    }
+  })
+
   const fetchCart = async () => {
     try {
       const user = useSupabaseUser()
