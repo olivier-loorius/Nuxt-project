@@ -1,5 +1,4 @@
 <template>
-  <!-- MOBILE: Bandeau horizontal -->
   <NuxtLink
     v-if="variant === 'mobile'"
     :to="`/categories/${category.slug}`"
@@ -7,7 +6,6 @@
     :class="{ 'opacity-100 translate-y-0': isVisible }"
     :style="{ transitionDelay: isVisible ? `${index * 100}ms` : '0ms' }"
   >
-    <!-- Image gauche -->
     <div class="w-2/5 h-full relative overflow-hidden">
       <NuxtImg
         :src="category.image"
@@ -16,7 +14,6 @@
         class="absolute inset-0 w-full h-full object-cover"
       />
     </div>
-    <!-- Content droite -->
     <div class="w-3/5 flex items-center justify-between px-4">
       <h3 class="text-sm font-display font-semibold uppercase text-midnight">
         {{ $t(category.titleKey) }}
@@ -25,7 +22,6 @@
     </div>
   </NuxtLink>
 
-  <!-- TABLET: Card avec overlay gradient -->
   <NuxtLink
     v-else-if="variant === 'tablet'"
     :to="`/categories/${category.slug}`"
@@ -50,7 +46,6 @@
     </div>
   </NuxtLink>
 
-  <!-- DESKTOP: Card avec overlay gradient et col-span dynamique -->
   <NuxtLink
     v-else
     :to="`/categories/${category.slug}`"

@@ -369,7 +369,7 @@ const mobileMenuOpen = ref(false)
 const { showAuthModal, authModalMessage } = useAuthModal()
 const { showBackToMenu } = useNavHistory()
 const showUserDropdown = ref(false)
-const { cartCount, fetchCart } = useCart()
+const { cartCount, fetchCart, cart } = useCart()
 const showCartDrawer = ref(false)
 const showSearch = ref(false)
 
@@ -439,6 +439,16 @@ const handleAuthClick = () => {
     closeMobileMenu()
   }
 }
+
+watch(user, (newUser) => {
+  if (newUser) {
+    fetchFavorites()
+    fetchCart()
+  } else {
+    favorites.value = []
+    cart.value = []
+  }
+})
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)

@@ -46,6 +46,12 @@
           {{ $t('catalog.badge_' + product.badge) }}
         </span>
         <span
+          v-if="isInCart(product.id).value"
+          class="absolute bottom-3 right-3 px-2.5 py-1 bg-amber text-midnight text-[10px] font-display font-semibold tracking-[0.18em] uppercase flex items-center gap-1.5"
+        >
+          <ShoppingCart :size="10" />{{ $t('catalog.in_cart') }}
+        </span>
+        <span
           v-if="product.stock <= 3 && product.stock > 0"
           class="absolute bottom-3 left-3 px-2.5 py-1 bg-chalk/90 text-midnight text-[10px] font-display font-medium tracking-wide uppercase"
         >

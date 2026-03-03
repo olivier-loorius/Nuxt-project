@@ -3,7 +3,6 @@
     v-if="similarProducts.length"
     class="mt-16 lg:mt-24 pt-10 border-t border-concrete"
   >
-    <!-- En-tête -->
     <div class="flex items-center gap-3 mb-8">
       <div class="w-0.5 h-4 bg-amber flex-shrink-0" />
       <h2 class="text-xs font-display font-bold tracking-[0.25em] uppercase text-midnight">
@@ -11,7 +10,6 @@
       </h2>
     </div>
 
-    <!-- Cards compactes -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
       <NuxtLink
         v-for="p in similarProducts"
@@ -19,7 +17,6 @@
         :to="`/produit/${p.id}`"
         class="group block border border-transparent hover:border-amber transition-colors duration-300"
       >
-        <!-- Image aspect paysage -->
         <div
           class="relative aspect-[4/3] overflow-hidden"
           :class="placeholderBg(p.id)"
@@ -37,7 +34,6 @@
           </span>
         </div>
 
-        <!-- Infos -->
         <div class="p-3 bg-white">
           <p class="text-[9px] font-body tracking-[0.18em] uppercase text-midnight/35 mb-1">
             {{ $t('catalog.categories.' + p.categoryId) }}
@@ -86,6 +82,6 @@ const placeholderBgs = [
 
 function placeholderBg(id: string): string {
   const base = id.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0)
-  return placeholderBgs[base % placeholderBgs.length]
+  return placeholderBgs[base % placeholderBgs.length]!
 }
 </script>

@@ -1,9 +1,7 @@
 <template>
   <section class="bg-white py-0 pb-16">
     <div class="grid grid-cols-1 lg:grid-cols-10 gap-0 min-h-[600px]">
-      <!-- Col1: Image + Texte -->
       <div class="col-span-1 lg:col-span-7 relative overflow-hidden h-96 lg:h-auto">
-        <!-- Image de fond -->
         <img
           src="/images/pars-sahin-p4t2qWPQ6VM-unsplash.webp"
           alt="Innovation scientifique"
@@ -11,10 +9,8 @@
           loading="lazy"
         />
 
-        <!-- Overlay gradient -->
         <div class="absolute inset-0 bg-gradient-to-r from-midnight/90 via-midnight/70 to-transparent" />
 
-        <!-- Content -->
         <div class="absolute inset-0 flex flex-col justify-center px-12 lg:px-16 max-w-2xl">
           <blockquote class="text-3xl lg:text-4xl font-sora font-bold text-white mb-6">
             {{ $t('home.visionTrust.quote') }}
@@ -33,7 +29,6 @@
         </div>
       </div>
 
-      <!-- Col2: Trust Items -->
       <div class="col-span-1 lg:col-span-3 bg-chalk grid grid-cols-2 lg:flex lg:flex-col lg:justify-center gap-6 lg:gap-10 px-4 lg:px-8 py-8 lg:py-12">
         <CommonTrustItem
           v-for="(item, idx) in trustItems"
