@@ -7,7 +7,7 @@
     :style="{ transitionDelay: isVisible ? `${index * 100}ms` : '0ms' }"
   >
     <div class="w-2/5 h-full relative overflow-hidden">
-      <NuxtImg
+      <img
         :src="category.image"
         :alt="$t(category.titleKey)"
         loading="lazy"
@@ -29,7 +29,7 @@
     :class="[{ 'opacity-100 translate-y-0': isVisible }, tabletColSpan]"
     :style="{ transitionDelay: isVisible ? `${index * 100}ms` : '0ms' }"
   >
-    <NuxtImg
+    <img
       :src="category.image"
       :alt="$t(category.titleKey)"
       loading="lazy"
@@ -53,7 +53,7 @@
     :class="[{ 'opacity-100 translate-y-0': isVisible }, desktopColSpan]"
     :style="{ transitionDelay: isVisible ? `${index * 100}ms` : '0ms' }"
   >
-    <NuxtImg
+    <img
       :src="category.image"
       :alt="$t(category.titleKey)"
       loading="lazy"

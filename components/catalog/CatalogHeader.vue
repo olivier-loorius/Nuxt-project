@@ -1,7 +1,5 @@
 <template>
   <div class="flex flex-wrap items-end justify-between gap-x-6 gap-y-3 pb-5 border-b border-concrete">
-
-    <!-- Titre + compteur -->
     <div class="min-w-0">
       <slot name="title">
         <h1 class="text-xl sm:text-2xl font-display font-semibold text-midnight leading-tight">
@@ -12,8 +10,6 @@
         {{ count }}&nbsp;{{ count === 1 ? $t('catalog.product_one') : $t('catalog.product_other') }}
       </p>
     </div>
-
-    <!-- Contrôle de tri -->
     <div class="flex items-center gap-2.5 flex-shrink-0">
       <span class="hidden sm:block text-xs font-display font-medium tracking-[0.18em] uppercase text-midnight/35 select-none">
         {{ $t('catalog.sort_label') }}

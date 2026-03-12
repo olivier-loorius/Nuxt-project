@@ -3,16 +3,9 @@
     <div class="group bg-white border border-transparent hover:border-amber transition-all duration-300">
 
       <div class="relative aspect-[3/4] bg-concrete overflow-hidden">
-        <NuxtImg
-          :src="product.images[0] || ''"
-          :alt="t(product.nameKey)"
-          width="400"
-          height="533"
-          sizes="xs:100vw sm:50vw lg:25vw"
-          format="webp"
-          loading="lazy"
-          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-        />
+        <div class="absolute inset-0 flex items-center justify-center">
+          <ImageIcon :size="44" class="text-midnight/10" />
+        </div>
 
         <span
           v-if="product.badge"
@@ -43,6 +36,7 @@
 </template>
 
 <script setup lang="ts">
+import { ImageIcon } from 'lucide-vue-next'
 import type { MockProduct } from '~/data/products'
 
 const props = defineProps<{
