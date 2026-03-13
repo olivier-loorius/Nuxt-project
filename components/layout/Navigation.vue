@@ -47,11 +47,7 @@
                     <span>{{ $t('compte.menu.profil') }}</span>
                   </button>
                   <div class="border-t-2 border-concrete"></div>
-                  <button v-if="isAdmin" @click="navigateTo('/admin')" class="flex items-center gap-3 w-full text-left px-5 py-4 text-xs font-bold tracking-widest uppercase text-amber hover:bg-amber hover:text-white transition-all duration-200 group border-l-4 border-transparent hover:border-amber">
-                    <LayoutDashboard :size="16" class="text-amber group-hover:text-white transition-colors" />
-                    <span>Administration</span>
-                  </button>
-                  <button @click="handleLogout" class="flex items-center gap-3 w-full text-left px-5 py-4 text-xs font-bold tracking-widest uppercase text-red-600 hover:bg-red-50 transition-all duration-200 group border-l-4 border-transparent hover:border-red-500">
+                  <button v-if="!isAdmin" @click="handleLogout" class="flex items-center gap-3 w-full text-left px-5 py-4 text-xs font-bold tracking-widest uppercase text-red-600 hover:bg-red-50 transition-all duration-200 group border-l-4 border-transparent hover:border-red-500">
                     <LogOut :size="16" class="text-red-500 group-hover:text-red-600 transition-colors" />
                     <span>{{ $t('compte.menu.logout') }}</span>
                   </button>
@@ -79,6 +75,16 @@
             </button>
 
             <span class="hidden lg:block w-px h-4 bg-concrete flex-shrink-0" />
+
+            <NuxtLink
+              v-if="isAdmin"
+              to="/admin"
+              class="hidden lg:inline-flex items-center gap-2 bg-amber text-midnight px-3 py-1.5 rounded text-xs font-bold tracking-wide hover:bg-amber/90 transition-colors duration-200 flex-shrink-0"
+            >
+              <LayoutDashboard :size="15" />
+              Admin
+            </NuxtLink>
+            <span v-if="isAdmin" class="hidden lg:block w-px h-4 bg-concrete flex-shrink-0" />
 
             <div v-if="!user" class="hidden lg:block">
               <button class="icon-btn" :aria-label="$t('nav.login')" @click="handleAuthClick">
@@ -116,14 +122,7 @@
                 </button>
                 <div class="border-t-2 border-concrete"></div>
                 <button
-                  v-if="isAdmin"
-                  @click="navigateTo('/admin')"
-                  class="flex items-center gap-3 w-full text-left px-5 py-4 text-xs font-bold tracking-widest uppercase text-amber hover:bg-amber hover:text-white transition-all duration-200 group border-l-4 border-transparent hover:border-amber"
-                >
-                  <LayoutDashboard :size="16" class="text-amber group-hover:text-white transition-colors" />
-                  <span>Administration</span>
-                </button>
-                <button
+                  v-if="!isAdmin"
                   @click="handleLogout"
                   class="flex items-center gap-3 w-full text-left px-5 py-4 text-xs font-bold tracking-widest uppercase text-red-600 hover:bg-red-50 transition-all duration-200 group border-l-4 border-transparent hover:border-red-500"
                 >
@@ -222,6 +221,21 @@
             {{ $t(link.label) }}
             <ChevronRight :size="16" class="text-midnight/30" />
           </NuxtLink>
+          <NuxtLink
+            v-if="isAdmin"
+            to="/admin"
+            class="flex items-center justify-between w-full px-4 py-3.5 bg-amber text-midnight font-bold text-xs tracking-wide rounded-sm hover:bg-amber/90 transition-colors duration-200 mt-2"
+            @click="closeMobileMenu"
+          >
+            <span class="flex items-center gap-3">
+              <LayoutDashboard :size="16" />
+              Administration
+            </span>
+            <ChevronRight :size="16" />
+          </NuxtLink>
+          <p v-if="isAdmin" class="text-center text-[10px] font-body text-midnight/35 mt-1.5 px-2">
+            Gestion recommandée sur ordinateur
+          </p>
         </nav>
       </div>
     </div>
@@ -382,7 +396,15 @@ const { showAuthModal, authModalMessage } = useAuthModal()
 const { showBackToMenu } = useNavHistory()
 const showUserDropdown = ref(false)
 const { cartCount, fetchCart, cart } = useCart()
-const { isAdmin, fetchAdminRole } = useAdmin()
+const isAdmin = ref(false)
+
+async function checkAdminRole() {
+  const client = useSupabaseClient()
+  const { data: { session } } = await client.auth.getSession()
+  if (!session) { isAdmin.value = false; return }
+  const { data } = await client.from('profiles').select('role').eq('id', session.user.id).single()
+  isAdmin.value = data?.role === 'admin'
+}
 const showCartDrawer = ref(false)
 const showSearch = ref(false)
 
@@ -457,10 +479,11 @@ watch(user, (newUser) => {
   if (newUser) {
     fetchFavorites()
     fetchCart()
-    fetchAdminRole()
+    checkAdminRole()
   } else {
     favorites.value = []
     cart.value = []
+    isAdmin.value = false
   }
 })
 
@@ -468,7 +491,7 @@ onMounted(() => {
   window.addEventListener('scroll', handleScroll)
   fetchFavorites()
   fetchCart()
-  fetchAdminRole()
+  checkAdminRole()
 })
 
 onUnmounted(() => {

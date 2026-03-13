@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-chalk min-h-screen">
+  <div v-if="authorized" class="bg-chalk min-h-screen">
     <aside class="bg-midnight text-chalk w-64 fixed top-0 left-0 h-full flex flex-col">
       <div class="px-6 py-6 border-b border-chalk/10">
         <NuxtLink to="/admin" class="text-xl font-display font-bold text-chalk hover:text-amber transition-colors duration-200">
@@ -35,10 +35,17 @@
         </NuxtLink>
       </nav>
 
-      <div class="px-3 py-4 border-t border-chalk/10">
+      <div class="px-3 py-4 border-t border-chalk/10 space-y-1">
+        <NuxtLink
+          to="/"
+          class="flex items-center gap-3 w-full px-3 py-2.5 text-xs font-body tracking-wide rounded-sm transition-colors duration-200 text-amber/80 hover:bg-amber/10 hover:text-amber border border-chalk/10 hover:border-amber/30"
+        >
+          <Globe :size="16" />
+          ← Retour au site
+        </NuxtLink>
         <button
-          class="flex items-center gap-3 w-full px-3 py-2.5 text-xs font-body tracking-wide text-chalk/70 hover:bg-chalk/10 hover:text-[#EF4444] rounded-sm transition-colors duration-200"
-          @click="handleLogout"
+          class="flex items-center gap-3 w-full px-3 py-2.5 text-xs font-body tracking-wide text-[#EF4444] hover:bg-[#EF4444]/10 rounded-sm transition-colors duration-200"
+          @click="showLogoutModal = true"
         >
           <LogOut :size="16" />
           Déconnexion
@@ -46,18 +53,58 @@
       </div>
     </aside>
 
+    <AdminModal
+      v-if="showLogoutModal"
+      title="Déconnexion"
+      message="Tu vas être déconnecté du dashboard. Continuer ?"
+      confirm-label="Se déconnecter"
+      confirm-variant="danger"
+      @confirm="handleLogout"
+      @cancel="showLogoutModal = false"
+    />
+
     <main class="ml-64 p-8">
       <slot />
     </main>
   </div>
+
+  <div v-else class="bg-chalk min-h-screen flex items-center justify-center">
+    <p class="text-sm font-body text-midnight/40">Chargement…</p>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { LayoutDashboard, Package, Users, LogOut } from 'lucide-vue-next'
+import { LayoutDashboard, Package, Users, LogOut, Globe } from 'lucide-vue-next'
 import { useAuth } from '~/composables/useAuth'
 
 const route = useRoute()
 const { signOut } = useAuth()
+
+const authorized = ref(false)
+const showLogoutModal = ref(false)
+
+onMounted(async () => {
+  const client = useSupabaseClient()
+  const { data: { session } } = await client.auth.getSession()
+
+  if (!session?.user?.id) {
+    await navigateTo('/')
+    return
+  }
+
+  const { data } = await client
+    .from('profiles')
+    .select('role')
+    .eq('id', session.user.id)
+    .single()
+
+  if (data?.role !== 'admin') {
+    await navigateTo('/')
+    return
+  }
+
+  authorized.value = true
+})
 
 const handleLogout = async () => {
   await signOut()

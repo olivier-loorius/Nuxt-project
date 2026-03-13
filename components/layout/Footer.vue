@@ -119,41 +119,16 @@
         </h3>
         <div class="flex justify-center gap-4 flex-wrap">
           <div class="w-12 h-8 bg-white rounded-md border border-white/10 flex items-center justify-center p-1.5 shadow-sm">
-            <NuxtImg
-              src="/images/visa.png"
-              alt="Visa"
-              width="32"
-              height="auto"
-              class="object-contain"
-            />
+            <img src="/images/visa.png" alt="Visa" class="object-contain w-8 h-auto" />
           </div>
           <div class="w-12 h-8 bg-white rounded-md border border-white/10 flex items-center justify-center p-1.5 shadow-sm">
-            <NuxtImg
-              src="/images/mastercard.png"
-              alt="Mastercard"
-              width="32"
-              height="auto"
-              class="object-contain"
-            />
-          </div>
-  
-          <div class="w-12 h-8 bg-white rounded-md border border-white/10 flex items-center justify-center p-1.5 shadow-sm">
-            <NuxtImg
-              src="/images/amex.png"
-              alt="Amex"
-              width="32"
-              height="auto"
-              class="object-contain"
-            />
+            <img src="/images/mastercard.png" alt="Mastercard" class="object-contain w-8 h-auto" />
           </div>
           <div class="w-12 h-8 bg-white rounded-md border border-white/10 flex items-center justify-center p-1.5 shadow-sm">
-            <NuxtImg
-              src="/images/paypal.png"
-              alt="PayPal"
-              width="32"
-              height="auto"
-              class="object-contain"
-            />
+            <img src="/images/amex.png" alt="Amex" class="object-contain w-8 h-auto" />
+          </div>
+          <div class="w-12 h-8 bg-white rounded-md border border-white/10 flex items-center justify-center p-1.5 shadow-sm">
+            <img src="/images/paypal.png" alt="PayPal" class="object-contain w-8 h-auto" />
           </div>
         </div>
       </div>
