@@ -29,12 +29,22 @@
     </div>
 
     <div class="bg-white border border-concrete rounded-sm p-6 mt-6">
-      <p class="text-xs font-body tracking-widest uppercase text-midnight/40 mb-4">Inscriptions</p>
+      <div class="flex justify-between items-center mb-4">
+        <p class="text-xs font-body tracking-widest uppercase text-midnight/40">Inscriptions</p>
+        <select
+          v-model="period"
+          class="text-xs font-body border border-concrete rounded-sm px-2 py-1 text-midnight/60 focus:outline-none bg-white"
+        >
+          <option value="week">Cette semaine</option>
+          <option value="month">Ce mois</option>
+          <option value="year">Cette année</option>
+        </select>
+      </div>
       <div class="flex justify-between items-center gap-6">
         <div class="flex gap-8">
           <div>
-            <p class="text-2xl font-display font-bold text-emerald-500">+{{ newThisWeek }}</p>
-            <p class="text-xs font-body text-midnight/40 mt-0.5">nouveaux</p>
+            <p class="text-2xl font-display font-bold text-emerald-500">+{{ newInPeriod }}</p>
+            <p class="text-xs font-body text-midnight/40 mt-0.5">{{ periodLabel }}</p>
           </div>
           <div>
             <p class="text-2xl font-display font-bold text-red-400">0</p>
@@ -62,8 +72,24 @@ const countUsers = ref<number | null>(null)
 const countOrders = ref<number | null>(null)
 const profiles = ref<{ id: string; created_at: string }[]>([])
 
-const newThisWeek = computed(() => {
-  const cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000
+const period = ref<'week' | 'month' | 'year'>('week')
+
+const periodLabel = computed(() => {
+  if (period.value === 'week') return 'cette semaine'
+  if (period.value === 'month') return 'ce mois'
+  return 'cette année'
+})
+
+const newInPeriod = computed(() => {
+  const now = new Date()
+  let cutoff: number
+  if (period.value === 'week') {
+    cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000
+  } else if (period.value === 'month') {
+    cutoff = new Date(now.getFullYear(), now.getMonth(), 1).getTime()
+  } else {
+    cutoff = new Date(now.getFullYear(), 0, 1).getTime()
+  }
   return profiles.value.filter(p => new Date(p.created_at).getTime() >= cutoff).length
 })
 
