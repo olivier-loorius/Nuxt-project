@@ -18,7 +18,7 @@
 
         <div class="flex items-center justify-end gap-3 px-6 py-4 border-t border-white/10">
           <button
-            class="text-xs font-body px-4 py-2 text-chalk/50 hover:text-chalk transition-colors duration-150"
+            class="text-xs font-body px-4 py-2 border border-white/30 text-white/70 hover:border-white/60 hover:text-white rounded-sm transition-colors duration-150"
             @click="$emit('cancel')"
           >
             Annuler
