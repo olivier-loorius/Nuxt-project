@@ -151,6 +151,7 @@ interface Product {
   stock: number
   category_id: string
   subcategory_id: string
+  page: string | null
   images: string[]
 }
 
@@ -190,7 +191,7 @@ watch([search, selectedCategory], () => { page.value = 1 })
 onMounted(async () => {
   const { data } = await client
     .from('products')
-    .select('id, name, price, badge, stock, category_id, subcategory_id, images')
+    .select('id, name, price, badge, stock, category_id, subcategory_id, page, images')
     .order('category_id')
     .order('name')
 
@@ -203,7 +204,7 @@ async function onProductCreated() {
   loading.value = true
   const { data } = await client
     .from('products')
-    .select('id, name, price, badge, stock, category_id, subcategory_id, images')
+    .select('id, name, price, badge, stock, category_id, subcategory_id, page, images')
     .order('category_id')
     .order('name')
   products.value = data ?? []

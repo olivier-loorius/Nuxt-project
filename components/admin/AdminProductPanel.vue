@@ -114,6 +114,23 @@
                 </template>
                 <p v-else class="text-sm font-body text-midnight">{{ product.subcategory_id }}</p>
               </div>
+
+              <div>
+                <p class="text-xs font-body font-semibold tracking-widest uppercase text-midnight/40 mb-1">Page</p>
+                <template v-if="editing">
+                  <select v-model="form.page" class="border border-concrete text-sm font-body px-2 py-1 w-full focus:outline-none focus:border-midnight bg-white">
+                    <option :value="null">—</option>
+                    <option value="nouveautes">Nouveautés</option>
+                    <option value="best-sellers">Best Sellers</option>
+                    <option value="categories">Catégories</option>
+                    <option value="lingerie">Lingerie</option>
+                    <option value="accessoires">Accessoires</option>
+                    <option value="idees-cadeaux">Idées cadeaux</option>
+                    <option value="promotions">Promotions</option>
+                  </select>
+                </template>
+                <p v-else class="text-sm font-body text-midnight">{{ product.page ?? '—' }}</p>
+              </div>
             </div>
 
             <div class="flex gap-3 mt-6">
@@ -174,6 +191,7 @@ interface Product {
   stock: number
   category_id: string
   subcategory_id: string
+  page: string | null
   images: string[]
 }
 
@@ -202,6 +220,7 @@ const form = ref({
   badge: null as string | null,
   category_id: '',
   subcategory_id: '',
+  page: null as string | null,
 })
 
 function startEdit() {
@@ -213,6 +232,7 @@ function startEdit() {
     badge: props.product.badge,
     category_id: props.product.category_id,
     subcategory_id: props.product.subcategory_id,
+    page: props.product.page,
   }
   editing.value = true
 }

@@ -1,5 +1,13 @@
 <template>
   <div>
+    <AdminProductPreview
+      v-if="showPreview"
+      :form="form"
+      :image-previews="imagePreviews"
+      @back="showPreview = false"
+      @confirm="save"
+    />
+    <template v-else>
     <h2 class="text-base font-display font-bold text-midnight mb-8">
       {{ props.product ? props.product.name : 'Nouveau produit' }}
     </h2>
@@ -18,8 +26,11 @@
               class="w-full h-full object-cover absolute inset-0"
             >
             <template v-else>
-              <span class="text-xs font-body text-midnight/30">{{ slot }}</span>
-              <span v-if="slot === 1" class="text-[10px] font-body text-midnight/30 mt-0.5">Principale</span>
+              <svg class="w-6 h-6 text-midnight/30" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 16V8m0 0-3 3m3-3 3 3" />
+              </svg>
+              <span class="text-[10px] font-body text-midnight/30 mt-1">{{ slot === 1 ? 'Principale' : `Photo ${slot}` }}</span>
             </template>
             <div class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-150">
               <span class="text-white text-xs font-body">Ajouter</span>
@@ -148,9 +159,34 @@
           >
             <option value="">—</option>
             <option v-for="sub in subcategoriesFiltered" :key="sub.id" :value="sub.id">{{ sub.label }}</option>
+            <option value="autre">Autre (nouvelle sous-catégorie)</option>
           </select>
+          <input
+            v-if="form.subcategory_id === 'autre'"
+            v-model="form.new_subcategory"
+            type="text"
+            placeholder="Nom de la nouvelle sous-catégorie"
+            class="border border-concrete text-sm font-body px-2 py-1 w-full focus:outline-none focus:border-midnight mt-2"
+          >
           <p v-if="errors.subcategory_id" class="text-[11px] text-red-400 font-body mt-1">{{ errors.subcategory_id }}</p>
         </div>
+      </div>
+
+      <div class="mt-4">
+        <p class="text-xs font-body font-semibold tracking-widest uppercase text-midnight/40 mb-1">Page</p>
+        <select
+          v-model="form.page"
+          class="border border-concrete text-sm font-body px-2 py-1 w-full focus:outline-none focus:border-midnight bg-white"
+        >
+          <option :value="null">—</option>
+          <option value="nouveautes">Nouveautés</option>
+          <option value="best-sellers">Best Sellers</option>
+          <option value="categories">Catégories</option>
+          <option value="lingerie">Lingerie</option>
+          <option value="accessoires">Accessoires</option>
+          <option value="idees-cadeaux">Idées cadeaux</option>
+          <option value="promotions">Promotions</option>
+        </select>
       </div>
 
       <div class="mt-4">
@@ -174,9 +210,9 @@
     <div class="flex gap-3">
       <button
         class="bg-midnight text-chalk text-xs font-body px-4 py-2 transition-colors duration-150"
-        @click="save"
+        @click="preview"
       >
-        Enregistrer
+        Prévisualiser
       </button>
       <button
         class="border border-concrete text-midnight/60 text-xs font-body px-4 py-2 hover:border-midnight hover:text-midnight transition-colors duration-150"
@@ -185,6 +221,7 @@
         Annuler
       </button>
     </div>
+    </template>
   </div>
 </template>
 
@@ -264,6 +301,8 @@ const form = ref({
   badge: null as string | null,
   category_id: '',
   subcategory_id: '',
+  new_subcategory: '',
+  page: null as string | null,
 })
 
 watch(() => form.value.category_id, () => {
@@ -273,6 +312,7 @@ watch(() => form.value.category_id, () => {
 const { locale } = useI18n()
 const badgeLabel = (badge: typeof BADGES[0]) => locale.value === 'fr' ? badge.labelFr : badge.labelEn
 
+const showPreview = ref(false)
 const errors = ref<Record<string, string>>({})
 
 function validate(): boolean {
@@ -295,6 +335,10 @@ function generateId(name: string): string {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '_')
     .replace(/^_+|_+$/g, '')
+}
+
+function preview() {
+  if (validate()) showPreview.value = true
 }
 
 async function save() {
@@ -325,9 +369,25 @@ async function save() {
     images[i] = publicUrl
   }
 
+  let subcategory_id = form.value.subcategory_id
+  if (form.value.subcategory_id === 'autre' && form.value.new_subcategory.trim()) {
+    const newSubId = generateId(form.value.new_subcategory)
+    const { error: subError } = await client.from('subcategories').insert({
+      id: newSubId,
+      label: form.value.new_subcategory,
+      slug: newSubId,
+      category_id: form.value.category_id,
+    })
+    if (subError) return
+    subcategory_id = newSubId
+  }
+
   const slug = generateId(form.value.name)
+  const { name, name_en, description, description_en, price, stock, badge, category_id, page } = form.value
   const payload = {
-    ...form.value,
+    name, name_en, description, description_en, price, stock, badge, category_id,
+    subcategory_id,
+    page,
     images: images.filter(Boolean) as string[],
     name_key: `products.${slug}`,
     description_key: `products.${slug}_desc`,
