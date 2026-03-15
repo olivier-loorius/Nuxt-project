@@ -137,7 +137,7 @@
               <template v-if="editing">
                 <button
                   class="flex-1 bg-midnight text-chalk text-xs font-body px-4 py-2 transition-colors duration-150"
-                  @click="save"
+                  @click="confirmSave = true"
                 >
                   Enregistrer
                 </button>
@@ -145,7 +145,7 @@
                   class="border border-concrete text-midnight/60 text-xs font-body px-4 py-2 transition-colors duration-150 hover:border-midnight hover:text-midnight"
                   @click="cancelEdit"
                 >
-                  Annuler
+                  Annuler les modifications
                 </button>
               </template>
               <template v-else>
@@ -167,6 +167,15 @@
           </div>
         </div>
       </div>
+    <AdminModal
+      v-if="confirmSave"
+      :title="`Confirmer les modifications`"
+      :message="`Modifier ${props.product?.name} ?`"
+      confirm-label="Enregistrer"
+      confirm-variant="success"
+      @confirm="save"
+      @cancel="confirmSave = false"
+    />
     <AdminModal
       v-if="confirmDelete"
       title="Supprimer le produit"
@@ -210,6 +219,7 @@ const client = useSupabaseClient()
 
 const isCreating = computed(() => props.product === null)
 const editing = ref(false)
+const confirmSave = ref(false)
 const confirmDelete = ref(false)
 const uploading = ref(false)
 
@@ -242,6 +252,7 @@ function cancelEdit() {
 }
 
 async function save() {
+  confirmSave.value = false
   if (!props.product) return
 
   const { error } = await client

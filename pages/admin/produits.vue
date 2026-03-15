@@ -20,23 +20,45 @@
     </div>
 
     <template v-if="activeTab === 'liste'">
-    <div class="flex flex-wrap gap-2 mb-4">
-      <button
-        class="text-xs font-body px-3 py-1.5 transition-colors duration-150"
-        :class="selectedCategory === 'all' ? 'bg-midnight text-chalk' : 'border border-concrete text-midnight/60 hover:border-midnight'"
-        @click="selectedCategory = 'all'"
+    <div class="flex gap-3 mb-4">
+      <select
+        v-model="selectedCategory"
+        class="text-xs font-body border border-concrete px-2 py-1.5 bg-white text-midnight focus:outline-none focus:border-midnight"
       >
-        Tous
-      </button>
-      <button
-        v-for="cat in categories"
-        :key="cat"
-        class="text-xs font-body px-3 py-1.5 transition-colors duration-150"
-        :class="selectedCategory === cat ? 'bg-midnight text-chalk' : 'border border-concrete text-midnight/60 hover:border-midnight'"
-        @click="selectedCategory = cat"
+        <option value="all">Toutes les catégories</option>
+        <option v-for="cat in categoriesWithLabels" :key="cat.id" :value="cat.id">{{ cat.label }}</option>
+      </select>
+
+      <select
+        v-model="selectedPage"
+        class="text-xs font-body border border-concrete px-2 py-1.5 bg-white text-midnight focus:outline-none focus:border-midnight"
       >
-        {{ cat }}
-      </button>
+        <option value="">Toutes les pages</option>
+        <option value="nouveautes">Nouveautés</option>
+        <option value="best-sellers">Best Sellers</option>
+        <option value="categories">Catégories</option>
+        <option value="lingerie">Lingerie</option>
+        <option value="accessoires">Accessoires</option>
+        <option value="idees-cadeaux">Idées cadeaux</option>
+        <option value="promotions">Promotions</option>
+      </select>
+
+      <select
+        v-model="selectedStock"
+        class="text-xs font-body border border-concrete px-2 py-1.5 bg-white text-midnight focus:outline-none focus:border-midnight"
+      >
+        <option value="">Tous les stocks</option>
+        <option value="critical">Critique ≤ 5</option>
+        <option value="out">Rupture</option>
+      </select>
+
+      <select
+        v-model="selectedBadge"
+        class="text-xs font-body border border-concrete px-2 py-1.5 bg-white text-midnight focus:outline-none focus:border-midnight"
+      >
+        <option value="">Tous les badges</option>
+        <option v-for="badge in BADGES" :key="String(badge.value)" :value="badge.value ?? ''">{{ badge.labelFr }}</option>
+      </select>
     </div>
 
     <div class="mb-4">
@@ -57,12 +79,13 @@
             <th class="text-left px-4 py-3 text-xs font-body tracking-widest uppercase text-midnight/40 font-normal">Prix</th>
             <th class="text-left px-4 py-3 text-xs font-body tracking-widest uppercase text-midnight/40 font-normal">Stock</th>
             <th class="text-left px-4 py-3 text-xs font-body tracking-widest uppercase text-midnight/40 font-normal">Badge</th>
+            <th class="text-left px-4 py-3 text-xs font-body tracking-widest uppercase text-midnight/40 font-normal">Page</th>
           </tr>
         </thead>
         <tbody>
           <template v-if="loading">
             <tr v-for="i in 5" :key="i" class="border-b border-concrete last:border-0">
-              <td v-for="col in 5" :key="col" class="px-4 py-4">
+              <td v-for="col in 6" :key="col" class="px-4 py-4">
                 <div class="h-4 bg-concrete animate-pulse rounded-sm" :class="col === 5 ? 'w-16' : 'w-full'" />
               </td>
             </tr>
@@ -95,9 +118,10 @@
                 </span>
                 <span v-else class="text-midnight/20 text-xs">—</span>
               </td>
+              <td class="px-4 py-4 font-body text-xs text-midnight/60">{{ product.page ?? '—' }}</td>
             </tr>
             <tr v-if="!filteredProducts.length">
-              <td colspan="5" class="px-4 py-12 text-center text-sm font-body text-midnight/30">
+              <td colspan="6" class="px-4 py-12 text-center text-sm font-body text-midnight/30">
                 Aucun produit trouvé
               </td>
             </tr>
@@ -134,6 +158,13 @@
       @cancelled="activeTab = 'liste'"
     />
   </div>
+
+  <div
+    v-if="toast"
+    class="fixed bottom-6 right-6 bg-midnight text-chalk text-xs font-body px-4 py-3 rounded-sm transition-opacity"
+  >
+    {{ toast }}
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -163,17 +194,31 @@ const products = ref<Product[]>([])
 const loading = ref(true)
 const search = ref('')
 const selectedCategory = ref('all')
+const selectedPage = ref('')
+const selectedStock = ref('')
+const selectedBadge = ref('')
 const page = ref(1)
 const activeTab = ref<'liste' | 'ajouter'>('liste')
 const panelOpen = ref(false)
 const selectedProduct = ref<Product | null>(null)
+const toast = ref('')
 
-const categories = computed(() => [...new Set(products.value.map(p => p.category_id))])
+function showToast(message: string) {
+  toast.value = message
+  setTimeout(() => { toast.value = '' }, 3000)
+}
+
+interface Category { id: string; label: string }
+const categoriesWithLabels = ref<Category[]>([])
 
 const filteredProducts = computed(() => {
   const q = search.value.trim().toLowerCase()
   return products.value.filter(p => {
     if (selectedCategory.value !== 'all' && p.category_id !== selectedCategory.value) return false
+    if (selectedPage.value && p.page !== selectedPage.value) return false
+    if (selectedStock.value === 'critical' && p.stock > 5) return false
+    if (selectedStock.value === 'out' && p.stock !== 0) return false
+    if (selectedBadge.value && (p.badge ?? '') !== selectedBadge.value) return false
     if (q && ![p.name, p.category_id].some(v => v.toLowerCase().includes(q))) return false
     return true
   })
@@ -186,17 +231,25 @@ const paginatedProducts = computed(() => {
   return filteredProducts.value.slice(start, start + PAGE_SIZE)
 })
 
-watch([search, selectedCategory], () => { page.value = 1 })
+watch([search, selectedCategory, selectedPage, selectedStock, selectedBadge], () => { page.value = 1 })
+
+const route = useRoute()
 
 onMounted(async () => {
-  const { data } = await client
-    .from('products')
-    .select('id, name, price, badge, stock, category_id, subcategory_id, page, images')
-    .order('category_id')
-    .order('name')
+  const [productsRes, catsRes] = await Promise.all([
+    client.from('products').select('id, name, price, badge, stock, category_id, subcategory_id, page, images').order('category_id').order('name'),
+    client.from('categories').select('id, label'),
+  ])
 
-  products.value = data ?? []
+  products.value = productsRes.data ?? []
+  categoriesWithLabels.value = catsRes.data ?? []
   loading.value = false
+
+  const openId = route.query.open
+  if (openId) {
+    const target = products.value.find(p => p.id === openId)
+    if (target) openPanel(target)
+  }
 })
 
 async function onProductCreated() {
@@ -209,6 +262,7 @@ async function onProductCreated() {
     .order('name')
   products.value = data ?? []
   loading.value = false
+  showToast('Produit créé avec succès')
 }
 
 function openPanel(product: Product) {
@@ -219,6 +273,7 @@ function openPanel(product: Product) {
 function onProductSaved(updated: Product) {
   const target = products.value.find(p => p.id === updated.id)
   if (target) Object.assign(target, updated)
+  showToast('Produit mis à jour')
 }
 
 function onProductDeleted() {

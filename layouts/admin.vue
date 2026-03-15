@@ -35,6 +35,20 @@
         </NuxtLink>
       </nav>
 
+      <div v-if="isSuperAdmin" class="px-3 py-2">
+        <button
+          class="text-xs font-body px-3 py-2 w-full text-left rounded-sm transition-colors duration-150"
+          :class="isDemoMode ? 'bg-yellow-50 border border-yellow-400 text-yellow-700' : 'bg-green-50 border border-green-400 text-green-700'"
+          @click="toggleDemoMode"
+        >
+          <span
+            class="inline-block w-2 h-2 rounded-full mr-2 align-middle"
+            :class="isDemoMode ? 'bg-yellow-400' : 'bg-green-400'"
+          />
+          {{ isDemoMode ? 'Mock Data actif' : 'Live Supabase' }}
+        </button>
+      </div>
+
       <div class="px-3 py-4 border-t border-chalk/10 space-y-1">
         <NuxtLink
           to="/"
@@ -76,12 +90,17 @@
 <script setup lang="ts">
 import { LayoutDashboard, Package, Users, LogOut, Globe } from 'lucide-vue-next'
 import { useAuth } from '~/composables/useAuth'
+import { useDemoMode, SUPER_ADMIN_ID } from '~/composables/useDemoMode'
 
 const route = useRoute()
 const { signOut } = useAuth()
+const { isDemoMode, toggleDemoMode } = useDemoMode()
 
 const authorized = ref(false)
 const showLogoutModal = ref(false)
+const userId = ref<string | null>(null)
+
+const isSuperAdmin = computed(() => userId.value === SUPER_ADMIN_ID)
 
 onMounted(async () => {
   const client = useSupabaseClient()
@@ -91,6 +110,8 @@ onMounted(async () => {
     await navigateTo('/')
     return
   }
+
+  userId.value = session.user.id
 
   const { data } = await client
     .from('profiles')

@@ -223,6 +223,16 @@
     </div>
     </template>
   </div>
+
+  <AdminModal
+    v-if="confirmLeave"
+    title="Quitter sans enregistrer ?"
+    message="Vos modifications seront perdues."
+    confirm-label="Quitter"
+    confirm-variant="danger"
+    @confirm="emit('cancelled')"
+    @cancel="confirmLeave = false"
+  />
 </template>
 
 <script setup lang="ts">
@@ -404,7 +414,14 @@ async function save() {
   emit('saved')
 }
 
+const confirmLeave = ref(false)
+
 function cancel() {
-  emit('cancelled')
+  const isDirty = form.value.name || form.value.description || imagePreviews.value.some(Boolean)
+  if (isDirty) {
+    confirmLeave.value = true
+  } else {
+    emit('cancelled')
+  }
 }
 </script>
