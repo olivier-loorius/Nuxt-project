@@ -225,6 +225,15 @@
   </div>
 
   <AdminModal
+    v-if="validationError"
+    title="Image invalide"
+    :message="validationError"
+    confirm-label="OK"
+    confirm-variant="warning"
+    @confirm="validationError = ''"
+    @cancel="validationError = ''"
+  />
+  <AdminModal
     v-if="confirmLeave"
     title="Quitter sans enregistrer ?"
     message="Vos modifications seront perdues."
@@ -293,10 +302,19 @@ const imagePreviews = ref<(string | null)[]>(
   Array.from({ length: 4 }, (_, i) => props.product?.images?.[i] ?? null)
 )
 const pendingFiles = ref<(File | null)[]>(Array.from({ length: 4 }, () => null))
+const validationError = ref('')
 
 function handleSlotChange(index: number, event: Event) {
   const file = (event.target as HTMLInputElement).files?.[0]
   if (!file) return
+  if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+    validationError.value = 'Format non supporté. Utilisez JPEG, PNG ou WebP.'
+    return
+  }
+  if (file.size > 5 * 1024 * 1024) {
+    validationError.value = 'Image trop lourde. 5 Mo maximum.'
+    return
+  }
   pendingFiles.value[index] = file
   imagePreviews.value[index] = URL.createObjectURL(file)
 }
@@ -362,11 +380,11 @@ async function save() {
     if (!preview?.startsWith('blob:') || !file) continue
 
     const ext = file.name.split('.').pop()
-    const path = `${Date.now()}-${i}.${ext}`
+    const path = `img_${i}_${Date.now()}.${ext}`
 
     const { error: uploadError } = await client.storage
       .from('products')
-      .upload(path, file, { upsert: true })
+      .upload(path, file)
 
     if (uploadError) {
       return
@@ -399,8 +417,6 @@ async function save() {
     subcategory_id,
     page,
     images: images.filter(Boolean) as string[],
-    name_key: `products.${slug}`,
-    description_key: `products.${slug}_desc`,
   }
 
   if (isCreating.value) {

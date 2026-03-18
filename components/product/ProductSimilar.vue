@@ -1,6 +1,6 @@
 <template>
   <section
-    v-if="similarProducts.length"
+    v-if="similarProducts?.length"
     class="mt-16 lg:mt-24 pt-10 border-t border-concrete"
   >
     <div class="flex items-center gap-3 mb-8">
@@ -28,18 +28,18 @@
           <span
             v-if="p.badge"
             class="absolute top-2 left-2 px-2 py-0.5 text-[9px] font-display font-semibold tracking-[0.18em] uppercase"
-            :class="p.badge === 'promo' ? 'bg-midnight text-chalk' : 'bg-amber text-midnight'"
+            :style="badgeStyle(p.badge)"
           >
-            {{ $t('catalog.badge_' + p.badge) }}
+            {{ badgeLabel(p.badge) }}
           </span>
         </div>
 
         <div class="p-3 bg-white">
           <p class="text-[9px] font-body tracking-[0.18em] uppercase text-midnight/35 mb-1">
-            {{ $t('catalog.categories.' + p.categoryId) }}
+            {{ $t('catalog.categories.' + p.category_id) }}
           </p>
           <h3 class="font-display font-medium text-midnight text-xs leading-snug mb-2 line-clamp-2">
-            {{ t(p.nameKey) }}
+            {{ p.name }}
           </h3>
           <p class="font-body font-medium text-midnight text-sm tabular-nums">
             {{ formatPrice(p.price) }}
@@ -53,16 +53,41 @@
 <script setup lang="ts">
 import { ImageIcon } from 'lucide-vue-next'
 import { MOCK_PRODUCTS, type MockProduct } from '~/data/products'
+import { BADGES } from '~/composables/useBadges'
 
 const props = defineProps<{ product: MockProduct }>()
 
-const { t, locale } = useI18n()
+const { locale } = useI18n()
+const supabase = useSupabaseClient()
+const { isDemoMode } = useDemoMode()
 
-const similarProducts = computed<MockProduct[]>(() =>
-  MOCK_PRODUCTS
-    .filter(p => p.categoryId === props.product.categoryId && p.id !== props.product.id)
-    .slice(0, 3)
+const { data: similarProducts } = await useAsyncData(
+  `similar-${props.product.id}`,
+  async () => {
+    if (isDemoMode.value) {
+      return MOCK_PRODUCTS
+        .filter(p => p.category_id === props.product.category_id && p.id !== props.product.id)
+        .slice(0, 3)
+    }
+    const { data, error } = await supabase
+      .from('products')
+      .select('id, name, price, badge, category_id, images')
+      .eq('category_id', props.product.category_id)
+      .neq('id', props.product.id)
+      .limit(3)
+    if (error || !data) return []
+    return data
+  }
 )
+
+function badgeLabel(value: string): string {
+  return BADGES.find(b => b.value === value)?.labelFr ?? value
+}
+
+function badgeStyle(value: string) {
+  const b = BADGES.find(b => b.value === value)
+  return { backgroundColor: b?.bg ?? '#F5F3F0', color: b?.text ?? '#1A1D2E' }
+}
 
 function formatPrice(price: number): string {
   return new Intl.NumberFormat(locale.value === 'fr' ? 'fr-FR' : 'en-GB', {

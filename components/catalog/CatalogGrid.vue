@@ -19,8 +19,13 @@
       :to="localePath(`/produit/${product.id}`)"
       class="group block border border-transparent hover:border-amber transition-colors duration-300"
     >
-      <div class="relative aspect-[3/4] overflow-hidden" :class="placeholderBg(product.id)">
-        <div class="absolute inset-0 flex items-center justify-center">
+      <div class="relative aspect-[3/4] overflow-hidden" :class="!product.images?.[0] ? placeholderBg(product.id) : ''">
+        <img
+          v-if="product.images?.[0]"
+          :src="product.images[0]"
+          class="w-full h-full object-cover absolute inset-0"
+        >
+        <div v-else class="absolute inset-0 flex items-center justify-center">
           <ImageIcon :size="44" class="text-midnight/10" />
         </div>
         <div
@@ -41,9 +46,9 @@
         <span
           v-if="product.badge"
           class="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-display font-semibold tracking-[0.18em] uppercase"
-          :class="badgeClass(product.badge!)"
+          :style="badgeStyle(product.badge!)"
         >
-          {{ $t('catalog.badge_' + product.badge) }}
+          {{ badgeLabel(product.badge!) }}
         </span>
         <span
           v-if="isInCart(product.id).value"
@@ -60,10 +65,10 @@
       </div>
       <div class="p-4 bg-white">
         <p class="text-[10px] font-body font-normal tracking-[0.18em] uppercase text-midnight/35 mb-1.5">
-          {{ $t('catalog.categories.' + product.categoryId) }}
+          {{ $t('catalog.categories.' + product.category_id) }}
         </p>
         <h3 class="font-display font-medium text-midnight text-sm leading-snug mb-3 line-clamp-2">
-          {{ t(product.nameKey) }}
+          {{ product.name }}
         </h3>
         <div class="flex items-center justify-between gap-2">
           <p class="font-body font-medium text-midnight text-base tabular-nums">
@@ -111,12 +116,15 @@
 <script setup lang="ts">
 import { Heart, ImageIcon, PackageOpen, ShoppingCart, Minus, Plus } from 'lucide-vue-next'
 import { MOCK_PRODUCTS, type MockProduct } from '~/data/products'
+import { BADGES } from '~/composables/useBadges'
 
 const props = defineProps<{ products?: MockProduct[] }>()
 
-const products = computed(() => props.products ?? MOCK_PRODUCTS)
+const { isDemoMode } = useDemoMode()
 
-const { locale, t } = useI18n()
+const products = computed(() => props.products ?? (isDemoMode.value ? MOCK_PRODUCTS : []))
+
+const { locale } = useI18n()
 const localePath = useLocalePath()
 
 const { fetchFavorites, toggleFavorite, isFavorite } = useFavorites()
@@ -147,9 +155,13 @@ function formatPrice(price: number): string {
   }).format(price)
 }
 
-function badgeClass(badge: string): string {
-  if (badge === 'promo' || badge.startsWith('-')) return 'bg-midnight text-chalk'
-  return 'bg-amber text-midnight'
+function badgeLabel(value: string): string {
+  return BADGES.find(b => b.value === value)?.labelFr ?? value
+}
+
+function badgeStyle(value: string) {
+  const b = BADGES.find(b => b.value === value)
+  return { backgroundColor: b?.bg ?? '#F5F3F0', color: b?.text ?? '#1A1D2E' }
 }
 
 const placeholderBgs = [

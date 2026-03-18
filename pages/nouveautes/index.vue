@@ -79,6 +79,17 @@
 import { MOCK_PRODUCTS, type MockProduct } from '~/data/products'
 
 const { t } = useI18n()
+const supabase = useSupabaseClient()
+const { isDemoMode } = useDemoMode()
+
+const { data: allProducts } = await useAsyncData('products-nouveautes', async () => {
+  if (isDemoMode.value) return MOCK_PRODUCTS
+  const { data, error } = await supabase
+    .from('products')
+    .select('id, name, price, badge, stock, category_id, subcategory_id, images')
+  if (error || !data) return []
+  return data
+})
 
 useSeoMeta({
   title: () => `${t('pages.nouveautes')} — Boys & Toys`,
@@ -108,9 +119,9 @@ watch(currentSort, () => { currentPage.value = 1 })
 
 const filteredProducts = computed<MockProduct[]>(() => {
   const { categoryId, subcategoryId } = activeFilter.value
-  if (subcategoryId) return MOCK_PRODUCTS.filter(p => p.subcategoryId === subcategoryId)
-  if (categoryId)    return MOCK_PRODUCTS.filter(p => p.categoryId === categoryId)
-  return MOCK_PRODUCTS
+  if (subcategoryId) return (allProducts.value ?? []).filter(p => p.subcategory_id === subcategoryId)
+  if (categoryId)    return (allProducts.value ?? []).filter(p => p.category_id === categoryId)
+  return allProducts.value ?? []
 })
 
 // ─── Pagination ───────────────────────────────────────────────────────────────
