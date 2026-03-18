@@ -98,7 +98,7 @@
               @click="openPanel(product)"
             >
               <td class="px-4 py-4 font-body text-midnight">{{ product.name }}</td>
-              <td class="px-4 py-4 font-body text-midnight/60 text-xs">{{ product.category_id }}</td>
+              <td class="px-4 py-4 font-body text-midnight/60 text-xs">{{ $t('catalog.categories.' + product.category_id) }}</td>
               <td class="px-4 py-4 font-body text-midnight tabular-nums">{{ formatPrice(product.price) }}</td>
               <td class="px-4 py-4">
                 <span
@@ -114,7 +114,7 @@
                   class="inline-block px-2 py-0.5 text-[10px] font-display font-semibold tracking-[0.15em] uppercase"
                   :style="{ backgroundColor: BADGES.find(b => b.value === product.badge)?.bg ?? '#F5F3F0', color: BADGES.find(b => b.value === product.badge)?.text ?? '#1A1D2E' }"
                 >
-                  {{ product.badge }}
+                  {{ badgeLabel(product.badge) }}
                 </span>
                 <span v-else class="text-midnight/20 text-xs">—</span>
               </td>
@@ -285,5 +285,9 @@ function onProductDeleted() {
 
 function formatPrice(price: number): string {
   return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(price)
+}
+
+function badgeLabel(value: string | null): string {
+  return BADGES.find(b => b.value === value)?.labelFr ?? value ?? '—'
 }
 </script>

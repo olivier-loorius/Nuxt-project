@@ -2,11 +2,11 @@
   <div class="flex flex-col pt-2 lg:pt-4">
 
     <p class="text-[10px] font-body tracking-[0.22em] uppercase text-amber mb-3">
-      {{ $t('catalog.categories.' + product.categoryId) }}
+      {{ $t('catalog.categories.' + product.category_id) }}
     </p>
 
     <h1 class="font-display font-bold text-midnight text-2xl sm:text-3xl leading-tight mb-6">
-      {{ t(product.nameKey) }}
+      {{ product.name }}
     </h1>
 
     <p class="font-body font-semibold text-midnight text-3xl tabular-nums mb-8">
@@ -16,7 +16,7 @@
     <div class="w-10 h-[1.5px] bg-amber mb-8" />
 
     <p class="font-body text-sm text-midnight/65 leading-relaxed mb-10">
-      {{ $t(product.descriptionKey) }}
+      {{ product.description }}
     </p>
 
     <div class="flex items-center gap-2.5 mb-10">

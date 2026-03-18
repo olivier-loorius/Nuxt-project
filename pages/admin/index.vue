@@ -90,7 +90,7 @@
           </div>
           <div class="flex-1 min-w-0">
             <p class="text-sm font-body font-semibold text-midnight truncate">{{ product.name }}</p>
-            <p class="text-xs font-body text-midnight/40">{{ product.category_id }}</p>
+            <p class="text-xs font-body text-midnight/40">{{ $t('catalog.categories.' + product.category_id) }}</p>
           </div>
           <span
             class="text-2xl font-display font-bold tabular-nums flex-shrink-0"

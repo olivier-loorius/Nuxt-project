@@ -20,30 +20,37 @@
         </div>
 
         <div v-if="product" class="flex gap-6 p-6">
-          <div class="w-72 flex-shrink-0 flex flex-col">
-            <label
-              for="img-upload"
-              class="aspect-square w-full flex flex-1 items-center justify-center cursor-pointer relative group overflow-hidden"
-              :class="placeholderBg(product.id)"
-            >
-              <img
-                v-if="product.images?.[0]"
-                :src="product.images[0]"
-                class="w-full h-full object-cover absolute inset-0"
-              >
-              <span v-else class="text-2xl font-display text-white/60">{{ initials(product.name) }}</span>
-
-              <div class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-150">
-                <template v-if="uploading">
-                  <svg class="animate-spin w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
-                  </svg>
-                </template>
-                <span v-else class="text-white text-xs font-body">Changer</span>
+          <div class="w-72 flex-shrink-0">
+            <div class="grid grid-cols-2 gap-2">
+              <div v-for="slot in 4" :key="slot">
+                <label
+                  :for="`img-slot-${slot}`"
+                  class="aspect-square w-full relative group overflow-hidden block"
+                  :class="[imagePreviews[slot-1] ? '' : placeholderBg(product.id), editing ? 'cursor-pointer' : 'cursor-default']"
+                >
+                  <img
+                    v-if="imagePreviews[slot-1]"
+                    :src="imagePreviews[slot-1]!"
+                    class="w-full h-full object-cover absolute inset-0"
+                  >
+                  <span v-else class="absolute inset-0 flex items-center justify-center text-lg font-display text-white/60">
+                    {{ initials(product.name) }}
+                  </span>
+                  <div v-if="editing" class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-150">
+                    <span class="text-white text-xs font-body">Changer</span>
+                  </div>
+                </label>
+                <input
+                  v-if="editing"
+                  :id="`img-slot-${slot}`"
+                  type="file"
+                  class="hidden"
+                  accept="image/*"
+                  @change="handleSlotChange(slot - 1, $event)"
+                >
+                <p v-if="slot === 1" class="text-[10px] font-body text-midnight/40 text-center mt-1">Principale</p>
               </div>
-            </label>
-            <input id="img-upload" type="file" class="hidden" accept="image/*" @change="handleFileChange">
+            </div>
           </div>
 
           <div class="flex-1 py-2 flex flex-col justify-between">
@@ -77,7 +84,7 @@
                   <template v-if="editing">
                     <input v-model="form.category_id" type="text" class="border border-concrete text-sm font-body px-2 py-1 w-full focus:outline-none focus:border-midnight">
                   </template>
-                  <p v-else class="text-sm font-body text-midnight">{{ product.category_id }}</p>
+                  <p v-else class="text-sm font-body text-midnight">{{ $t('catalog.categories.' + product.category_id) }}</p>
                 </div>
                 <div>
                   <p class="text-xs font-body font-semibold tracking-widest uppercase text-midnight/40 mb-1">Badge</p>
@@ -92,7 +99,7 @@
                       class="inline-block px-2 py-0.5 text-[10px] font-display font-semibold tracking-[0.15em] uppercase"
                       :style="badgeStyle(product.badge)"
                     >
-                      {{ product.badge }}
+                      {{ badgeLabel(product.badge) }}
                     </span>
                     <span v-else class="text-midnight/20 text-xs">—</span>
                   </template>
@@ -112,7 +119,7 @@
                 <template v-if="editing">
                   <input v-model="form.subcategory_id" type="text" class="border border-concrete text-sm font-body px-2 py-1 w-full focus:outline-none focus:border-midnight">
                 </template>
-                <p v-else class="text-sm font-body text-midnight">{{ product.subcategory_id }}</p>
+                <p v-else class="text-sm font-body text-midnight">{{ subcategoryLabel }}</p>
               </div>
 
               <div>
@@ -168,6 +175,15 @@
         </div>
       </div>
     <AdminModal
+      v-if="validationError"
+      title="Image invalide"
+      :message="validationError"
+      confirm-label="OK"
+      confirm-variant="warning"
+      @confirm="validationError = ''"
+      @cancel="validationError = ''"
+    />
+    <AdminModal
       v-if="confirmSave"
       :title="`Confirmer les modifications`"
       :message="`Modifier ${props.product?.name} ?`"
@@ -217,11 +233,45 @@ const emit = defineEmits<{
 
 const client = useSupabaseClient()
 
+const subcategories = ref<{ id: string; label: string }[]>([])
+
+onMounted(async () => {
+  const { data } = await client.from('subcategories').select('id, label')
+  subcategories.value = data ?? []
+})
+
+const subcategoryLabel = computed(() =>
+  subcategories.value.find(s => s.id === props.product?.subcategory_id)?.label
+    ?? props.product?.subcategory_id
+    ?? '—'
+)
+
+const validationError = ref('')
+
 const isCreating = computed(() => props.product === null)
 const editing = ref(false)
 const confirmSave = ref(false)
 const confirmDelete = ref(false)
-const uploading = ref(false)
+
+const imagePreviews = ref<(string | null)[]>(
+  Array.from({ length: 4 }, (_, i) => props.product?.images?.[i] ?? null)
+)
+const pendingFiles = ref<(File | null)[]>(Array.from({ length: 4 }, () => null))
+
+function handleSlotChange(index: number, event: Event) {
+  const file = (event.target as HTMLInputElement).files?.[0]
+  if (!file) return
+  if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+    validationError.value = 'Format non supporté. Utilisez JPEG, PNG ou WebP.'
+    return
+  }
+  if (file.size > 5 * 1024 * 1024) {
+    validationError.value = 'Image trop lourde. 5 Mo maximum.'
+    return
+  }
+  pendingFiles.value[index] = file
+  imagePreviews.value[index] = URL.createObjectURL(file)
+}
 
 const form = ref({
   name: '',
@@ -255,13 +305,22 @@ async function save() {
   confirmSave.value = false
   if (!props.product) return
 
+  for (let i = 0; i < 4; i++) {
+    const file = pendingFiles.value[i]
+    if (!file) continue
+    const publicUrl = await uploadImage(file, i)
+    if (publicUrl) imagePreviews.value[i] = publicUrl
+  }
+
+  const images = imagePreviews.value.filter((url): url is string => url !== null)
+
   const { error } = await client
     .from('products')
-    .update(form.value)
+    .update({ ...form.value, images })
     .eq('id', props.product.id)
 
   if (!error) {
-    emit('saved', { ...props.product, ...form.value })
+    emit('saved', { ...props.product, ...form.value, images })
   }
 
   editing.value = false
@@ -283,42 +342,23 @@ async function deleteProduct() {
   confirmDelete.value = false
 }
 
-function handleFileChange(event: Event) {
-  const file = (event.target as HTMLInputElement).files?.[0]
-  if (file) uploadImage(file)
-}
-
-async function uploadImage(file: File) {
+async function uploadImage(file: File, index: number) {
   if (!props.product) return
 
-  uploading.value = true
-
   const ext = file.name.split('.').pop()
-  const path = `${props.product.id}/main.${ext}`
+  const path = `${props.product.id}/img_${index}_${Date.now()}.${ext}`
 
   const { error: uploadError } = await client.storage
     .from('products')
-    .upload(path, file, { upsert: true })
+    .upload(path, file)
 
-  if (uploadError) {
-    uploading.value = false
-    return
-  }
+  if (uploadError) return null
 
   const { data: { publicUrl } } = client.storage
     .from('products')
     .getPublicUrl(path)
 
-  const { error: updateError } = await client
-    .from('products')
-    .update({ images: [publicUrl] })
-    .eq('id', props.product.id)
-
-  if (!updateError) {
-    emit('saved', { ...props.product, images: [publicUrl] })
-  }
-
-  uploading.value = false
+  return publicUrl
 }
 
 const placeholderBgs = [
@@ -341,6 +381,10 @@ function initials(name: string): string {
 
 function formatPrice(price: number): string {
   return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(price)
+}
+
+function badgeLabel(value: string | null): string {
+  return BADGES.find(b => b.value === value)?.labelFr ?? value ?? '—'
 }
 
 function badgeStyle(value: string | null) {

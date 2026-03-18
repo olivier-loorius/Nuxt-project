@@ -21,14 +21,14 @@
               :to="localePath('/nouveautes')"
               class="text-midnight/50 hover:text-amber transition-colors duration-200"
             >
-              {{ $t('catalog.categories.' + product.categoryId) }}
+              {{ $t('catalog.categories.' + product.category_id) }}
             </NuxtLink>
           </li>
           <li aria-hidden="true">
             <ChevronRight :size="10" class="text-midnight/25 mx-0.5" />
           </li>
           <li class="text-midnight/35 truncate max-w-[220px]" aria-current="page">
-            {{ t(product.nameKey) }}
+            {{ product.name }}
           </li>
         </ol>
       </nav>
@@ -64,19 +64,31 @@ import { MOCK_PRODUCTS } from '~/data/products'
 
 definePageMeta({ layout: 'default' })
 
-const { t } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
 const slug = route.params.slug as string
+const supabase = useSupabaseClient()
+const { isDemoMode } = useDemoMode()
 
-const product = MOCK_PRODUCTS.find(p => p.id === slug)
+const { data: product } = await useAsyncData(`product-${slug}`, async () => {
+  if (isDemoMode.value) {
+    return MOCK_PRODUCTS.find(p => p.id === slug) ?? null
+  }
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .eq('id', slug)
+    .single()
+  if (error || !data) return null
+  return data
+})
 
-if (!product) {
+if (!product.value) {
   throw createError({ statusCode: 404, statusMessage: 'Product not found' })
 }
 
 useSeoMeta({
-  title: () => `${t(product.nameKey)} — Boys & Toys`,
-  description: () => product.description,
+  title: () => `${product.value!.name} — Boys & Toys`,
+  description: () => product.value!.description,
 })
 </script>
