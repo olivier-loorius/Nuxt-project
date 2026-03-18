@@ -9,6 +9,8 @@
       {{ product.name }}
     </h1>
 
+    <p v-if="brand" class="text-sm font-display font-semibold tracking-widest uppercase text-midnight/50 mb-2">{{ brand }}</p>
+
     <p class="font-body font-semibold text-midnight text-3xl tabular-nums mb-8">
       {{ formatPrice(product.price) }}
     </p>
@@ -158,7 +160,7 @@
 import { Heart, ShoppingCart, ChevronDown, Minus, Plus } from 'lucide-vue-next'
 import type { MockProduct } from '~/data/products'
 
-const props = defineProps<{ product: MockProduct }>()
+const props = defineProps<{ product: MockProduct; brand?: string | null }>()
 
 const { t, locale } = useI18n()
 const accordionOpen = ref(false)

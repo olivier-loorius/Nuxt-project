@@ -168,8 +168,34 @@
             placeholder="Nom de la nouvelle sous-catégorie"
             class="border border-concrete text-sm font-body px-2 py-1 w-full focus:outline-none focus:border-midnight mt-2"
           >
+          <input
+            v-if="form.subcategory_id === 'autre'"
+            v-model="form.new_subcategory_en"
+            type="text"
+            placeholder="Subcategory name (English)"
+            class="border border-concrete text-sm font-body px-2 py-1 w-full focus:outline-none focus:border-midnight mt-2"
+          >
           <p v-if="errors.subcategory_id" class="text-[11px] text-red-400 font-body mt-1">{{ errors.subcategory_id }}</p>
         </div>
+      </div>
+
+      <div class="mt-4">
+        <p class="text-xs font-body font-semibold tracking-widest uppercase text-midnight/40 mb-1">Marque</p>
+        <select
+          v-model="form.brand_id"
+          class="border border-concrete text-sm font-body px-2 py-1 w-full focus:outline-none focus:border-midnight bg-white"
+        >
+          <option :value="null">—</option>
+          <option v-for="brand in brands" :key="brand.id" :value="brand.id">{{ brand.name }}</option>
+          <option value="autre">Autre (nouvelle marque)</option>
+        </select>
+        <input
+          v-if="form.brand_id === 'autre'"
+          v-model="form.new_brand"
+          type="text"
+          placeholder="Nom de la nouvelle marque"
+          class="border border-concrete text-sm font-body px-2 py-1 w-full focus:outline-none focus:border-midnight mt-2"
+        >
       </div>
 
       <div class="mt-4">
@@ -258,6 +284,11 @@ interface Subcategory {
   category_id: string
 }
 
+interface Brand {
+  id: string
+  name: string
+}
+
 interface Product {
   id: string
   name: string
@@ -284,18 +315,21 @@ const isCreating = computed(() => props.product === null)
 
 const categories = ref<Category[]>([])
 const subcategories = ref<Subcategory[]>([])
+const brands = ref<Brand[]>([])
 
 const subcategoriesFiltered = computed(() =>
   subcategories.value.filter(s => s.category_id === form.value.category_id)
 )
 
 onMounted(async () => {
-  const [catsRes, subsRes] = await Promise.all([
+  const [catsRes, subsRes, brandsRes] = await Promise.all([
     client.from('categories').select('id, label'),
     client.from('subcategories').select('id, label, category_id'),
+    client.from('brands').select('id, name').order('name'),
   ])
   categories.value = catsRes.data ?? []
   subcategories.value = subsRes.data ?? []
+  brands.value = brandsRes.data ?? []
 })
 
 const imagePreviews = ref<(string | null)[]>(
@@ -330,6 +364,9 @@ const form = ref({
   category_id: '',
   subcategory_id: '',
   new_subcategory: '',
+  new_subcategory_en: '',
+  brand_id: null as string | null,
+  new_brand: '',
   page: null as string | null,
 })
 
@@ -358,6 +395,7 @@ function validate(): boolean {
 
 function generateId(name: string): string {
   return name
+    .replace(/œ/g, 'oe').replace(/æ/g, 'ae').replace(/ø/g, 'o')
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
@@ -400,21 +438,34 @@ async function save() {
   let subcategory_id = form.value.subcategory_id
   if (form.value.subcategory_id === 'autre' && form.value.new_subcategory.trim()) {
     const newSubId = generateId(form.value.new_subcategory)
-    const { error: subError } = await client.from('subcategories').insert({
+    const { error: subError } = await client.from('subcategories').upsert({
       id: newSubId,
       label: form.value.new_subcategory,
+      label_en: form.value.new_subcategory_en,
       slug: newSubId,
       category_id: form.value.category_id,
-    })
+    }, { onConflict: 'id' })
     if (subError) return
     subcategory_id = newSubId
   }
 
+  let resolvedBrandId = form.value.brand_id === 'autre' ? null : form.value.brand_id
+  if (form.value.brand_id === 'autre' && form.value.new_brand.trim()) {
+    const newBrandId = generateId(form.value.new_brand)
+    const { error: brandError } = await client.from('brands').insert({
+      id: newBrandId,
+      name: form.value.new_brand,
+    })
+    if (brandError) return
+    resolvedBrandId = newBrandId
+  }
+
   const slug = generateId(form.value.name)
-  const { name, name_en, description, description_en, price, stock, badge, category_id, page } = form.value
+  const { name, name_en, description, description_en, price, stock, badge, category_id, brand_id, page } = form.value
   const payload = {
     name, name_en, description, description_en, price, stock, badge, category_id,
     subcategory_id,
+    brand_id: resolvedBrandId,
     page,
     images: images.filter(Boolean) as string[],
   }

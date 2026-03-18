@@ -84,7 +84,7 @@
                     class="w-1 h-1 rounded-full flex-shrink-0 transition-colors duration-200"
                     :class="activeFilter.subcategoryId === sub.id ? 'bg-amber' : 'bg-concrete group-hover/item:bg-midnight/40'"
                   ></span>
-                  <span class="truncate">{{ sub.label }}</span>
+                  <span class="truncate">{{ locale === 'en' ? (sub.label_en ?? sub.label) : sub.label }}</span>
                 </span>
                 <span
                   class="text-xs tabular-nums flex-shrink-0 ml-2 transition-colors duration-200"
@@ -110,22 +110,41 @@ import {
   AccordionRoot,
   AccordionTrigger,
 } from 'reka-ui'
-import { CATALOG_CATEGORIES } from '~/data/categories'
-import { MOCK_PRODUCTS } from '~/data/products'
 import type { Ref } from 'vue'
 
-const { t } = useI18n()
+const { locale } = useI18n()
+const client = useSupabaseClient()
 
-const totalProducts = MOCK_PRODUCTS.length
+interface SubcategoryRow {
+  id: string
+  label: string
+  label_en: string | null
+}
+
+interface CategoryRow {
+  id: string
+  label: string
+  label_en: string | null
+  subcategories: SubcategoryRow[]
+}
+
+const rawCategories = ref<CategoryRow[]>([])
+const totalProducts = ref(0)
+
+onMounted(async () => {
+  const [catsRes, countRes] = await Promise.all([
+    client.from('categories').select('*, subcategories(id, label, label_en)').order('label'),
+    client.from('products').select('*', { count: 'exact', head: true }),
+  ])
+  rawCategories.value = (catsRes.data as CategoryRow[]) ?? []
+  totalProducts.value = countRes.count ?? 0
+})
 
 const categories = computed(() =>
-  CATALOG_CATEGORIES.map(cat => ({
+  rawCategories.value.map(cat => ({
     ...cat,
-    label: t(cat.labelKey),
-    children: cat.children.map(sub => ({
-      ...sub,
-      label: t(sub.labelKey),
-    })),
+    label: locale.value === 'en' ? (cat.label_en ?? cat.label) : cat.label,
+    children: cat.subcategories,
   }))
 )
 
