@@ -1,5 +1,5 @@
 <template>
-  <div v-if="authorized" class="bg-chalk min-h-screen">
+  <div v-if="authorized && !isMobile" class="bg-chalk min-h-screen">
     <aside class="bg-midnight text-chalk w-64 fixed top-0 left-0 h-full flex flex-col">
       <div class="px-6 py-6 border-b border-chalk/10">
         <NuxtLink to="/admin" class="text-xl font-display font-bold text-chalk hover:text-amber transition-colors duration-200">
@@ -82,13 +82,27 @@
     </main>
   </div>
 
-  <div v-else class="bg-chalk min-h-screen flex items-center justify-center">
+  <div v-else-if="!isMobile" class="bg-chalk min-h-screen flex items-center justify-center">
     <p class="text-sm font-body text-midnight/40">Chargement…</p>
+  </div>
+
+  <div v-if="isMobile" class="fixed inset-0 z-50 bg-midnight flex flex-col items-center justify-center gap-8 px-8 text-center">
+    <p class="text-xl font-display font-bold text-chalk tracking-wide">Boys & Toys</p>
+    <Monitor :size="48" class="text-chalk/20" />
+    <p class="text-sm font-body text-chalk/60 leading-relaxed max-w-xs">
+      L'interface d'administration est disponible uniquement sur ordinateur
+    </p>
+    <button
+      class="text-xs font-body border border-amber text-amber px-6 py-2.5 hover:bg-amber hover:text-midnight transition-colors duration-200"
+      @click="navigateTo('/')"
+    >
+      Retour au site
+    </button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { LayoutDashboard, Package, Users, LogOut, Globe } from 'lucide-vue-next'
+import { LayoutDashboard, Package, Users, LogOut, Globe, Monitor } from 'lucide-vue-next'
 import { useAuth } from '~/composables/useAuth'
 import { useDemoMode, SUPER_ADMIN_ID } from '~/composables/useDemoMode'
 
@@ -99,10 +113,13 @@ const { isDemoMode, toggleDemoMode } = useDemoMode()
 const authorized = ref(false)
 const showLogoutModal = ref(false)
 const userId = ref<string | null>(null)
+const isMobile = ref(false)
 
 const isSuperAdmin = computed(() => userId.value === SUPER_ADMIN_ID)
 
 onMounted(async () => {
+  isMobile.value = window.innerWidth < 1024
+
   const client = useSupabaseClient()
   const { data: { session } } = await client.auth.getSession()
 

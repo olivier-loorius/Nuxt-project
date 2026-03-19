@@ -45,7 +45,7 @@
       <!-- Layout 2 colonnes -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 lg:items-start">
         <ProductGallery :product="product" />
-        <ProductInfo :product="product" />
+        <ProductInfo :product="product" :brand="brandName" />
       </div>
 
       <!-- Avis & garanties -->
@@ -76,12 +76,14 @@ const { data: product } = await useAsyncData(`product-${slug}`, async () => {
   }
   const { data, error } = await supabase
     .from('products')
-    .select('*')
+    .select('*, brands(name)')
     .eq('id', slug)
     .single()
   if (error || !data) return null
   return data
 })
+
+const brandName = computed(() => (product.value as any)?.brands?.name ?? null)
 
 if (!product.value) {
   throw createError({ statusCode: 404, statusMessage: 'Product not found' })

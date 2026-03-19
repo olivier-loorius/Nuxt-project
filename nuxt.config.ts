@@ -53,7 +53,7 @@ export default defineNuxtConfig({
     fallback: "dark",
   },
 
-  css: ["~/assets/css/main.css"],
+  css: ["~/assets/css/main.css", "flag-icons/css/flag-icons.css"],
 
   app: {
     head: {
