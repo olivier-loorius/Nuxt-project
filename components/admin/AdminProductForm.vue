@@ -86,24 +86,24 @@
         <div>
           <div class="flex items-center justify-between mb-1">
             <p class="text-xs font-body font-semibold tracking-widest uppercase text-midnight/40">Description FR</p>
-            <span class="text-[10px] font-body text-midnight/30">{{ form.description.length }}/300</span>
+            <span class="text-[10px] font-body text-midnight/30">{{ form.description.length }}/500</span>
           </div>
           <textarea
             v-model="form.description"
             rows="4"
-            maxlength="300"
+            maxlength="500"
             class="border border-concrete text-sm font-body px-2 py-1 w-full focus:outline-none focus:border-midnight resize-none"
           />
         </div>
         <div>
           <div class="flex items-center justify-between mb-1">
             <p class="text-xs font-body font-semibold tracking-widest uppercase text-midnight/40">Description EN</p>
-            <span class="text-[10px] font-body text-midnight/30">{{ form.description_en.length }}/300</span>
+            <span class="text-[10px] font-body text-midnight/30">{{ form.description_en.length }}/500</span>
           </div>
           <textarea
             v-model="form.description_en"
             rows="4"
-            maxlength="300"
+            maxlength="500"
             class="border border-concrete text-sm font-body px-2 py-1 w-full focus:outline-none focus:border-midnight resize-none"
           />
         </div>
@@ -280,8 +280,17 @@
     message="Vos modifications seront perdues."
     confirm-label="Quitter"
     confirm-variant="danger"
-    @confirm="emit('cancelled')"
+    @confirm="confirmLeaveAndClear"
     @cancel="confirmLeave = false"
+  />
+  <AdminModal
+    v-if="draftModal"
+    title="Reprendre le brouillon ?"
+    message="Un brouillon a été trouvé. Les champs texte seront restaurés — les images devront être re-uploadées."
+    confirm-label="Reprendre"
+    cancel-label="Ignorer"
+    @confirm="resumeDraft"
+    @cancel="discardDraft"
   />
 </template>
 
@@ -345,6 +354,16 @@ onMounted(async () => {
   categories.value = catsRes.data ?? []
   subcategories.value = subsRes.data ?? []
   brands.value = brandsRes.data ?? []
+
+  const raw = localStorage.getItem(DRAFT_KEY)
+  if (raw) {
+    try {
+      JSON.parse(raw)
+      draftModal.value = true
+    } catch {
+      localStorage.removeItem(DRAFT_KEY)
+    }
+  }
 })
 
 const imagePreviews = ref<(string | null)[]>(
@@ -389,6 +408,29 @@ const form = ref({
 watch(() => form.value.category_id, () => {
   form.value.subcategory_id = ''
 })
+
+const DRAFT_KEY = 'admin_form_draft'
+const draftModal = ref(false)
+
+watch(form, (val) => {
+  localStorage.setItem(DRAFT_KEY, JSON.stringify(val))
+}, { deep: true })
+
+function resumeDraft() {
+  const raw = localStorage.getItem(DRAFT_KEY)
+  if (!raw) return
+  try { form.value = JSON.parse(raw) } catch {}
+  draftModal.value = false
+}
+
+function discardDraft() {
+  localStorage.removeItem(DRAFT_KEY)
+  draftModal.value = false
+}
+
+function clearDraft() {
+  localStorage.removeItem(DRAFT_KEY)
+}
 
 const { locale } = useI18n()
 const badgeLabel = (badge: typeof BADGES[0]) => locale.value === 'fr' ? badge.labelFr : badge.labelEn
@@ -477,7 +519,7 @@ async function save() {
   }
 
   const slug = generateId(form.value.name)
-  const { name, name_en, description, description_en, price, stock, badge, category_id, brand_id, page, origin } = form.value
+  const { name, name_en, description, description_en, price, stock, badge, category_id, page, origin } = form.value
   const payload = {
     name, name_en, description, description_en, price, stock, badge, category_id,
     subcategory_id,
@@ -495,6 +537,7 @@ async function save() {
     if (error) return
   }
 
+  clearDraft()
   emit('saved')
 }
 
@@ -505,7 +548,13 @@ function cancel() {
   if (isDirty) {
     confirmLeave.value = true
   } else {
+    clearDraft()
     emit('cancelled')
   }
+}
+
+function confirmLeaveAndClear() {
+  clearDraft()
+  emit('cancelled')
 }
 </script>

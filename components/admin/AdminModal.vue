@@ -21,7 +21,7 @@
             class="text-xs font-body px-4 py-2 border border-white/30 text-white/70 hover:border-white/60 hover:text-white rounded-sm transition-colors duration-150"
             @click="$emit('cancel')"
           >
-            Annuler
+            {{ cancelLabel }}
           </button>
           <button
             class="text-xs font-body font-semibold px-4 py-2 rounded-sm transition-colors duration-150"
@@ -37,12 +37,16 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   title: string
   message: string
   confirmLabel: string
-  confirmVariant: 'danger' | 'warning' | 'success'
-}>()
+  confirmVariant?: 'danger' | 'warning' | 'success'
+  cancelLabel?: string
+}>(), {
+  confirmVariant: 'success',
+  cancelLabel: 'Annuler',
+})
 
 defineEmits<{
   confirm: []
