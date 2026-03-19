@@ -14,6 +14,7 @@ export interface MockProduct {
   descriptionKey: string
   /** Identifiant de la catégorie parente → CatalogCategory.id */
   categoryId: string
+  category_id?: string
   /** Identifiant de la sous-catégorie → CatalogSubcategory.id */
   subcategoryId: string
   /** Prix en euros */

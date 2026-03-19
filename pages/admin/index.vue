@@ -47,7 +47,7 @@
             <p class="text-xs font-body text-midnight/40 mt-0.5">{{ periodLabel }}</p>
           </div>
           <div>
-            <p class="text-2xl font-display font-bold text-red-400">0</p>
+            <p class="text-2xl font-display font-bold text-midnight/20">—</p>
             <p class="text-xs font-body text-midnight/40 mt-0.5">supprimés</p>
           </div>
         </div>
@@ -109,6 +109,50 @@
     </div>
 
     <div class="bg-white border border-concrete rounded-sm p-6 mt-6">
+      <div class="flex justify-between items-center mb-4">
+        <p class="text-xs font-body tracking-widest uppercase text-midnight/40">Nouveautés +30 jours</p>
+        <NuxtLink to="/admin/produits?page=nouveautes" class="text-xs font-body text-midnight/40 hover:text-midnight transition-colors duration-150">Voir tous</NuxtLink>
+      </div>
+      <div v-if="loading">
+        <div v-for="i in 2" :key="i" class="flex items-center gap-4 bg-chalk rounded-sm p-3 mb-2">
+          <div class="w-12 h-12 bg-concrete animate-pulse rounded-sm flex-shrink-0" />
+          <div class="flex-1 space-y-2">
+            <div class="h-4 bg-concrete animate-pulse rounded-sm" />
+            <div class="h-3 bg-concrete animate-pulse rounded-sm w-1/2" />
+          </div>
+        </div>
+      </div>
+      <div v-else-if="!oldNewProducts.length" class="py-6 text-center text-xs font-body text-midnight/30">
+        Aucune nouveauté de plus de 30 jours
+      </div>
+      <div v-else class="grid grid-cols-2 gap-3">
+        <div
+          v-for="product in oldNewProducts"
+          :key="product.id"
+          class="flex items-center gap-4 bg-chalk rounded-sm p-3"
+        >
+          <div class="w-12 h-12 flex-shrink-0 bg-concrete rounded-sm overflow-hidden">
+            <img
+              v-if="product.images?.[0]"
+              :src="product.images[0]"
+              class="w-full h-full object-cover"
+            >
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-body font-semibold text-midnight truncate">{{ product.name }}</p>
+            <p class="text-xs font-body text-midnight/40">{{ product.created_at ? new Date(product.created_at).toLocaleDateString('fr-FR') : '—' }}</p>
+          </div>
+          <NuxtLink
+            :to="`/admin/produits?open=${product.id}`"
+            class="text-xs font-body border border-concrete px-2 py-1 text-midnight/60 hover:border-midnight hover:text-midnight transition-colors duration-150 flex-shrink-0"
+          >
+            Modifier
+          </NuxtLink>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white border border-concrete rounded-sm p-6 mt-6">
       <p class="text-xs font-body tracking-widest uppercase text-midnight/40 mb-4">Derniers ajouts</p>
       <div class="grid grid-cols-4 gap-4">
         <template v-if="loading">
@@ -158,10 +202,12 @@ interface Product {
   images: string[]
   category_id?: string
   badge?: string | null
+  created_at?: string
 }
 
 const criticalProducts = ref<Product[]>([])
 const latestProducts = ref<Product[]>([])
+const oldNewProducts = ref<Product[]>([])
 
 const period = ref<'week' | 'month' | 'year'>('week')
 
@@ -185,12 +231,15 @@ const newInPeriod = computed(() => {
 })
 
 async function refreshProducts() {
-  const [criticalRes, latestRes] = await Promise.all([
+  const cutoff = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
+  const [criticalRes, latestRes, oldNewRes] = await Promise.all([
     client.from('products').select('id, name, price, stock, images, category_id').lte('stock', 5).order('stock', { ascending: true }),
-    client.from('products').select('id, name, price, stock, images, badge').order('created_at', { ascending: false }).limit(4),
+    client.from('products').select('id, name, price, images').order('created_at', { ascending: false }).limit(4),
+    client.from('products').select('id, name, images, created_at').eq('page', 'nouveautes').lte('created_at', cutoff).order('created_at', { ascending: false }),
   ])
   criticalProducts.value = (criticalRes.data ?? []) as Product[]
   latestProducts.value = (latestRes.data ?? []) as Product[]
+  oldNewProducts.value = (oldNewRes.data ?? []) as Product[]
 }
 
 onMounted(async () => {
