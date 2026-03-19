@@ -187,6 +187,7 @@ interface Product {
   subcategory_id: string
   brand_id: string | null
   page: string | null
+  origin: string | null
   images: string[]
 }
 
@@ -241,7 +242,7 @@ const route = useRoute()
 
 onMounted(async () => {
   const [productsRes, catsRes] = await Promise.all([
-    client.from('products').select('id, name, name_en, description, description_en, price, badge, stock, category_id, subcategory_id, brand_id, page, images').order('category_id').order('name'),
+    client.from('products').select('id, name, name_en, description, description_en, price, badge, stock, category_id, subcategory_id, brand_id, page, origin, images').order('category_id').order('name'),
     client.from('categories').select('id, label'),
   ])
 
@@ -261,7 +262,7 @@ async function onProductCreated() {
   loading.value = true
   const { data } = await client
     .from('products')
-    .select('id, name, name_en, description, description_en, price, badge, stock, category_id, subcategory_id, brand_id, page, images')
+    .select('id, name, name_en, description, description_en, price, badge, stock, category_id, subcategory_id, brand_id, page, origin, images')
     .order('category_id')
     .order('name')
   products.value = data ?? []

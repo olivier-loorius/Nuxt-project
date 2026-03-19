@@ -112,7 +112,6 @@ let intervalId: NodeJS.Timeout | null = null;
 onMounted(() => {
   intervalId = setInterval(() => {
     currentSlide.value = (currentSlide.value + 1) % products.length;
-
   }, 7000);
 });
 

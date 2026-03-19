@@ -1,40 +1,43 @@
 <template>
   <div class="flex flex-col pt-2 lg:pt-4">
 
-    <p class="text-[10px] font-body tracking-[0.22em] uppercase text-amber mb-3">
+    <p class="text-sm font-body font-semibold text-amber mb-2">
       {{ $t('catalog.categories.' + product.category_id) }}
     </p>
 
-    <h1 class="font-display font-bold text-midnight text-2xl sm:text-3xl leading-tight mb-6">
+    <h1 class="font-display font-bold text-midnight text-3xl lg:text-4xl leading-tight mb-3">
       {{ product.name }}
     </h1>
 
-    <p v-if="brand" class="text-sm font-display font-semibold tracking-widest uppercase text-midnight/50 mb-2">{{ brand }}</p>
+    <p v-if="brand" class="text-xs font-body text-midnight/40 mb-3">
+      {{ brand }}
+    </p>
 
-    <p class="font-body font-semibold text-midnight text-3xl tabular-nums mb-8">
+    <p class="font-body font-semibold text-midnight text-4xl lg:text-5xl tabular-nums mb-5">
       {{ formatPrice(product.price) }}
     </p>
 
-    <div class="w-10 h-[1.5px] bg-amber mb-8" />
+    <div v-if="product.origin" class="mb-4">
+      <p class="text-[10px] font-body tracking-[0.22em] uppercase text-amber mb-1">{{ $t('product.origin_label') }}</p>
+      <div class="flex items-center gap-2">
+        <span
+          class="fi inline-block"
+          :class="`fi-${product.origin}`"
+          style="width: 1.5em; height: 1.1em; border-radius: 3px; vertical-align: middle;"
+        ></span>
+        <span class="text-xs font-body text-midnight/70 font-medium">{{ originLabel }}</span>
+      </div>
+    </div>
+
+    <div class="w-10 h-[1.5px] bg-amber mb-6" />
 
     <p class="font-body text-sm text-midnight/65 leading-relaxed mb-10">
-      {{ product.description }}
+      {{ locale === 'en' ? (product.description_en || product.description) : product.description }}
     </p>
 
     <div class="flex items-center gap-2.5 mb-10">
-      <span
-        class="w-1.5 h-1.5 rounded-full flex-shrink-0"
-        :class="
-          product.stock > 3 ? 'bg-[#4A7C59]' :
-          product.stock > 0 ? 'bg-amber' :
-          'bg-alert'
-        "
-      />
-      <span class="text-xs font-body text-midnight/55">
-        <template v-if="product.stock > 3">{{ $t('product.in_stock') }}</template>
-        <template v-else-if="product.stock > 0">{{ $t('product.low_stock', { n: product.stock }) }}</template>
-        <template v-else>{{ $t('product.out_of_stock') }}</template>
-      </span>
+      <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" :class="stockStatus.dot" />
+      <span class="text-xs font-body text-midnight/55" :class="stockStatus.text">{{ stockStatus.label }}</span>
     </div>
 
     <div v-if="isInCart(product.id).value" class="flex items-center gap-2 text-[11px] font-display font-semibold uppercase tracking-[0.12em] text-amber mb-2">
@@ -194,6 +197,29 @@ function handleCart(productId: string) {
   }
   addToCart(productId)
 }
+
+const stockStatus = computed(() => {
+  const s = props.product.stock
+  if (s === 0)  return { label: t('product.out_of_stock'),  dot: 'bg-red-500',   text: 'text-red-500'   }
+  if (s <= 5)   return { label: t('product.very_low_stock'),dot: 'bg-red-500',   text: 'text-red-500'   }
+  if (s <= 20)  return { label: t('product.low_stock'),     dot: 'bg-orange-500',text: 'text-orange-500'}
+                return { label: t('product.in_stock'),      dot: 'bg-green-600', text: 'text-green-600' }
+})
+
+const originLabels: Record<string, Record<string, string>> = {
+  fr: { fr: 'France',      en: 'France'        },
+  eu: { fr: 'Europe',      en: 'Europe'        },
+  us: { fr: 'États-Unis',  en: 'United States' },
+  jp: { fr: 'Japon',       en: 'Japan'         },
+  cn: { fr: 'Chine',       en: 'China'         },
+}
+
+const originLabel = computed(() => {
+  const code = props.product.origin
+  if (!code) return ''
+  const lang = locale.value === 'fr' ? 'fr' : 'en'
+  return originLabels[code]?.[lang] ?? code.toUpperCase()
+})
 
 const specs = computed(() => [
   { label: t('product.specs.material_label'),   value: t('product.specs.material_value') },

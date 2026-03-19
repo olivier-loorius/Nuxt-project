@@ -199,6 +199,21 @@
       </div>
 
       <div class="mt-4">
+        <p class="text-xs font-body font-semibold tracking-widest uppercase text-midnight/40 mb-1">Origine</p>
+        <select
+          v-model="form.origin"
+          class="border border-concrete text-sm font-body px-2 py-1 w-full focus:outline-none focus:border-midnight bg-white"
+        >
+          <option value="">—</option>
+          <option value="fr">France</option>
+          <option value="eu">Europe</option>
+          <option value="us">États-Unis</option>
+          <option value="jp">Japon</option>
+          <option value="cn">Chine</option>
+        </select>
+      </div>
+
+      <div class="mt-4">
         <p class="text-xs font-body font-semibold tracking-widest uppercase text-midnight/40 mb-1">Page</p>
         <select
           v-model="form.page"
@@ -368,6 +383,7 @@ const form = ref({
   brand_id: null as string | null,
   new_brand: '',
   page: null as string | null,
+  origin: '',
 })
 
 watch(() => form.value.category_id, () => {
@@ -461,12 +477,13 @@ async function save() {
   }
 
   const slug = generateId(form.value.name)
-  const { name, name_en, description, description_en, price, stock, badge, category_id, brand_id, page } = form.value
+  const { name, name_en, description, description_en, price, stock, badge, category_id, brand_id, page, origin } = form.value
   const payload = {
     name, name_en, description, description_en, price, stock, badge, category_id,
     subcategory_id,
     brand_id: resolvedBrandId,
     page,
+    origin: origin || null,
     images: images.filter(Boolean) as string[],
   }
 

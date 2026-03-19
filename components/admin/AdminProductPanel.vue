@@ -39,7 +39,6 @@
         <div v-if="product" class="p-6">
           <div class="grid grid-cols-3 gap-6">
 
-            <!-- Colonne 1 : Images -->
             <div class="self-start">
               <div class="grid grid-cols-2 gap-2">
                 <div v-for="slot in 4" :key="slot">
@@ -73,7 +72,6 @@
               </div>
             </div>
 
-            <!-- Colonne 2 : Nom FR, Description FR, Catégorie, Sous-catégorie -->
             <div class="space-y-4 overflow-y-auto max-h-[600px]">
               <div>
                 <p class="text-xs font-body font-semibold tracking-widest uppercase text-midnight/40 mb-1">Nom FR</p>
@@ -134,7 +132,6 @@
               </div>
             </div>
 
-            <!-- Colonne 3 : Nom EN, Description EN, Marque, Page, Badge, Prix, Stock -->
             <div class="space-y-4 overflow-y-auto max-h-[600px]">
               <div>
                 <p class="text-xs font-body font-semibold tracking-widest uppercase text-midnight/40 mb-1">Nom EN</p>
@@ -161,6 +158,21 @@
                   </select>
                 </template>
                 <p v-else class="text-sm font-body text-midnight">{{ brands.find(b => b.id === product.brand_id)?.name ?? '—' }}</p>
+              </div>
+
+              <div>
+                <p class="text-xs font-body font-semibold tracking-widest uppercase text-midnight/40 mb-1">Origine</p>
+                <template v-if="editing">
+                  <select v-model="form.origin" class="border border-concrete text-sm font-body px-2 py-1 w-full focus:outline-none focus:border-midnight bg-white">
+                    <option value="">—</option>
+                    <option value="fr">France</option>
+                    <option value="eu">Europe</option>
+                    <option value="us">États-Unis</option>
+                    <option value="jp">Japon</option>
+                    <option value="cn">Chine</option>
+                  </select>
+                </template>
+                <p v-else class="text-sm font-body text-midnight">{{ product.origin ?? '—' }}</p>
               </div>
 
               <div>
@@ -206,7 +218,6 @@
 
           </div>
 
-          <!-- CTA pleine largeur -->
           <div v-if="editing" class="flex justify-end gap-2 mt-4 pt-4 border-t border-concrete">
             <button
               class="border border-concrete text-midnight/60 text-xs font-body px-4 py-2 transition-colors duration-150 hover:border-midnight hover:text-midnight"
@@ -270,6 +281,7 @@ interface Product {
   subcategory_id: string
   brand_id: string | null
   page: string | null
+  origin: string | null
   images: string[]
 }
 
@@ -350,6 +362,7 @@ const form = ref({
   subcategory_id: '',
   brand_id: null as string | null,
   page: null as string | null,
+  origin: '',
 })
 
 function startEdit() {
@@ -366,6 +379,7 @@ function startEdit() {
     subcategory_id: props.product.subcategory_id,
     brand_id: props.product.brand_id,
     page: props.product.page,
+    origin: props.product.origin ?? '',
   }
   imagePreviews.value = Array.from({ length: 4 }, (_, i) => props.product?.images?.[i] ?? null)
   pendingFiles.value = Array.from({ length: 4 }, () => null)

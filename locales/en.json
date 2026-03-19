@@ -389,8 +389,10 @@
     }
   },
   "product": {
+    "origin_label": "Origin",
     "in_stock": "In stock",
-    "low_stock": "Only {n} left in stock",
+    "low_stock": "Limited stock",
+    "very_low_stock": "Low stock",
     "out_of_stock": "Out of stock",
     "similar": "You may also like",
     "reviews": {
