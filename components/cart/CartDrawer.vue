@@ -30,15 +30,15 @@
         <div class="flex items-center justify-between px-5 py-4 border-b border-concrete flex-shrink-0">
           <div>
             <p class="font-display font-bold text-midnight text-sm tracking-tight">
-              Mon panier
+              {{ t('cart.title') }}
             </p>
             <p class="text-[10px] font-body text-midnight/40 mt-0.5 tabular-nums">
-              {{ cartCount }} {{ cartCount > 1 ? 'articles' : 'article' }}
+              {{ $t('cart.item_count', cartCount, { n: cartCount }) }}
             </p>
           </div>
           <button
             class="icon-btn"
-            aria-label="Fermer le panier"
+            :aria-label="t('cart.aria_close')"
             @click="$emit('update:modelValue', false)"
           >
             <X :size="18" />
@@ -52,7 +52,7 @@
           >
             <ShoppingCart :size="32" class="text-concrete" />
             <p class="text-xs font-display font-medium uppercase tracking-[0.18em] text-midnight/35">
-              Votre panier est vide
+              {{ t('cart.empty') }}
             </p>
           </div>
 
@@ -63,10 +63,15 @@
               class="flex items-center gap-3 px-4 py-3 hover:bg-midnight/3 transition-colors duration-150"
             >
               <div
-                class="flex-shrink-0 w-14 h-14 flex items-center justify-center"
-                :class="drawerBg(item.product_id)"
+                class="flex-shrink-0 w-14 h-14 overflow-hidden flex items-center justify-center"
+                :class="item.product?.images?.[0] ? '' : drawerBg(item.product_id)"
               >
-                <ImageIcon :size="18" class="text-midnight/15" />
+                <img
+                  v-if="item.product?.images?.[0]"
+                  :src="item.product.images[0]"
+                  class="w-full h-full object-cover"
+                />
+                <ImageIcon v-else :size="18" class="text-midnight/15" />
               </div>
 
               <div class="flex-1 min-w-0">
@@ -74,12 +79,12 @@
                   {{ item.product?.name ?? item.product_id }}
                 </p>
                 <p class="font-body text-xs text-midnight/50 mt-0.5 tabular-nums">
-                  {{ formatPrice(item.product?.price ?? 0) }} / unité
+                  {{ formatPrice(item.product?.price ?? 0) }} {{ t('cart.unit') }}
                 </p>
                 <div class="flex items-center gap-2 mt-2">
                   <button
                     class="w-5 h-5 flex items-center justify-center border border-concrete text-midnight/50 hover:border-amber hover:text-amber transition-colors duration-200"
-                    aria-label="Diminuer la quantité"
+                    :aria-label="t('cart.aria_decrease')"
                     @click="updateQuantity(item.product_id, item.quantity - 1)"
                   >
                     <Minus :size="10" />
@@ -89,7 +94,7 @@
                   </span>
                   <button
                     class="w-5 h-5 flex items-center justify-center border border-concrete text-midnight/50 hover:border-amber hover:text-amber transition-colors duration-200"
-                    aria-label="Augmenter la quantité"
+                    :aria-label="t('cart.aria_increase')"
                     @click="updateQuantity(item.product_id, item.quantity + 1)"
                   >
                     <Plus :size="10" />
@@ -102,7 +107,7 @@
 
               <button
                 class="flex-shrink-0 p-1.5 text-midnight/30 hover:text-[#EF4444] transition-colors duration-200"
-                aria-label="Supprimer l'article"
+                :aria-label="t('cart.aria_remove')"
                 @click="removeFromCart(item.product_id)"
               >
                 <Trash2 :size="14" />
@@ -113,7 +118,7 @@
 
         <div v-if="cartProducts.length" class="flex-shrink-0 px-4 py-4 border-t border-concrete space-y-3">
           <div class="flex items-center justify-between py-1">
-            <span class="text-[10px] font-body tracking-[0.18em] uppercase text-midnight/50">Total</span>
+            <span class="text-[10px] font-body tracking-[0.18em] uppercase text-midnight/50">{{ t('cart.total') }}</span>
             <span class="font-display font-bold text-midnight tabular-nums">
               {{ formatPrice(total) }}
             </span>
@@ -121,13 +126,13 @@
           <button
             class="w-full py-2.5 bg-midnight text-chalk text-[10px] font-body tracking-[0.18em] uppercase hover:bg-amber transition-colors duration-200"
           >
-            Commander
+            {{ t('cart.checkout') }}
           </button>
           <button
             class="w-full py-2 text-[10px] font-body tracking-[0.18em] uppercase text-midnight/40 hover:text-[#EF4444] transition-colors duration-200"
             @click="clearCart"
           >
-            Vider le panier
+            {{ t('cart.clear') }}
           </button>
         </div>
       </div>
@@ -142,15 +147,39 @@ import { MOCK_PRODUCTS } from '~/data/products'
 defineProps<{ modelValue: boolean }>()
 defineEmits<{ 'update:modelValue': [value: boolean] }>()
 
-const { locale } = useI18n()
+const { t, locale } = useI18n()
+const supabase = useSupabaseClient()
+const { isDemoMode } = useDemoMode()
 const { cart, cartCount, removeFromCart, updateQuantity, clearCart } = useCart()
+
+const products = ref<any[]>([])
 
 const cartProducts = computed(() =>
   cart.value.map(item => ({
     ...item,
-    product: MOCK_PRODUCTS.find(p => p.id === item.product_id) ?? null,
+    product: products.value.find(p => p.id === item.product_id) ?? null,
   }))
 )
+
+async function loadProducts() {
+  const ids = cart.value.map(i => i.product_id)
+  if (!ids.length) {
+    products.value = []
+    return
+  }
+  if (isDemoMode.value) {
+    products.value = MOCK_PRODUCTS.filter(p => ids.includes(p.id))
+    return
+  }
+  const { data } = await supabase
+    .from('products')
+    .select('id, name, name_en, price, images')
+    .in('id', ids)
+  products.value = data ?? []
+}
+
+onMounted(loadProducts)
+watch(() => cart.value.map(i => i.product_id).join(','), loadProducts)
 
 const total = computed(() =>
   cartProducts.value.reduce((sum, item) => sum + (item.product?.price ?? 0) * item.quantity, 0)

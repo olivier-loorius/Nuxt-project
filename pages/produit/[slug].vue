@@ -18,10 +18,10 @@
           </li>
           <li>
             <NuxtLink
-              :to="localePath('/nouveautes')"
+              :to="breadcrumbBack.to"
               class="text-midnight/50 hover:text-amber transition-colors duration-200"
             >
-              {{ $t('catalog.categories.' + product.category_id) }}
+              {{ $t(breadcrumbBack.label) }}
             </NuxtLink>
           </li>
           <li aria-hidden="true">
@@ -35,11 +35,11 @@
 
       <!-- Retour -->
       <NuxtLink
-        :to="localePath('/nouveautes')"
+        :to="breadcrumbBack.to"
         class="inline-flex items-center gap-2 mb-8 lg:mb-10 text-xs font-body text-midnight/50 hover:text-amber transition-colors duration-200"
       >
         <ArrowLeft :size="13" />
-        <span class="tracking-[0.12em] uppercase">{{ $t('breadcrumb.back') }}</span>
+        <span class="tracking-[0.12em] uppercase">{{ $t(breadcrumbBack.backLabel) }}</span>
       </NuxtLink>
 
       <!-- Layout 2 colonnes -->
@@ -84,6 +84,21 @@ const { data: product } = await useAsyncData(`product-${slug}`, async () => {
 })
 
 const brandName = computed(() => (product.value as any)?.brands?.name ?? null)
+
+const breadcrumbBack = computed(() => {
+  if (route.query.from === 'best-sellers') {
+    return {
+      to: localePath('/best-sellers'),
+      label: 'pages.best-sellers',
+      backLabel: 'breadcrumb.back_best_sellers',
+    }
+  }
+  return {
+    to: localePath('/nouveautes'),
+    label: 'catalog.categories.' + (product.value as any)?.category_id,
+    backLabel: 'breadcrumb.back',
+  }
+})
 
 if (!product.value) {
   throw createError({ statusCode: 404, statusMessage: 'Product not found' })

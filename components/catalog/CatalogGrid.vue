@@ -4,8 +4,10 @@
     class="flex flex-col items-center justify-center gap-4 py-24 text-center"
   >
     <PackageOpen :size="40" class="text-concrete" />
-    <p class="text-sm font-display font-medium uppercase tracking-[0.2em] text-midnight/40">
-      {{ $t('catalog.empty') }}
+    <p
+      class="text-sm font-display font-medium uppercase tracking-[0.2em] text-midnight/40"
+    >
+      {{ $t("catalog.empty") }}
     </p>
   </div>
 
@@ -19,12 +21,15 @@
       :to="localePath(`/produit/${product.id}`)"
       class="group block border border-transparent hover:border-amber transition-colors duration-300"
     >
-      <div class="relative aspect-[3/4] overflow-hidden" :class="!product.images?.[0] ? placeholderBg(product.id) : ''">
+      <div
+        class="relative aspect-[3/4] overflow-hidden"
+        :class="!product.images?.[0] ? placeholderBg(product.id) : ''"
+      >
         <img
           v-if="product.images?.[0]"
           :src="product.images[0]"
           class="w-full h-full object-cover absolute inset-0"
-        >
+        />
         <div v-else class="absolute inset-0 flex items-center justify-center">
           <ImageIcon :size="44" class="text-midnight/10" />
         </div>
@@ -38,9 +43,11 @@
         >
           <Heart
             :size="18"
-            :class="isFavorite(product.id).value
-              ? 'fill-[#EF4444] text-[#EF4444]'
-              : 'fill-none text-midnight/50'"
+            :class="
+              isFavorite(product.id).value
+                ? 'fill-[#EF4444] text-[#EF4444]'
+                : 'fill-none text-midnight/50'
+            "
           />
         </button>
         <span
@@ -54,20 +61,29 @@
           v-if="isInCart(product.id).value"
           class="absolute bottom-3 right-3 px-2.5 py-1 bg-amber text-midnight text-[10px] font-display font-semibold tracking-[0.18em] uppercase flex items-center gap-1.5"
         >
-          <ShoppingCart :size="10" />{{ $t('catalog.in_cart') }}
+          <ShoppingCart :size="10" />{{ $t("catalog.in_cart") }}
         </span>
         <span
           v-if="product.stock <= 3 && product.stock > 0"
           class="absolute bottom-3 left-3 px-2.5 py-1 bg-chalk/90 text-midnight text-[10px] font-display font-medium tracking-wide uppercase"
         >
-          {{ product.stock }} {{ product.stock > 1 ? $t('catalog.stock_other') : $t('catalog.stock_one') }}
+          {{ product.stock }}
+          {{
+            product.stock > 1
+              ? $t("catalog.stock_other")
+              : $t("catalog.stock_one")
+          }}
         </span>
       </div>
       <div class="p-4 bg-white">
-        <p class="text-[10px] font-body font-normal tracking-[0.18em] uppercase text-midnight/35 mb-1.5">
-          {{ $t('catalog.categories.' + product.category_id) }}
+        <p
+          class="text-[10px] font-body font-normal tracking-[0.18em] uppercase text-midnight/35 mb-1.5"
+        >
+          {{ $t("catalog.categories." + product.category_id) }}
         </p>
-        <h3 class="font-display font-medium text-midnight text-sm leading-snug mb-3 line-clamp-2">
+        <h3
+          class="font-display font-medium text-midnight text-sm leading-snug mb-3 line-clamp-2"
+        >
           {{ product.name }}
         </h3>
         <div class="flex items-center justify-between gap-2">
@@ -75,21 +91,29 @@
             {{ formatPrice(product.price) }}
           </p>
           <template v-if="isInCart(product.id).value">
-            <div class="add-to-cart flex items-center border border-amber text-midnight transition-all duration-200">
+            <div
+              class="add-to-cart flex items-center border border-amber text-midnight transition-all duration-200"
+            >
               <button
                 class="flex items-center justify-center w-7 h-8 hover:bg-amber hover:text-chalk transition-colors duration-200"
                 :aria-label="$t('catalog.decrease_quantity')"
-                @click.stop.prevent="updateQuantity(product.id, getQuantity(product.id) - 1)"
+                @click.stop.prevent="
+                  updateQuantity(product.id, getQuantity(product.id) - 1)
+                "
               >
                 <Minus :size="10" />
               </button>
-              <span class="w-6 text-center text-[11px] font-body tabular-nums select-none">
+              <span
+                class="w-6 text-center text-[11px] font-body tabular-nums select-none"
+              >
                 {{ getQuantity(product.id) }}
               </span>
               <button
                 class="flex items-center justify-center w-7 h-8 hover:bg-amber hover:text-chalk transition-colors duration-200"
                 :aria-label="$t('catalog.increase_quantity')"
-                @click.stop.prevent="updateQuantity(product.id, getQuantity(product.id) + 1)"
+                @click.stop.prevent="
+                  updateQuantity(product.id, getQuantity(product.id) + 1)
+                "
               >
                 <Plus :size="10" />
               </button>
@@ -97,14 +121,15 @@
           </template>
           <template v-else>
             <button
-              class="add-to-cart flex-shrink-0 flex items-center justify-center gap-1.5 px-2.5 h-8 border border-midnight text-midnight
-                     opacity-0 group-hover:opacity-100 transition-all duration-200
-                     hover:bg-midnight hover:text-white"
+              class="add-to-cart flex-shrink-0 flex items-center justify-center gap-1.5 px-2.5 h-8 border border-midnight text-midnight opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-midnight hover:text-white"
               :aria-label="$t('catalog.add_to_cart')"
               @click.stop.prevent="handleCart(product.id)"
             >
               <ShoppingCart :size="13" />
-              <span class="text-[10px] font-body tracking-wide whitespace-nowrap">Ajouter</span>
+              <span
+                class="text-[10px] font-body tracking-wide whitespace-nowrap"
+                >{{ $t('cart.add') }}</span
+              >
             </button>
           </template>
         </div>
@@ -114,83 +139,101 @@
 </template>
 
 <script setup lang="ts">
-import { Heart, ImageIcon, PackageOpen, ShoppingCart, Minus, Plus } from 'lucide-vue-next'
-import { MOCK_PRODUCTS, type MockProduct } from '~/data/products'
-import { BADGES } from '~/composables/useBadges'
+import {
+  Heart,
+  ImageIcon,
+  PackageOpen,
+  ShoppingCart,
+  Minus,
+  Plus,
+} from "lucide-vue-next";
+import { MOCK_PRODUCTS, type MockProduct } from "~/data/products";
+import { BADGES } from "~/composables/useBadges";
 
-const props = defineProps<{ products?: MockProduct[] }>()
+const props = defineProps<{ products?: MockProduct[] }>();
 
-const { isDemoMode } = useDemoMode()
+const { isDemoMode } = useDemoMode();
 
-const products = computed(() => props.products ?? (isDemoMode.value ? MOCK_PRODUCTS : []))
+const products = computed(
+  () => props.products ?? (isDemoMode.value ? MOCK_PRODUCTS : []),
+);
 
-const { locale } = useI18n()
-const localePath = useLocalePath()
+const { t, locale } = useI18n();
+const localePath = useLocalePath();
 
-const { fetchFavorites, toggleFavorite, isFavorite } = useFavorites()
-const { showAuthModal, authModalMessage } = useAuthModal()
+const { fetchFavorites, toggleFavorite, isFavorite } = useFavorites();
+const { showAuthModal, authModalMessage } = useAuthModal();
 
-const { addToCart, updateQuantity, isInCart, cart } = useCart()
+const { addToCart, updateQuantity, isInCart, cart } = useCart();
 
 function getQuantity(productId: string): number {
-  return cart.value.find(item => item.product_id === productId)?.quantity ?? 0
+  return (
+    cart.value.find((item) => item.product_id === productId)?.quantity ?? 0
+  );
 }
 
 function handleCart(productId: string) {
-  const user = useSupabaseUser()
+  const user = useSupabaseUser();
   if (!user.value) {
-    authModalMessage.value = 'Connectez-vous pour ajouter au panier'
-    showAuthModal.value = true
-    return
+    authModalMessage.value = t('auth.cart_required');
+    showAuthModal.value = true;
+    return;
   }
-  addToCart(productId)
+  addToCart(productId);
 }
 
-onMounted(() => fetchFavorites())
+onMounted(() => fetchFavorites());
 
 function formatPrice(price: number): string {
-  return new Intl.NumberFormat(locale.value === 'fr' ? 'fr-FR' : 'en-GB', {
-    style: 'currency',
-    currency: 'EUR',
-  }).format(price)
+  return new Intl.NumberFormat(locale.value === "fr" ? "fr-FR" : "en-GB", {
+    style: "currency",
+    currency: "EUR",
+  }).format(price);
 }
 
 function badgeLabel(value: string): string {
-  return BADGES.find(b => b.value === value)?.labelFr ?? value
+  return BADGES.find((b) => b.value === value)?.labelFr ?? value;
 }
 
 function badgeStyle(value: string) {
-  const b = BADGES.find(b => b.value === value)
-  return { backgroundColor: b?.bg ?? '#F5F3F0', color: b?.text ?? '#1A1D2E' }
+  const b = BADGES.find((b) => b.value === value);
+  return { backgroundColor: b?.bg ?? "#F5F3F0", color: b?.text ?? "#1A1D2E" };
 }
 
 const placeholderBgs = [
-  'bg-[#ECEDEF]', 
-  'bg-[#EDE9E4]', 
-  'bg-[#EAECEC]',
-  'bg-[#EFEcE8]',
-  'bg-concrete',
-  'bg-[#EBEBED]',
-]
+  "bg-[#ECEDEF]",
+  "bg-[#EDE9E4]",
+  "bg-[#EAECEC]",
+  "bg-[#EFEcE8]",
+  "bg-concrete",
+  "bg-[#EBEBED]",
+];
 
 function handleFavorite(productId: string) {
-  const user = useSupabaseUser()
+  const user = useSupabaseUser();
   if (!user.value) {
-    authModalMessage.value = 'Connectez-vous pour ajouter des favoris'
-    showAuthModal.value = true
-    return
+    authModalMessage.value = t('auth.favorites_required');
+    showAuthModal.value = true;
+    return;
   }
-  toggleFavorite(productId)
+  toggleFavorite(productId);
 }
 
 function placeholderBg(id: string): string {
-  const index = id.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0)
-  return placeholderBgs[index % placeholderBgs.length] ?? 'bg-concrete'
+  const index = id.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0);
+  return placeholderBgs[index % placeholderBgs.length] ?? "bg-concrete";
 }
 </script>
 
 <style scoped>
 .add-to-cart {
-  clip-path: polygon(0 4px, 4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%);
+  clip-path: polygon(
+    0 4px,
+    4px 0,
+    100% 0,
+    100% calc(100% - 4px),
+    calc(100% - 4px) 100%,
+    0 100%
+  );
 }
 </style>

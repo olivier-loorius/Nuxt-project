@@ -513,6 +513,7 @@ async function save() {
     const { error: brandError } = await client.from('brands').insert({
       id: newBrandId,
       name: form.value.new_brand,
+      slug: newBrandId,
     })
     if (brandError) return
     resolvedBrandId = newBrandId

@@ -13,7 +13,8 @@
   },
   "breadcrumb": {
     "home": "Accueil",
-    "back": "Retour aux nouveautés"
+    "back": "Retour aux nouveautés",
+    "back_best_sellers": "Retour aux best-sellers"
   },
   "nav": {
     "search": "Rechercher",
@@ -21,6 +22,21 @@
     "cart": "Panier",
     "account": "Compte",
     "login": "Connexion"
+  },
+  "cart": {
+    "add": "Ajouter",
+    "in_cart": "En panier",
+    "title": "Mon panier",
+    "item_count": "0 article | 1 article | {n} articles",
+    "empty": "Votre panier est vide",
+    "unit": "/ unité",
+    "total": "Total",
+    "checkout": "Commander",
+    "clear": "Vider le panier",
+    "aria_close": "Fermer le panier",
+    "aria_decrease": "Diminuer la quantité",
+    "aria_increase": "Augmenter la quantité",
+    "aria_remove": "Supprimer l'article"
   },
   "pages": {
     "nouveautes": "Nouveautés",
@@ -96,6 +112,7 @@
   },
   "bestsellers": {
     "title": "Nos Best-sellers",
+    "subtitle": "Ce que nos clients ne peuvent plus s'en passer",
     "viewAll": "Voir tous nos produits",
     "addToCart": "Ajouter"
   },
@@ -220,6 +237,8 @@
     }
   },
   "auth": {
+    "cart_required": "Connectez-vous pour ajouter au panier",
+    "favorites_required": "Connectez-vous pour ajouter des favoris",
     "close": "Fermer",
     "login": "Connexion",
     "register": "Inscription",

@@ -2,8 +2,13 @@
   <NuxtLink :to="localePath('/produit/' + product.id)" class="cursor-pointer block">
     <div class="group bg-white border border-transparent hover:border-amber transition-all duration-300">
 
-      <div class="relative aspect-[3/4] bg-concrete overflow-hidden">
-        <div class="absolute inset-0 flex items-center justify-center">
+      <div class="relative aspect-[3/4] overflow-hidden" :class="product.images?.[0] ? 'bg-white' : 'bg-concrete'">
+        <img
+          v-if="product.images?.[0]"
+          :src="product.images[0]"
+          class="w-full h-full object-cover absolute inset-0"
+        />
+        <div v-else class="absolute inset-0 flex items-center justify-center">
           <ImageIcon :size="44" class="text-midnight/10" />
         </div>
 
@@ -16,8 +21,8 @@
       </div>
 
       <div class="p-4">
-        <h3 class="font-display font-semibold text-midnight mb-2 text-base">
-          {{ t(product.nameKey) }}
+        <h3 class="font-display font-semibold text-midnight mb-2 text-base line-clamp-2">
+          {{ locale === 'en' ? (product.name_en || product.name) : product.name }}
         </h3>
 
         <p class="font-bold text-midnight mb-4 text-lg">
@@ -58,7 +63,7 @@ const formatPrice = (price: number): string => {
 function handleCart(productId: string) {
   const user = useSupabaseUser()
   if (!user.value) {
-    authModalMessage.value = 'Connectez-vous pour ajouter au panier'
+    authModalMessage.value = t('auth.cart_required')
     showAuthModal.value = true
     return
   }

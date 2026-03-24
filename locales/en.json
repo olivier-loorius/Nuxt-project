@@ -13,7 +13,8 @@
   },
   "breadcrumb": {
     "home": "Home",
-    "back": "Back to new arrivals"
+    "back": "Back to new arrivals",
+    "back_best_sellers": "Back to best sellers"
   },
   "nav": {
     "search": "Search",
@@ -21,6 +22,21 @@
     "cart": "Cart",
     "account": "Account",
     "login": "Login"
+  },
+  "cart": {
+    "add": "Add to cart",
+    "in_cart": "In cart",
+    "title": "My cart",
+    "item_count": "0 item | 1 item | {n} items",
+    "empty": "Your cart is empty",
+    "unit": "/ unit",
+    "total": "Total",
+    "checkout": "Checkout",
+    "clear": "Clear cart",
+    "aria_close": "Close cart",
+    "aria_decrease": "Decrease quantity",
+    "aria_increase": "Increase quantity",
+    "aria_remove": "Remove item"
   },
   "pages": {
     "nouveautes": "New Arrivals",
@@ -96,6 +112,7 @@
   },
   "bestsellers": {
     "title": "Our Best-sellers",
+    "subtitle": "What our customers can't live without",
     "viewAll": "View all products",
     "addToCart": "Add"
   },
@@ -220,6 +237,8 @@
     }
   },
   "auth": {
+    "cart_required": "Sign in to add to cart",
+    "favorites_required": "Sign in to add to favorites",
     "close": "Close",
     "login": "Login",
     "register": "Sign up",
