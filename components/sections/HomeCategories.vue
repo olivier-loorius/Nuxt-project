@@ -1,156 +1,81 @@
 <template>
-  <section class="bg-white py-12 md:py-20">
-    <div class="max-w-screen-2xl mx-auto px-4 md:px-8">
-      <div class="text-center mb-8 md:mb-16">
-        <h2 class="text-3xl md:text-4xl font-display font-bold text-midnight mb-4 md:mb-6">
+  <section class="bg-chalk py-12 md:py-20">
+    <div class="max-w-6xl mx-auto px-4 md:px-8 lg:px-12">
+
+      <div class="mb-10">
+        <div class="w-8 h-[2px] bg-amber mb-2" />
+        <h2 class="text-2xl sm:text-3xl lg:text-5xl font-display font-bold text-midnight">
           {{ t('categories.title') }}
         </h2>
-        <div class="border-t-2 border-amber w-24 md:w-32 mx-auto" />
       </div>
 
-      <div class="block md:hidden max-w-full text-center mb-8 px-2">
-        <h2 class="text-xl font-display font-bold text-midnight mb-3">
-          {{ t('categories.textBlock.title') }}
-        </h2>
-        <p class="text-sm font-body text-midnight/70 mb-6">
-          {{ t('categories.textBlock.description') }}
-        </p>
+      <div class="grid grid-cols-2 gap-3 lg:grid-cols-3 lg:gap-6">
         <NuxtLink
-          to="/categories"
-          class="inline-block btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-midnight hover:text-white hover:border-midnight px-6 py-2 text-xs font-display font-semibold uppercase tracking-wide transition-all duration-300"
+          v-for="collection in collections"
+          :key="collection.slug"
+          :to="localePath('/categories/' + collection.slug)"
+          class="btn-beveled group relative block aspect-square overflow-hidden"
         >
-          {{ t('categories.discover') }}
+          <img
+            :src="collection.image"
+            :alt="locale === 'en' ? collection.titleEn : collection.titleFr"
+            class="absolute inset-0 h-full w-full object-cover"
+          />
+
+          <div class="absolute inset-0 bg-midnight/60 transition-colors duration-300 group-hover:bg-amber/20" />
+
+          <div class="absolute inset-0 flex items-center justify-center px-4">
+            <p class="font-display font-bold text-chalk text-base lg:text-lg uppercase tracking-widest text-center">
+              {{ locale === 'en' ? collection.titleEn : collection.titleFr }}
+            </p>
+          </div>
         </NuxtLink>
       </div>
 
-      <div ref="categoriesGrid">
-        <div class="flex flex-col gap-4 md:hidden">
-          <CategoryCard
-            v-for="(category, index) in categories"
-            :key="category.slug"
-            :category="category"
-            :index="index"
-            :is-visible="isVisible"
-            variant="mobile"
-          />
-        </div>
-
-        <div class="hidden md:grid lg:hidden grid-cols-6 gap-6">
-          <CategoryCard
-            v-for="(category, index) in categories.slice(0, 3)"
-            :key="category.slug"
-            :category="category"
-            :index="index"
-            :is-visible="isVisible"
-            variant="tablet"
-          />
-
-          <div
-            class="col-span-6 bg-white border border-concrete hover:border-amber p-8 flex flex-col items-center justify-center text-center transition-all duration-500 opacity-0 translate-y-4 rounded-none min-h-[200px]"
-            :class="{ 'opacity-100 translate-y-0': isVisible }"
-            :style="{ transitionDelay: isVisible ? `${3 * 100}ms` : '0ms' }"
-          >
-            <h2 class="text-xl font-display font-bold text-midnight mb-3">
-              {{ t('categories.textBlock.title') }}
-            </h2>
-            <p class="text-sm font-body text-midnight/70 mb-4">
-              {{ t('categories.textBlock.description') }}
-            </p>
-            <NuxtLink
-              to="/categories"
-              class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-midnight hover:text-white hover:border-midnight px-6 py-2 text-xs font-display font-semibold uppercase tracking-wide transition-all duration-300"
-            >
-              {{ t('categories.discover') }}
-            </NuxtLink>
-          </div>
-
-          <CategoryCard
-            v-for="(category, index) in categories.slice(3)"
-            :key="category.slug"
-            :category="category"
-            :index="index + 4"
-            :is-visible="isVisible"
-            variant="tablet"
-          />
-        </div>
-
-        <div class="hidden lg:grid grid-cols-12 gap-10">
-          <CategoryCard
-            v-for="(category, index) in categories.slice(0, 3)"
-            :key="category.slug"
-            :category="category"
-            :index="index"
-            :is-visible="isVisible"
-            variant="desktop"
-          />
-
-          <CategoryCard
-            v-if="categories[3]"
-            :category="categories[3]"
-            :index="3"
-            :is-visible="isVisible"
-            variant="desktop"
-          />
-
-          <div class="col-span-5 bg-white border border-concrete hover:border-amber p-10 flex flex-col items-center justify-center text-center transition-all duration-500 opacity-0 translate-y-4 rounded-none min-h-[280px]" :class="{ 'opacity-100 translate-y-0': isVisible }" :style="{ transitionDelay: isVisible ? `${4 * 100}ms` : '0ms' }">
-            <h2 class="text-2xl font-display font-bold text-midnight mb-4">{{ t('categories.textBlock.title') }}</h2>
-            <p class="text-sm font-body text-midnight/70 mb-6">{{ t('categories.textBlock.description') }}</p>
-            <NuxtLink to="/categories" class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-midnight hover:text-white hover:border-midnight px-6 py-2 text-xs font-display font-semibold uppercase tracking-wide transition-all duration-300">{{ t('categories.discover') }}</NuxtLink>
-          </div>
-
-          <CategoryCard
-            v-if="categories[4]"
-            :category="categories[4]"
-            :index="4"
-            :is-visible="isVisible"
-            variant="desktop"
-          />
-
-          <CategoryCard
-            v-for="(category, index) in categories.slice(5, 7)"
-            :key="category.slug"
-            :category="category"
-            :index="index + 5"
-            :is-visible="isVisible"
-            variant="desktop"
-          />
-        </div>
-      </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { useIntersectionObserver } from '@vueuse/core'
+const { t, locale } = useI18n();
+const localePath = useLocalePath();
 
-interface Category {
-  slug: string
-  image: string
-  titleKey: string
-}
-
-const { t } = useI18n()
-
-const categoriesGrid = ref<HTMLElement | null>(null)
-const isVisible = ref(false)
-
-const categories: Category[] = [
-  { slug: 'stimulateurs', image: '/images/jouet1.webp', titleKey: 'categories.cat1' },
-  { slug: 'masturbateurs', image: '/images/jouet2.webp', titleKey: 'categories.cat2' },
-  { slug: 'anneaux', image: '/images/jouet3.webp', titleKey: 'categories.cat3' },
-  { slug: 'lubrifiants', image: '/images/jouet4.webp', titleKey: 'categories.cat4' },
-  { slug: 'accessoires', image: '/images/jouet5.webp', titleKey: 'categories.cat5' },
-  { slug: 'nettoyants', image: '/images/jouet6.webp', titleKey: 'categories.cat6' },
-  { slug: 'nouveautes', image: '/images/jouet7.webp', titleKey: 'categories.cat7' }
-]
-
-useIntersectionObserver(
-  categoriesGrid,
-  ([entry]) => {
-    if (entry?.isIntersecting) {
-      isVisible.value = true
-    }
+const collections = [
+  {
+    titleFr: "Masturbateur",
+    titleEn: "Masturbator",
+    image: "/images/collectionMasturbateur.webp",
+    slug: "masturbateurs",
   },
-  { threshold: 0.2 }
-)
+  {
+    titleFr: "Stimulateur",
+    titleEn: "Stimulator",
+    image: "/images/collectionStimulateur.webp",
+    slug: "stimulateurs_prostatiques",
+  },
+  {
+    titleFr: "Anneaux",
+    titleEn: "Rings",
+    image: "/images/collectionAnneaux.webp",
+    slug: "anneaux_peniens",
+  },
+  {
+    titleFr: "Lubrifiant",
+    titleEn: "Lubricant",
+    image: "/images/collectionLubrifiant.webp",
+    slug: "lubrifiants",
+  },
+  {
+    titleFr: "Accessoires",
+    titleEn: "Accessories",
+    image: "/images/collectionAccesoires.webp",
+    slug: "accessoires_bdsm",
+  },
+  {
+    titleFr: "Nouveautés",
+    titleEn: "New Arrivals",
+    image: "/images/collectionNouveaute.webp",
+    slug: "nouveautes",
+  },
+];
 </script>

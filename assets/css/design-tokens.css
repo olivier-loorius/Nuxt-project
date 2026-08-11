@@ -1,12 +1,12 @@
 :root {
   /* Color System - Simplified Palette */
-  --color-dark: #1A1D2E;
-  --color-light: #FAFAFA;
-  --color-border: #E8E8E8;
-  --color-accent: #D4A574;
-  --color-accent-hover: #B8895F;
-  --color-error: #C1440E;
-  --color-success: #4A7C59;
+  --color-dark: #1a1d2e;
+  --color-light: #fafafa;
+  --color-border: #e8e8e8;
+  --color-accent: #d4a574;
+  --color-accent-hover: #b8895f;
+  --color-error: #c1440e;
+  --color-success: #4a7c59;
 
   /* Legacy aliases for backwards compatibility */
   --midnight: var(--color-dark);

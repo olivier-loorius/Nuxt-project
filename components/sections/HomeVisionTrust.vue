@@ -12,17 +12,17 @@
         <div class="absolute inset-0 bg-gradient-to-r from-midnight/90 via-midnight/70 to-transparent" />
 
         <div class="absolute inset-0 flex flex-col justify-center px-12 lg:px-16 max-w-2xl">
-          <blockquote class="text-3xl lg:text-4xl font-sora font-bold text-white mb-6">
+          <blockquote class="text-2xl sm:text-3xl lg:text-5xl font-display font-bold text-white mb-6">
             {{ $t('home.visionTrust.quote') }}
           </blockquote>
 
-          <p class="text-lg font-manrope text-white/90 mb-8">
+          <p class="text-lg font-body text-white/90 mb-8">
             {{ $t('home.visionTrust.description') }}
           </p>
 
           <NuxtLink
             :to="localePath('/about')"
-            class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-transparent hover:text-amber px-8 py-3 font-sora font-semibold uppercase inline-flex items-center justify-center w-fit transition-colors duration-300"
+            class="btn-beveled border-2 border-amber bg-amber text-midnight hover:bg-transparent hover:text-amber px-8 py-3 font-display font-semibold uppercase inline-flex items-center justify-center w-fit transition-colors duration-300"
           >
             {{ $t('home.visionTrust.cta') }}
           </NuxtLink>

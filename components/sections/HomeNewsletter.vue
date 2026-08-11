@@ -3,7 +3,7 @@
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid lg:grid-cols-5 gap-6 lg:gap-8 items-center">
         <div class="lg:col-span-2">
-          <h2 class="text-2xl font-display font-semibold text-white mb-2">
+          <h2 class="text-2xl sm:text-3xl lg:text-5xl font-display font-bold text-white mb-2">
             {{ t('newsletter.title') }}
           </h2>
           <p class="text-sm font-body text-chalk/80">

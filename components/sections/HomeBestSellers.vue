@@ -1,25 +1,31 @@
 <template>
   <section class="bg-chalk py-12 md:py-20">
     <div class="max-w-6xl mx-auto px-4 md:px-8 lg:px-12">
-      <div class="flex justify-between items-end mb-8">
+      <div class="mb-8 flex justify-between items-end">
         <div>
           <div class="w-8 h-[2px] bg-amber mb-2" />
-          <h2 class="text-3xl lg:text-5xl font-display font-bold text-midnight">{{ t('bestsellers.title') }}</h2>
+          <h2 class="text-2xl sm:text-3xl lg:text-5xl font-display font-bold text-midnight">{{ t('bestsellers.title') }}</h2>
           <p class="text-base font-body font-medium text-midnight/70 mt-2">{{ t('bestsellers.subtitle') }}</p>
         </div>
         <NuxtLink
           :to="localePath('/best-sellers')"
-          class="inline-flex items-center gap-2 btn-beveled border border-midnight text-midnight text-xs font-display tracking-widest uppercase px-4 py-2 hover:bg-midnight hover:text-chalk transition-colors duration-200"
+          class="hidden sm:inline-flex items-center gap-2 btn-beveled border border-midnight text-midnight text-xs font-display tracking-widest uppercase px-4 py-2 hover:bg-midnight hover:text-chalk transition-colors duration-200"
         >
           {{ t('bestsellers.viewAll') }}
           <ArrowRight :size="12" class="ml-1" />
         </NuxtLink>
       </div>
+      <NuxtLink
+        :to="localePath('/best-sellers')"
+        class="block mt-4 mb-6 sm:hidden text-center text-xs font-body tracking-widest uppercase border-b border-amber text-midnight pb-0.5 w-fit mx-auto"
+      >
+        {{ t('bestsellers.viewAll') }}
+      </NuxtLink>
 
       <div class="relative overflow-hidden after:absolute after:right-0 after:top-0 after:bottom-0 after:w-24 after:bg-gradient-to-l after:from-white after:to-transparent after:pointer-events-none after:z-10">
       <div class="flex gap-4 overflow-x-scroll [-ms-overflow-style:none] [scrollbar-width:none] scrollbar-hide pb-4 px-8">
         <template v-if="loading">
-          <div v-for="i in 4" :key="i" class="flex-shrink-0 w-52">
+          <div v-for="i in 4" :key="i" class="flex-shrink-0 w-40 sm:w-52">
             <div class="aspect-square w-full bg-concrete animate-pulse rounded-sm" />
             <div class="h-3 bg-concrete animate-pulse rounded-sm mt-2" />
             <div class="h-3 bg-concrete animate-pulse rounded-sm mt-1 w-2/3" />
@@ -30,7 +36,7 @@
             v-for="product in products"
             :key="product.id"
             :to="localePath('/produit/' + product.id + '?from=best-sellers')"
-            class="group flex-shrink-0 w-52 block"
+            class="group flex-shrink-0 w-40 sm:w-52 block"
           >
             <div
               class="relative aspect-[3/4] w-full overflow-hidden"
